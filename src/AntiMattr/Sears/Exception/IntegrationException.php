@@ -14,6 +14,6 @@ namespace AntiMattr\Sears\Exception;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-class IntegrationException extends AbstractPaymentException
+class IntegrationException extends AbstractSearsException
 {
 }

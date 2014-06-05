@@ -14,6 +14,6 @@ namespace AntiMattr\Sears\Exception;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-class ClientException extends AbstractPaymentException
+class ClientException extends AbstractSearsException
 {
 }
