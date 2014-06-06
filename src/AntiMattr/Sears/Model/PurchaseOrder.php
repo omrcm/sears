@@ -19,7 +19,13 @@ use DateTime;
 class PurchaseOrder implements IdentifiableInterface
 {
     /** @var string */
+    protected $balance;
+
+    /** @var string */
     protected $channel;
+
+    /** @var string */
+    protected $commission;
 
     /** @var DateTime */
     protected $createdAt;
@@ -34,10 +40,10 @@ class PurchaseOrder implements IdentifiableInterface
     protected $locationId;
 
     /** @var string */
-    protected $orderId;
+    protected $name;
 
     /** @var string */
-    protected $unit;
+    protected $orderId;
 
     /** @var DateTime */
     protected $shipAt;
@@ -46,7 +52,38 @@ class PurchaseOrder implements IdentifiableInterface
     protected $shippingDetail;
 
     /** @var string */
+    protected $shippingHandling;
+
+    /** @var string */
     protected $site;
+
+    /** @var string */
+    protected $status;
+
+    /** @var string */
+    protected $tax;
+
+    /** @var string */
+    protected $total;
+
+    /** @var string */
+    protected $unit;
+
+    /**
+     * @return string $balance
+     */
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param string $balance
+     */
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
+    }
 
     /**
      * @return string $channel
@@ -62,6 +99,22 @@ class PurchaseOrder implements IdentifiableInterface
     public function setChannel($channel)
     {
         $this->channel = $channel;
+    }
+
+    /**
+     * @return string $commission
+     */
+    public function getCommission()
+    {
+        return $this->commission;
+    }
+
+    /**
+     * @param string $commission
+     */
+    public function setCommission($commission)
+    {
+        $this->commission = $commission;
     }
 
     /**
@@ -129,6 +182,22 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return string $orderId
      */
     public function getOrderId()
@@ -177,6 +246,22 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
+     * @return string $shippingHandling
+     */
+    public function getShippingHandling()
+    {
+        return $this->shippingHandling;
+    }
+
+    /**
+     * @param string $shippingHandling
+     */
+    public function setShippingHandling($shippingHandling)
+    {
+        $this->shippingHandling = $shippingHandling;
+    }
+
+    /**
      * @return string $site
      */
     public function getSite()
@@ -190,6 +275,54 @@ class PurchaseOrder implements IdentifiableInterface
     public function setSite($site)
     {
         $this->site = $site;
+    }
+
+    /**
+     * @return string $status
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return string $tax
+     */
+    public function getTax()
+    {
+        return $this->tax;
+    }
+
+    /**
+     * @param string $tax
+     */
+    public function setTax($tax)
+    {
+        $this->tax = $tax;
+    }
+
+    /**
+     * @return string $total
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * @param string $total
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
     }
 
     /**

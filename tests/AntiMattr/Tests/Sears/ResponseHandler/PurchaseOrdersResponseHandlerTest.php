@@ -69,5 +69,45 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
             ->will($this->returnValue(200));
 
         $this->responseHandler->bind($response, $collection);
+
+        $count = $collection->count();
+
+        $this->assertEquals(2, $count);
+
+        $purchaseOrder1 = $collection[0];
+        $purchaseOrder2 = $collection[1];
+
+        foreach ($collection as $purchaseOrder) {
+            $this->assertInstanceOf('AntiMattr\Sears\Model\PurchaseOrder', $purchaseOrder);
+        }
+        $this->assertEquals('15.15', $purchaseOrder1->getBalance());
+        $this->assertEquals('FBM', $purchaseOrder1->getChannel());
+        $this->assertEquals('5.10', $purchaseOrder1->getCommission());
+        $this->assertEquals('2011-10-01 20:45:48 CST', $purchaseOrder1->getCreatedAt()->format('Y-m-d H:i:s e'));
+        $this->assertEquals('masked-email@seller.sears.com', $purchaseOrder1->getEmail());
+        $this->assertEquals('1234567', $purchaseOrder1->getId());
+        $this->assertEquals('27', $purchaseOrder1->getLocationId());
+        $this->assertEquals('John Doe', $purchaseOrder1->getName());
+        $this->assertEquals('657402988', $purchaseOrder1->getOrderId());
+        $this->assertEquals('2011-10-05 23:59:59 CST', $purchaseOrder1->getShipAt()->format('Y-m-d H:i:s e'));
+        $this->assertEquals('6.25', $purchaseOrder1->getShippingHandling());
+        $this->assertEquals('sears', $purchaseOrder1->getSite());
+        $this->assertEquals('New', $purchaseOrder1->getStatus());
+        $this->assertEquals('3.45', $purchaseOrder1->getTax());
+        $this->assertEquals('15', $purchaseOrder1->getTotal());
+        $this->assertEquals('9301', $purchaseOrder1->getUnit());
+
+        $shippingDetail = $purchaseOrder1->getShippingDetail();
+
+        $this->assertNotNull($shippingDetail);
+        $this->assertEquals('US', $shippingDetail->getCountry());
+        $this->assertEquals('5b3cf2e7fea855a42794a8cdd587d2e9', $shippingDetail->getId());
+        $this->assertEquals('city', $shippingDetail->getLocality());
+        $this->assertEquals('Ground', $shippingDetail->getMethod());
+        $this->assertEquals('ship-to-name', $shippingDetail->getName());
+        $this->assertEquals('phone', $shippingDetail->getPhone());
+        $this->assertEquals('zipcode', $shippingDetail->getPostalCode());
+        $this->assertEquals('state', $shippingDetail->getRegion());
+        $this->assertEquals('address', $shippingDetail->getStreetAddress());
     }
 }

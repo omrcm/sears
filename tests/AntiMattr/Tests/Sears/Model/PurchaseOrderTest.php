@@ -17,23 +17,37 @@ class PurchaseOrderTest extends AntiMattrTestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('AntiMattr\Sears\Model\IdentifiableInterface', $this->purchaseOrder);
+        $this->assertNull($this->purchaseOrder->getBalance());
         $this->assertNull($this->purchaseOrder->getChannel());
+        $this->assertNull($this->purchaseOrder->getCommission());
         $this->assertNull($this->purchaseOrder->getCreatedAt());
         $this->assertNull($this->purchaseOrder->getEmail());
         $this->assertNull($this->purchaseOrder->getId());
         $this->assertNull($this->purchaseOrder->getLocationId());
+        $this->assertNull($this->purchaseOrder->getName());
         $this->assertNull($this->purchaseOrder->getOrderId());
         $this->assertNull($this->purchaseOrder->getShipAt());
         $this->assertNull($this->purchaseOrder->getShippingDetail());
+        $this->assertNull($this->purchaseOrder->getShippingHandling());
         $this->assertNull($this->purchaseOrder->getSite());
+        $this->assertNull($this->purchaseOrder->getStatus());
         $this->assertNull($this->purchaseOrder->getUnit());
+        $this->assertNull($this->purchaseOrder->getTotal());
     }
 
     public function testSettersAndGetters()
     {
+        $balance = '100.00';
+        $this->purchaseOrder->setBalance($balance);
+        $this->assertEquals($balance, $this->purchaseOrder->getBalance());
+
         $channel = 'channel';
         $this->purchaseOrder->setChannel($channel);
         $this->assertEquals($channel, $this->purchaseOrder->getChannel());
+
+        $commission = 'commission';
+        $this->purchaseOrder->setCommission($commission);
+        $this->assertEquals($commission, $this->purchaseOrder->getCommission());
 
         $createdAt = $this->buildMock('DateTime');
         $this->purchaseOrder->setCreatedAt($createdAt);
@@ -51,6 +65,10 @@ class PurchaseOrderTest extends AntiMattrTestCase
         $this->purchaseOrder->setLocationId($locationId);
         $this->assertEquals($locationId, $this->purchaseOrder->getLocationId());
 
+        $name = 'Matt Fitz';
+        $this->purchaseOrder->setName($name);
+        $this->assertEquals($name, $this->purchaseOrder->getName());
+
         $orderId = 'zzzzzz';
         $this->purchaseOrder->setOrderId($orderId);
         $this->assertEquals($orderId, $this->purchaseOrder->getOrderId());
@@ -63,9 +81,25 @@ class PurchaseOrderTest extends AntiMattrTestCase
         $this->purchaseOrder->setShippingDetail($shippingDetail);
         $this->assertEquals($shippingDetail, $this->purchaseOrder->getShippingDetail());
 
+        $shippingHandling = '100.00';
+        $this->purchaseOrder->setShippingHandling($shippingHandling);
+        $this->assertEquals($shippingHandling, $this->purchaseOrder->getShippingHandling());
+
         $site = 'sears.com';
         $this->purchaseOrder->setSite($site);
         $this->assertEquals($site, $this->purchaseOrder->getSite());
+
+        $status = 'status';
+        $this->purchaseOrder->setStatus($status);
+        $this->assertEquals($status, $this->purchaseOrder->getStatus());
+
+        $tax = '10.00';
+        $this->purchaseOrder->setTax($tax);
+        $this->assertEquals($tax, $this->purchaseOrder->getTax());
+
+        $total = '100.00';
+        $this->purchaseOrder->setTotal($total);
+        $this->assertEquals($total, $this->purchaseOrder->getTotal());
 
         $unit = 'unit';
         $this->purchaseOrder->setUnit($unit);

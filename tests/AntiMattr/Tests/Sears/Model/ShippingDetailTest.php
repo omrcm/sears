@@ -23,7 +23,7 @@ class ShippingDetailTest extends AntiMattrTestCase
         $this->assertNull($this->shippingDetail->getLocality());
         $this->assertNull($this->shippingDetail->getRegion());
         $this->assertNull($this->shippingDetail->getPostalCode());
-        $this->assertNull($this->shippingDetail->getCountry());
+        $this->assertNotNull($this->shippingDetail->getCountry());
         $this->assertNull($this->shippingDetail->getPhone());
         $this->assertNull($this->shippingDetail->getMethod());
     }

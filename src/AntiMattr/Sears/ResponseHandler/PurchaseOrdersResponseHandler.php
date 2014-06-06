@@ -37,7 +37,7 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
         "total-commission" => "commission",
         "total-shipping-handling" => "shippingHandling",
         "balance-due" => "balance",
-        "sale-tax" => "tax",
+        "sales-tax" => "tax",
         "po-status" => "status"
     );
 
@@ -57,18 +57,13 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
      */
     public function bind(Response $response, Collection $collection)
     {
-        $previous = $this->doTimezoneChange();
-
         $content = $this->getContent($response);
         $status = $response->getStatusCode();
         if (200 !== $status) {
-            $this->revertTimezoneChange($previous);
             throw new BadRequestException();
         }
 
         if (!isset($content->{"purchase-order"})) {
-            $this->revertTimezoneChange($previous);
-
             return;
         }
 
@@ -78,35 +73,34 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
 
             // Bind Basic Properties
             foreach ($iteration as $key => $value) {
-                if (!isset($this->mappings->{$key})) {
+                if (!isset($this->mappings[$key])) {
                     continue;
                 }
+
                 call_user_func_array(
-                    array($purchaseOrder, sprintf('set%s', ucfirst($this->mappings->{$key}))),
+                    array($purchaseOrder, sprintf('set%s', ucfirst($this->mappings[$key]))),
                     array($value)
                 );
             }
 
             // Build Purchase Order Date
             if (isset($iteration->{"po-date"})) {
-                $createdAt = $this->createDateTime();
                 $modify = $iteration->{"po-date"};
                 if (isset($iteration->{"po-time"})) {
-                    $modify = $modify ." ". $content->{"po-time"};
+                    $modify = $modify ." ". $iteration->{"po-time"};
                 } else {
                     $modify = $modify ." 23:59:59";
                 }
                 $modify = $modify ." CST";
 
-                $createdAt->modify($modify);
+                $createdAt = $this->createDateTime($modify);
                 $purchaseOrder->setCreatedAt($createdAt);
             }
 
             // Build Ship At Date
             if (isset($iteration->{"expected-ship-date"})) {
-                $shipDate = $this->createDateTime();
-                $modify = $content->{"expected-ship-date"}." 23:59:59 CST";
-                $shipDate->modify($modify);
+                $modify = $iteration->{"expected-ship-date"}." 23:59:59 CST";
+                $shipDate = $this->createDateTime($modify);
                 $purchaseOrder->setShipAt($shipDate);
             }
 
@@ -114,17 +108,19 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
             if (isset($iteration->{"shipping-detail"})) {
                 $shippingDetail = $this->createShippingDetail();
                 foreach ($iteration->{"shipping-detail"} as $key => $value) {
-                    if (!isset($this->shippingMap->{$key})) {
+                    if (!isset($this->shippingMap[$key])) {
                         continue;
                     }
                     call_user_func_array(
-                        array($shippingDetail, sprintf('set%s', ucfirst($this->shippingMap->{$key}))),
+                        array($shippingDetail, sprintf('set%s', ucfirst($this->shippingMap[$key]))),
                         array($value)
                     );
                 }
+                $hash = $shippingDetail->getHash();
+                $shippingDetail->setId($hash);
+                $purchaseOrder->setShippingDetail($shippingDetail);
             }
 
-            $this->revertTimezoneChange($previous);
             $collection->add($purchaseOrder);
         }
     }
@@ -141,11 +137,12 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
     }
 
     /**
+     * @param string
      * @return DateTime
      */
-    protected function createDateTime()
+    protected function createDateTime($string = null)
     {
-        return new DateTime();
+        return new DateTime($string);
     }
 
     /**
@@ -162,38 +159,5 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
     protected function createShippingDetail()
     {
         return new ShippingDetail();
-    }
-
-    /**
-     * Sears API Implies all dates are CST
-     * @return string | null $timezone
-     */
-    protected function doTimezoneChange()
-    {
-        try {
-            $previous = date_default_timezone_get();
-        } catch (\Exception $e) {
-            // Do nothing
-        }
-
-        try {
-            date_default_timezone_set("America/Chicago");
-        } catch (\Exception $e) {
-            // Do nothing
-        }
-
-        return $previous;
-    }
-
-    /**
-     * @param string | null $timezone
-     */
-    protected function revertTimezoneChange($timezone = 'UTC')
-    {
-        try {
-            date_default_timezone_set($timezone);
-        } catch (\Exception $e) {
-            // Do nothing
-        }
     }
 }

@@ -16,7 +16,7 @@ namespace AntiMattr\Sears\Model;
  */
 class ShippingDetail implements IdentifiableInterface
 {
-    protected $country;
+    protected $country = 'US';
     protected $id;
     protected $locality;
     protected $method;
@@ -168,5 +168,21 @@ class ShippingDetail implements IdentifiableInterface
     public function setStreetAddress($streetAddress)
     {
         $this->streetAddress = $streetAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHash()
+    {
+        $chunks = array();
+        foreach (array('name', 'streetAddress', 'locality', 'region', 'postalCode', 'country') as $property) {
+            $getter = 'get' . ucfirst($property);
+            if ($value = $this->$getter()) {
+                $chunks[$property] = $value;
+            }
+        }
+
+        return md5(json_encode($chunks));
     }
 }
