@@ -38,7 +38,7 @@ class PurchaseOrderTest extends AntiMattrTestCase
 
     public function testSettersAndGetters()
     {
-        $balance = '100.00';
+        $balance = 100.00;
         $this->purchaseOrder->setBalance($balance);
         $this->assertEquals($balance, $this->purchaseOrder->getBalance());
 
@@ -82,7 +82,7 @@ class PurchaseOrderTest extends AntiMattrTestCase
         $this->purchaseOrder->setShippingDetail($shippingDetail);
         $this->assertEquals($shippingDetail, $this->purchaseOrder->getShippingDetail());
 
-        $shippingHandling = '100.00';
+        $shippingHandling = 100.00;
         $this->purchaseOrder->setShippingHandling($shippingHandling);
         $this->assertEquals($shippingHandling, $this->purchaseOrder->getShippingHandling());
 
@@ -94,11 +94,11 @@ class PurchaseOrderTest extends AntiMattrTestCase
         $this->purchaseOrder->setStatus($status);
         $this->assertEquals($status, $this->purchaseOrder->getStatus());
 
-        $tax = '10.00';
+        $tax = 10.00;
         $this->purchaseOrder->setTax($tax);
         $this->assertEquals($tax, $this->purchaseOrder->getTax());
 
-        $total = '100.00';
+        $total = 100.00;
         $this->purchaseOrder->setTotal($total);
         $this->assertEquals($total, $this->purchaseOrder->getTotal());
 

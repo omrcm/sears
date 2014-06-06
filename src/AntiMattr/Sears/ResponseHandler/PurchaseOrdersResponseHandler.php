@@ -12,8 +12,8 @@
 namespace AntiMattr\Sears\ResponseHandler;
 
 use AntiMattr\Sears\Exception\Http\BadRequestException;
+use AntiMattr\Sears\Model\LineItem;
 use AntiMattr\Sears\Model\PurchaseOrder;
-use AntiMattr\Sears\Model\ShippingDetail;
 use Buzz\Message\Response;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
@@ -49,6 +49,18 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
         "zipcode" => "postalCode",
         "phone" => "phone",
         "shipping-method" => "method"
+    );
+
+    private $lineItemMap = array(
+        "line-number" => "number",
+        "item-id" => "id",
+        "item-name" => "name",
+        "handling-instructions" => "handlingInstructions",
+        "handling-ind" => "handlingInd",
+        "selling-price-each" => "pricePerUnit",
+        "commission" => "commissionPerUnit",
+        "order-quantity" => "quantity",
+        "shipping-and-handling" => "shippingHandling"
     );
 
     /**
@@ -121,6 +133,27 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
                 $purchaseOrder->setShippingDetail($shippingDetail);
             }
 
+            // Build Line Items
+            if (isset($iteration->{"po-line"})) {
+                $items = $purchaseOrder->getItems();
+                foreach ($iteration->{"po-line"} as $line) {
+                    if (!isset($line->{"po-line-header"})) {
+                        continue;
+                    }
+                    $lineItem = $this->createLineItem();
+                    foreach ($line->{"po-line-header"} as $key => $value) {
+                        if (!isset($this->lineItemMap[$key])) {
+                            continue;
+                        }
+                        call_user_func_array(
+                            array($lineItem, sprintf('set%s', ucfirst($this->lineItemMap[$key]))),
+                            array($value)
+                        );
+                    }
+                    $items->add($lineItem);
+                }
+            }
+
             $collection->add($purchaseOrder);
         }
     }
@@ -143,6 +176,14 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
     protected function createDateTime($string = null)
     {
         return new DateTime($string);
+    }
+
+    /**
+     * @return AntiMattr\Sears\Model\LineItem
+     */
+    protected function createLineItem()
+    {
+        return new LineItem();
     }
 
     /**

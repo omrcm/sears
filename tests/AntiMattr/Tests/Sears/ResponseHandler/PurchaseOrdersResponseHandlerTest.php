@@ -80,9 +80,9 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
         foreach ($collection as $purchaseOrder) {
             $this->assertInstanceOf('AntiMattr\Sears\Model\PurchaseOrder', $purchaseOrder);
         }
-        $this->assertEquals('15.15', $purchaseOrder1->getBalance());
+        $this->assertEquals(15.15, $purchaseOrder1->getBalance());
         $this->assertEquals('FBM', $purchaseOrder1->getChannel());
-        $this->assertEquals('5.10', $purchaseOrder1->getCommission());
+        $this->assertEquals(5.10, $purchaseOrder1->getCommission());
         $this->assertEquals('2011-10-01 20:45:48 CST', $purchaseOrder1->getCreatedAt()->format('Y-m-d H:i:s e'));
         $this->assertEquals('masked-email@seller.sears.com', $purchaseOrder1->getEmail());
         $this->assertEquals('1234567', $purchaseOrder1->getId());
@@ -90,11 +90,11 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
         $this->assertEquals('John Doe', $purchaseOrder1->getName());
         $this->assertEquals('657402988', $purchaseOrder1->getOrderId());
         $this->assertEquals('2011-10-05 23:59:59 CST', $purchaseOrder1->getShipAt()->format('Y-m-d H:i:s e'));
-        $this->assertEquals('6.25', $purchaseOrder1->getShippingHandling());
+        $this->assertEquals(6.25, $purchaseOrder1->getShippingHandling());
         $this->assertEquals('sears', $purchaseOrder1->getSite());
         $this->assertEquals('New', $purchaseOrder1->getStatus());
-        $this->assertEquals('3.45', $purchaseOrder1->getTax());
-        $this->assertEquals('15', $purchaseOrder1->getTotal());
+        $this->assertEquals(3.45, $purchaseOrder1->getTax());
+        $this->assertEquals(15, $purchaseOrder1->getTotal());
         $this->assertEquals('9301', $purchaseOrder1->getUnit());
 
         $shippingDetail = $purchaseOrder1->getShippingDetail();
@@ -109,5 +109,26 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
         $this->assertEquals('zipcode', $shippingDetail->getPostalCode());
         $this->assertEquals('state', $shippingDetail->getRegion());
         $this->assertEquals('address', $shippingDetail->getStreetAddress());
+
+        $items = $purchaseOrder2->getItems();
+        $count = $items->count();
+
+        $this->assertEquals(2, $count);
+
+        $item1 = $items[0];
+
+        foreach ($items as $item) {
+            $this->assertInstanceOf('AntiMattr\Sears\Model\LineItem', $item);
+        }
+
+        $this->assertEquals(3, $item->getNumber());
+        $this->assertEquals('item id b', $item->getId());
+        $this->assertEquals('item name', $item->getName());
+        $this->assertEquals('None', $item->getHandlingInstructions());
+        $this->assertEquals('p', $item->getHandlingInd());
+        $this->assertEquals(25.00, $item->getPricePerUnit());
+        $this->assertEquals(3.75, $item->getCommissionPerUnit());
+        $this->assertEquals(2, $item->getQuantity());
+        $this->assertEquals(6.25, $item->getShippingHandling());
     }
 }

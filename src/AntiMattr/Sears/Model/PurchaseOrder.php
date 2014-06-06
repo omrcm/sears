@@ -37,7 +37,7 @@ class PurchaseOrder implements IdentifiableInterface
     /** @var string */
     protected $id;
 
-    /** @var string */
+    /** @var Doctrine\Common\Collections\ArrayCollection */
     protected $items;
 
     /** @var string */
