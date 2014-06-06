@@ -22,7 +22,7 @@ use SimpleXMLElement;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-class PurchaseOrderResponseHandler implements ResponseHandlerInterface
+class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
 {
     private $mappings = array(
         "customer-order-confirmation-number" => "orderId",
