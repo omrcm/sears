@@ -5,6 +5,7 @@ namespace AntiMattr\Tests\Sears\ResponseHandler;
 use AntiMattr\Sears\ResponseHandler\PurchaseOrderResponseHandler;
 use AntiMattr\Tests\AntiMattrTestCase;
 use Buzz\Message\Response;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
 {
@@ -38,7 +39,7 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
     public function testBindThrowsBadRequestException()
     {
         $response = $this->buildMock('Buzz\Message\Response');
-        $object = $this->getMock('AntiMattr\Sears\Model\PurchaseOrder');
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
         $content = self::$xml;
         $response->expects($this->once())
             ->method('getContent')
@@ -50,14 +51,15 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
             ->method('getStatusCode')
             ->will($this->returnValue(400));
 
-        $this->responseHandler->bind($response, $object);
+        $this->responseHandler->bind($response, $collection);
     }
 
     public function testBind()
     {
         $response = $this->buildMock('Buzz\Message\Response');
-        $object = $this->getMock('AntiMattr\Sears\Model\PurchaseOrder');
+        $collection = new ArrayCollection();
         $content = self::$xml;
+
         $response->expects($this->once())
             ->method('getContent')
             ->will($this->returnValue($content));
@@ -66,6 +68,6 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
             ->method('getStatusCode')
             ->will($this->returnValue(200));
 
-        $this->responseHandler->bind($response, $object);
+        $this->responseHandler->bind($response, $collection);
     }
 }

@@ -11,7 +11,7 @@
 
 namespace AntiMattr\Sears\ResponseHandler;
 
-use AntiMattr\Sears\Model\IdentifiableInterface;
+use Doctrine\Common\Collections\Collection;
 use Buzz\Message\Response;
 
 /**
@@ -20,8 +20,8 @@ use Buzz\Message\Response;
 interface ResponseHandlerInterface
 {
     /**
-     * @param Buzz\Message\Response                       $response
-     * @param AntiMattr\Sears\Model\IdentifiableInterface $object
+     * @param Buzz\Message\Response                  $response
+     * @param Doctrine\Common\Collections\Collection $collection
      */
-    public function bind(Response $response, IdentifiableInterface $object);
+    public function bind(Response $response, Collection $collection);
 }
