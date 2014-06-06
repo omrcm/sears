@@ -69,7 +69,7 @@ class PurchaseOrderResponseHandler implements ResponseHandlerInterface
             $createdAt = $this->createDateTime();
             $modify = $content->{"po-date"};
             if (isset($content->{"po-time"})) {
-                $modify = $modify ." ". $content->{"po-time"});
+                $modify = $modify ." ". $content->{"po-time"};
             } else {
                 $modify = $modify ." 00:00:00";
             }
