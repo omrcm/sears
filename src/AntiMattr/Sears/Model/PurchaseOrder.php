@@ -12,6 +12,7 @@
 namespace AntiMattr\Sears\Model;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
@@ -35,6 +36,9 @@ class PurchaseOrder implements IdentifiableInterface
 
     /** @var string */
     protected $id;
+
+    /** @var string */
+    protected $items;
 
     /** @var string */
     protected $locationId;
@@ -68,6 +72,12 @@ class PurchaseOrder implements IdentifiableInterface
 
     /** @var string */
     protected $unit;
+
+    public function __construct()
+    {
+        $this->shippingDetail = new ShippingDetail();
+        $this->items = new ArrayCollection();
+    }
 
     /**
      * @return string $balance
@@ -163,6 +173,22 @@ class PurchaseOrder implements IdentifiableInterface
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\ArrayCollection $items
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param Doctrine\Common\Collections\ArrayCollection $items
+     */
+    public function setItems($items)
+    {
+        $this->items = $item;
     }
 
     /**

@@ -23,11 +23,12 @@ class PurchaseOrderTest extends AntiMattrTestCase
         $this->assertNull($this->purchaseOrder->getCreatedAt());
         $this->assertNull($this->purchaseOrder->getEmail());
         $this->assertNull($this->purchaseOrder->getId());
+        $this->assertNotNull($this->purchaseOrder->getItems());
         $this->assertNull($this->purchaseOrder->getLocationId());
         $this->assertNull($this->purchaseOrder->getName());
         $this->assertNull($this->purchaseOrder->getOrderId());
         $this->assertNull($this->purchaseOrder->getShipAt());
-        $this->assertNull($this->purchaseOrder->getShippingDetail());
+        $this->assertNotNull($this->purchaseOrder->getShippingDetail());
         $this->assertNull($this->purchaseOrder->getShippingHandling());
         $this->assertNull($this->purchaseOrder->getSite());
         $this->assertNull($this->purchaseOrder->getStatus());

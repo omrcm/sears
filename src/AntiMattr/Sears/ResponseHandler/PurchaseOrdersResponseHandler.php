@@ -106,7 +106,7 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
 
             // Build Ship Detail
             if (isset($iteration->{"shipping-detail"})) {
-                $shippingDetail = $this->createShippingDetail();
+                $shippingDetail = $purchaseOrder->getShippingDetail();
                 foreach ($iteration->{"shipping-detail"} as $key => $value) {
                     if (!isset($this->shippingMap[$key])) {
                         continue;
@@ -151,13 +151,5 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
     protected function createPurchaseOrder()
     {
         return new PurchaseOrder();
-    }
-
-    /**
-     * @return AntiMattr\Sears\Model\ShippingDetail
-     */
-    protected function createShippingDetail()
-    {
-        return new ShippingDetail();
     }
 }
