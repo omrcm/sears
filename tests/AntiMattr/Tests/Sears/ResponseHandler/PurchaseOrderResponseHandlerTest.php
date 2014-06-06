@@ -10,9 +10,21 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
 {
     private $responseHandler;
 
+    private static $xml;
+
+    public static function setUpBeforeClass()
+    {
+        self::$xml = file_get_contents(dirname(__DIR__).'/Resources/fixtures/rest_oms_export_v4_purchase-order.xml');
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::$xml = NULL;
+    }
+
     protected function setUp()
     {
-        $this->responseHandler = new PurchaseOrderResponseHandlerStub();
+        $this->responseHandler = new PurchaseOrderResponseHandler();
     }
 
     public function testConstructor()
@@ -27,9 +39,10 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
     {
         $response = $this->buildMock('Buzz\Message\Response');
         $object = $this->getMock('AntiMattr\Sears\Model\PurchaseOrder');
-        $content = new \stdClass();
-        $content->foo = 'bar';
-        $this->responseHandler->setContent($content);
+        $content = self::$xml;
+        $response->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($content));
 
         $exception = $this->buildMock('AntiMattr\Sears\Exception\Http\BadRequestException');
 
@@ -37,36 +50,22 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
             ->method('getStatusCode')
             ->will($this->returnValue(400));
 
-        $processor = $this->responseHandler->bind($response, $object);
+        $this->responseHandler->bind($response, $object);
     }
 
     public function testBind()
     {
         $response = $this->buildMock('Buzz\Message\Response');
         $object = $this->getMock('AntiMattr\Sears\Model\PurchaseOrder');
-        $content = new \stdClass();
-        $content->foo = 'bar';
-        $this->responseHandler->setContent($content);
+        $content = self::$xml;
+        $response->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($content));
 
         $response->expects($this->once())
             ->method('getStatusCode')
             ->will($this->returnValue(200));
 
-        $processor = $this->responseHandler->bind($response, $object);
-    }
-}
-
-class PurchaseOrderResponseHandlerStub extends PurchaseOrderResponseHandler
-{
-    private $content;
-
-    public function setContent($content)
-    {
-        $this->content = $content;
-    }
-
-    protected function getContent(Response $response)
-    {
-        return $this->content;
+        $this->responseHandler->bind($response, $object);
     }
 }

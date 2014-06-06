@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<po-response 
+    xmlns="http://seller.marketplace.sears.com/oms/v4" 
+	
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://seller.marketplace.sears.com/oms/v4 ../../../../../rest/oms/export/v4/purchase-order.xsd">
+    <purchase-order>
+        <!--This is a shipping order-->
+        <customer-order-confirmation-number>657402988</customer-order-confirmation-number>
+        <!--confirmation number customer sees in his order confirmation email and order center-->
+        <customer-email>masked-email@seller.sears.com</customer-email>
+        <po-number>1234567</po-number>
+        <po-date>2011-10-01</po-date>
+        <po-time>20:45:48</po-time>
+        <po-number-with-date>201110011234567</po-number-with-date>
+        <unit>9301</unit>
+        <site>sears</site>
+        <channel>FBM</channel>
+        <location-id>27</location-id>
+        <expected-ship-date>2011-10-05</expected-ship-date>
+        <shipping-detail>
+            <ship-to-name>ship-to-name</ship-to-name>
+            <address>address</address>
+            <city>city</city>
+            <state>state</state>
+            <zipcode>zipcode</zipcode>
+            <phone>phone</phone>
+            <shipping-method>Ground</shipping-method>
+        </shipping-detail>
+        <customer-name>John Doe</customer-name>
+        <po-line>
+            <po-line-header>
+                <!--There could be multiple line items within an order and your items may or may not start with line number 1-->
+                <line-number>1</line-number>
+                <!--Item id can have 50 characters-->
+                <item-id>AB123456789123456789123456789123456789123456789CD</item-id>
+                <item-name>item-name</item-name>
+                <handling-instructions>perishable</handling-instructions>
+                <handling-ind>p</handling-ind>
+                <selling-price-each>1.50</selling-price-each>
+                <!-- <unit-cost>0.99</unit-cost>
+        unit cost = selling price each -commission-->
+                <commission>0.51</commission>
+                <order-quantity>10</order-quantity>
+                <shipping-and-handling>6.25</shipping-and-handling>
+            </po-line-header>
+            <po-line-detail>
+                <po-line-status>NEW</po-line-status>
+                <quantity>10</quantity>
+            </po-line-detail>
+        </po-line>
+        <order-total-sell-price>15</order-total-sell-price>
+        <total-commission>5.10</total-commission>
+        <total-shipping-handling>6.25</total-shipping-handling>
+        <balance-due>15.15</balance-due>
+        <!--balance due=order total seller price -total comission +total shipping handling-->
+        <sales-tax>3.45</sales-tax>
+        <!--sales tax is collected and submitted by Sears-->
+        <po-status>New</po-status>
+    </purchase-order>
+    <purchase-order>
+        <!--This is a local (pickup) order-->
+        <customer-order-confirmation-number>201913732</customer-order-confirmation-number>
+        <customer-email>masked-email2@seller.sears.com</customer-email>
+        <po-number>1410044</po-number>
+        <po-date>2011-03-14</po-date>
+        <po-time>19:09:09</po-time>
+        <po-number-with-date>201103141410044</po-number-with-date>
+        <unit>9367</unit>
+        <site>MyGofer</site>
+        <channel>FBM</channel>
+        <location-id>27</location-id>
+        <lmp-details>
+            <order-type>customer-pickup</order-type>
+            <pickup-ind>now</pickup-ind>
+            <pickup-location>
+                <name>name</name>
+                <address>address</address>
+                <city>city</city>
+                <state>state</state>
+                <zipcode>zipcode</zipcode>
+                <phone>1254866683</phone>
+            </pickup-location>
+            <delivery-instructions>Fragile items</delivery-instructions>
+            <dropoff-ind>S</dropoff-ind>
+            <delivery-date>2011-03-14</delivery-date>
+            <expected-pickup-date>2011-03-14T21:00:00</expected-pickup-date>
+            <ucc-barcode>LM009301000320100202</ucc-barcode>
+        </lmp-details>
+        <expected-ship-date>2011-03-14</expected-ship-date>
+        <shipping-detail>
+            <ship-to-name>ship-to-name</ship-to-name>
+            <address>address</address>
+            <city>city</city>
+            <state>state</state>
+            <zipcode>zipcode</zipcode>
+            <phone>phone</phone>
+            <shipping-method>Ground</shipping-method>
+        </shipping-detail>
+        <customer-name>Shane Bennett</customer-name>
+        <po-line>
+            <po-line-header>
+                <line-number>2</line-number>
+                <item-id>item id a</item-id>
+                <item-name>item name</item-name>
+                <handling-instructions>perishable</handling-instructions>
+                <handling-ind>p</handling-ind>
+                <selling-price-each>25.00</selling-price-each>
+                <commission>3.75</commission>
+                <order-quantity>1</order-quantity>
+                <shipping-and-handling>6.25</shipping-and-handling>
+            </po-line-header>
+            <po-line-detail>
+                <po-line-status>NEW</po-line-status>
+                <quantity>1</quantity>
+            </po-line-detail>
+        </po-line>
+        <po-line>
+            <po-line-header>
+                <line-number>3</line-number>
+                <item-id>item id b</item-id>
+                <item-name>item name</item-name>
+                <handling-instructions>None</handling-instructions>
+                <handling-ind>p</handling-ind>
+                <selling-price-each>25.00</selling-price-each>
+                <commission>3.75</commission>
+                <order-quantity>2</order-quantity>
+                <shipping-and-handling>6.25</shipping-and-handling>
+            </po-line-header>
+            <po-line-detail>
+                <po-line-status>NEW</po-line-status>
+                <quantity>2</quantity>
+            </po-line-detail>
+        </po-line>
+        <order-total-sell-price>75.00</order-total-sell-price>
+        <total-commission>11.25</total-commission>
+        <total-shipping-handling>0.00</total-shipping-handling>
+        <balance-due>63.75</balance-due>
+        <sales-tax>6.80</sales-tax>
+        <po-status>New</po-status>
+    </purchase-order>
+</po-response>
