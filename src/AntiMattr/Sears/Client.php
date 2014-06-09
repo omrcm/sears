@@ -73,10 +73,10 @@ class Client
      * @return Doctrine\Common\Collections\ArrayCollection   $collection
      * @throws AntiMattr\Sears\Exception\ConnectionException
      */
-    public function findPurchaseOrdersByStatus($status)
+    public function findPurchaseOrdersByStatus($status = 'New')
     {
         $resource = sprintf(
-            '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&status=',
+            '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&status=%s',
             $this->email,
             $this->password,
             $status
