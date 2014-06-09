@@ -11,9 +11,12 @@
 
 namespace AntiMattr\Sears;
 
+use AntiMattr\Sears\Exception\Connection\ConnectionException;
 use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
 use Buzz\Client\Curl;
+use Buzz\Exception\ClientException;
 use Buzz\Message\Factory\Factory as MessageFactory;
+use Doctrine\Common\Collections\ArrayCollection;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -24,32 +27,90 @@ class Client
     /** @var Buzz\Client\Curl */
     private $buzz;
 
-    /** @var Buzz\Message\Factory\Factory */
-    private $messageFactory;
+    /** @var string */
+    private $email;
 
-    /** @var AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface */
-    private $responseHandler;
+    /** @var string */
+    private $host;
 
     /** @var Psr\Log\LoggerInterface */
     private $logger;
 
+    /** @var Buzz\Message\Factory\Factory */
+    private $messageFactory;
+
+    /** @var string */
+    private $password;
+
+    /** @var AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface */
+    private $responseHandler;
+
     public function __construct(
+        $host,
+        $email,
+        $password,
         Curl $buzz,
         MessageFactory $messageFactory,
         ResponseHandlerInterface $responseHandler,
         LoggerInterface $logger = null)
     {
         $this->buzz = $buzz;
-        $this->messageFactory = $messageFactory;
-        $this->responseHandler = $responseHandler;
+        $this->email = $email;
+        $this->host = $host;
         $this->logger = $logger;
+        $this->messageFactory = $messageFactory;
+        $this->password = $password;
+        $this->responseHandler = $responseHandler;
     }
 
     /**
-     * @return todo
+     * @param  string                                        $status
+     * @return Doctrine\Common\Collections\ArrayCollection   $collection
+     * @throws AntiMattr\Sears\Exception\ConnectionException
      */
-    public function findPurchaseOrders()
+    public function findPurchaseOrdersByStatus($status)
     {
-        // TODO the stuf
+        $resource = sprintf(
+            '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&status=',
+            $this->email,
+            $this->password,
+            $this->status
+        );
+
+        $request = $this->messageFactory->createRequest('GET', $resource, $this->host);
+        $response = $this->messageFactory->createResponse();
+
+        $this->log($request);
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $this->log($response);
+
+        $collection = new ArrayCollection();
+        $this->responseHandler->bind($response, $collection);
+
+        return $collection;
+    }
+
+    /**
+     * @param string $message
+     * @param mixed pattern
+     * @param mixed replacement
+     */
+    protected function log(&$message, $pattern = array('/email=(.*[^&])&password=(.*[^&])&/'), $replacement = array('email=xxxxxx&password=yyyyyy&'))
+    {
+        if (null !== $this->logger) {
+
+            if (null !== $pattern && null !== $replacement) {
+                $message = preg_replace($pattern, $replacement, $message);
+            }
+
+            $this->logger->debug($message);
+        }
     }
 }
