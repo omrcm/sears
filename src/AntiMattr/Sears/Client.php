@@ -12,11 +12,11 @@
 namespace AntiMattr\Sears;
 
 use AntiMattr\Sears\Exception\Connection\ConnectionException;
+use AntiMattr\Sears\Model\ObjectFactory;
 use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
 use Buzz\Client\Curl;
 use Buzz\Exception\ClientException;
 use Buzz\Message\Factory\Factory as MessageFactory;
-use Doctrine\Common\Collections\ArrayCollection;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -39,6 +39,9 @@ class Client
     /** @var Buzz\Message\Factory\Factory */
     private $messageFactory;
 
+    /** @var AntiMattr\Sears\Model\ObjectFactory */
+    private $objectFactory;
+
     /** @var string */
     private $password;
 
@@ -51,6 +54,7 @@ class Client
         $password,
         Curl $buzz,
         MessageFactory $messageFactory,
+        ObjectFactory $objectFactory,
         ResponseHandlerInterface $responseHandler,
         LoggerInterface $logger = null)
     {
@@ -59,6 +63,7 @@ class Client
         $this->host = $host;
         $this->logger = $logger;
         $this->messageFactory = $messageFactory;
+        $this->objectFactory = $objectFactory;
         $this->password = $password;
         $this->responseHandler = $responseHandler;
     }
@@ -74,7 +79,7 @@ class Client
             '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&status=',
             $this->email,
             $this->password,
-            $this->status
+            $status
         );
 
         $request = $this->messageFactory->createRequest('GET', $resource, $this->host);
@@ -91,7 +96,7 @@ class Client
 
         $this->log($response);
 
-        $collection = new ArrayCollection();
+        $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
         $this->responseHandler->bind($response, $collection);
 
         return $collection;
@@ -99,8 +104,8 @@ class Client
 
     /**
      * @param string $message
-     * @param mixed pattern
-     * @param mixed replacement
+     * @param mixed  $pattern
+     * @param mixed  $replacement
      */
     protected function log(&$message, $pattern = array('/email=(.*[^&])&password=(.*[^&])&/'), $replacement = array('email=xxxxxx&password=yyyyyy&'))
     {
