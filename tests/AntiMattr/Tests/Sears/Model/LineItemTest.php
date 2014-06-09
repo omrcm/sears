@@ -32,38 +32,54 @@ class LineItemTest extends AntiMattrTestCase
     {
         $commission = 100.00;
         $this->lineItem->setCommissionPerUnit($commission);
-        $this->assertEquals($commission, $this->lineItem->getCommissionPerUnit());
+        $this->assertSame($commission, $this->lineItem->getCommissionPerUnit());
+
+        $commissionString = '100.333';
+        $this->lineItem->setCommissionPerUnit($commissionString);
+        $this->assertSame(100.333, $this->lineItem->getCommissionPerUnit());
 
         $handlingInd = 'foo';
         $this->lineItem->setHandlingInd($handlingInd);
-        $this->assertEquals($handlingInd, $this->lineItem->getHandlingInd());
+        $this->assertSame($handlingInd, $this->lineItem->getHandlingInd());
 
         $handlingInstructions = 'foo';
         $this->lineItem->setHandlingInstructions($handlingInstructions);
-        $this->assertEquals($handlingInstructions, $this->lineItem->getHandlingInstructions());
+        $this->assertSame($handlingInstructions, $this->lineItem->getHandlingInstructions());
 
         $id = 'id';
         $this->lineItem->setId($id);
-        $this->assertEquals($id, $this->lineItem->getId());
+        $this->assertSame($id, $this->lineItem->getId());
 
         $name = 'name';
         $this->lineItem->setName($name);
-        $this->assertEquals($name, $this->lineItem->getName());
+        $this->assertSame($name, $this->lineItem->getName());
 
         $number = 'number';
         $this->lineItem->setNumber($number);
-        $this->assertEquals($number, $this->lineItem->getNumber());
+        $this->assertSame($number, $this->lineItem->getNumber());
 
         $price = 100.00;
         $this->lineItem->setPricePerUnit($price);
-        $this->assertEquals($price, $this->lineItem->getPricePerUnit());
+        $this->assertSame($price, $this->lineItem->getPricePerUnit());
 
-        $quantity = 7;
+        $priceString = '100.77';
+        $this->lineItem->setPricePerUnit($priceString);
+        $this->assertSame(100.77, $this->lineItem->getPricePerUnit());
+
+        $quantity = 7.1;
         $this->lineItem->setQuantity($quantity);
-        $this->assertEquals($quantity, $this->lineItem->getQuantity());
+        $this->assertSame(7, $this->lineItem->getQuantity());
+
+        $quantityString = '7.999';
+        $this->lineItem->setQuantity($quantityString);
+        $this->assertSame(7, $this->lineItem->getQuantity());
 
         $shippingHandling = 100.00;
         $this->lineItem->setShippingHandling($shippingHandling);
-        $this->assertEquals($shippingHandling, $this->lineItem->getShippingHandling());
+        $this->assertSame($shippingHandling, $this->lineItem->getShippingHandling());
+
+        $shippingHandlingString = '99.22222';
+        $this->lineItem->setShippingHandling($shippingHandlingString);
+        $this->assertSame(99.22222, $this->lineItem->getShippingHandling());
     }
 }

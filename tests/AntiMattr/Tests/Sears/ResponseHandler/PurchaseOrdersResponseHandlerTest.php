@@ -45,13 +45,30 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
             ->method('getContent')
             ->will($this->returnValue($content));
 
-        $exception = $this->buildMock('AntiMattr\Sears\Exception\Http\BadRequestException');
-
         $response->expects($this->once())
             ->method('getStatusCode')
             ->will($this->returnValue(400));
 
         $this->responseHandler->bind($response, $collection);
+    }
+
+    public function testBindFindsNoPurchaseOrders()
+    {
+        $response = $this->buildMock('Buzz\Message\Response');
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
+        $xml = file_get_contents(dirname(__DIR__).'/Resources/fixtures/api_oms_purchaseorder_v4.xml');
+
+        $response->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($xml));
+
+        $response->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+
+        $this->responseHandler->bind($response, $collection);
+
+        $this->assertEquals(0, $collection->count());
     }
 
     public function testBind()

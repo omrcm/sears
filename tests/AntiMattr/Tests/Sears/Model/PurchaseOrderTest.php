@@ -40,70 +40,90 @@ class PurchaseOrderTest extends AntiMattrTestCase
     {
         $balance = 100.00;
         $this->purchaseOrder->setBalance($balance);
-        $this->assertEquals($balance, $this->purchaseOrder->getBalance());
+        $this->assertSame($balance, $this->purchaseOrder->getBalance());
+
+        $balanceString = '100.56';
+        $this->purchaseOrder->setBalance($balanceString);
+        $this->assertSame(100.56, $this->purchaseOrder->getBalance());
 
         $channel = 'channel';
         $this->purchaseOrder->setChannel($channel);
-        $this->assertEquals($channel, $this->purchaseOrder->getChannel());
+        $this->assertSame($channel, $this->purchaseOrder->getChannel());
 
-        $commission = 'commission';
+        $commission = 66.00;
         $this->purchaseOrder->setCommission($commission);
-        $this->assertEquals($commission, $this->purchaseOrder->getCommission());
+        $this->assertSame($commission, $this->purchaseOrder->getcommission());
+
+        $commissionString = '66.56';
+        $this->purchaseOrder->setCommission($commissionString);
+        $this->assertSame(66.56, $this->purchaseOrder->getcommission());
 
         $createdAt = $this->buildMock('DateTime');
         $this->purchaseOrder->setCreatedAt($createdAt);
-        $this->assertEquals($createdAt, $this->purchaseOrder->getCreatedAt());
+        $this->assertSame($createdAt, $this->purchaseOrder->getCreatedAt());
 
         $email = 'foo@bar.com';
         $this->purchaseOrder->setEmail($email);
-        $this->assertEquals($email, $this->purchaseOrder->getEmail());
+        $this->assertSame($email, $this->purchaseOrder->getEmail());
 
         $id = 'xxxxxx';
         $this->purchaseOrder->setId($id);
-        $this->assertEquals($id, $this->purchaseOrder->getId());
+        $this->assertSame($id, $this->purchaseOrder->getId());
 
         $locationId = 'yyyyyy';
         $this->purchaseOrder->setLocationId($locationId);
-        $this->assertEquals($locationId, $this->purchaseOrder->getLocationId());
+        $this->assertSame($locationId, $this->purchaseOrder->getLocationId());
 
         $name = 'Matt Fitz';
         $this->purchaseOrder->setName($name);
-        $this->assertEquals($name, $this->purchaseOrder->getName());
+        $this->assertSame($name, $this->purchaseOrder->getName());
 
         $orderId = 'zzzzzz';
         $this->purchaseOrder->setOrderId($orderId);
-        $this->assertEquals($orderId, $this->purchaseOrder->getOrderId());
+        $this->assertSame($orderId, $this->purchaseOrder->getOrderId());
 
         $shipAt = $this->buildMock('DateTime');
         $this->purchaseOrder->setShipAt($shipAt);
-        $this->assertEquals($shipAt, $this->purchaseOrder->getShipAt());
+        $this->assertSame($shipAt, $this->purchaseOrder->getShipAt());
 
         $shippingDetail = $this->buildMock('AntiMattr\Sears\Model\ShippingDetail');
         $this->purchaseOrder->setShippingDetail($shippingDetail);
-        $this->assertEquals($shippingDetail, $this->purchaseOrder->getShippingDetail());
+        $this->assertSame($shippingDetail, $this->purchaseOrder->getShippingDetail());
 
         $shippingHandling = 100.00;
         $this->purchaseOrder->setShippingHandling($shippingHandling);
-        $this->assertEquals($shippingHandling, $this->purchaseOrder->getShippingHandling());
+        $this->assertSame($shippingHandling, $this->purchaseOrder->getShippingHandling());
+
+        $shippingHandlingString = '900.11';
+        $this->purchaseOrder->setShippingHandling($shippingHandlingString);
+        $this->assertSame(900.11, $this->purchaseOrder->getShippingHandling());
 
         $site = 'sears.com';
         $this->purchaseOrder->setSite($site);
-        $this->assertEquals($site, $this->purchaseOrder->getSite());
+        $this->assertSame($site, $this->purchaseOrder->getSite());
 
         $status = 'status';
         $this->purchaseOrder->setStatus($status);
-        $this->assertEquals($status, $this->purchaseOrder->getStatus());
+        $this->assertSame($status, $this->purchaseOrder->getStatus());
 
         $tax = 10.00;
         $this->purchaseOrder->setTax($tax);
-        $this->assertEquals($tax, $this->purchaseOrder->getTax());
+        $this->assertSame($tax, $this->purchaseOrder->getTax());
+
+        $taxString = '10.999999';
+        $this->purchaseOrder->setTax($taxString);
+        $this->assertSame(10.999999, $this->purchaseOrder->getTax());
 
         $total = 100.00;
         $this->purchaseOrder->setTotal($total);
-        $this->assertEquals($total, $this->purchaseOrder->getTotal());
+        $this->assertSame($total, $this->purchaseOrder->getTotal());
+
+        $totalString = '88.44';
+        $this->purchaseOrder->setTotal($totalString);
+        $this->assertSame(88.44, $this->purchaseOrder->getTotal());
 
         $unit = 'unit';
         $this->purchaseOrder->setUnit($unit);
-        $this->assertEquals($unit, $this->purchaseOrder->getUnit());
+        $this->assertSame($unit, $this->purchaseOrder->getUnit());
     }
 }

@@ -19,13 +19,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class PurchaseOrder implements IdentifiableInterface
 {
-    /** @var string */
+    /** @var float */
     protected $balance;
 
     /** @var string */
     protected $channel;
 
-    /** @var string */
+    /** @var float */
     protected $commission;
 
     /** @var DateTime */
@@ -55,7 +55,7 @@ class PurchaseOrder implements IdentifiableInterface
     /** @var AntiMattr\Sears\Model\ShippingDetail */
     protected $shippingDetail;
 
-    /** @var string */
+    /** @var float */
     protected $shippingHandling;
 
     /** @var string */
@@ -64,10 +64,10 @@ class PurchaseOrder implements IdentifiableInterface
     /** @var string */
     protected $status;
 
-    /** @var string */
+    /** @var float */
     protected $tax;
 
-    /** @var string */
+    /** @var float */
     protected $total;
 
     /** @var string */
@@ -80,7 +80,7 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @return string $balance
+     * @return float $balance
      */
     public function getBalance()
     {
@@ -88,11 +88,15 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @param string $balance
+     * @param float $balance
      */
     public function setBalance($balance)
     {
-        $this->balance = $balance;
+        if (!is_numeric($balance)) {
+            return;
+        }
+
+        $this->balance = (float) $balance;
     }
 
     /**
@@ -112,7 +116,7 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @return string $commission
+     * @return float $commission
      */
     public function getCommission()
     {
@@ -120,11 +124,15 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @param string $commission
+     * @param float $commission
      */
     public function setCommission($commission)
     {
-        $this->commission = $commission;
+        if (!is_numeric($commission)) {
+            return;
+        }
+
+        $this->commission = (float) $commission;
     }
 
     /**
@@ -272,7 +280,7 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @return string $shippingHandling
+     * @return float $shippingHandling
      */
     public function getShippingHandling()
     {
@@ -280,11 +288,15 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @param string $shippingHandling
+     * @param float $shippingHandling
      */
     public function setShippingHandling($shippingHandling)
     {
-        $this->shippingHandling = $shippingHandling;
+        if (!is_numeric($shippingHandling)) {
+            return;
+        }
+
+        $this->shippingHandling = (float) $shippingHandling;
     }
 
     /**
@@ -320,7 +332,7 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @return string $tax
+     * @return float $tax
      */
     public function getTax()
     {
@@ -328,15 +340,19 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @param string $tax
+     * @param float $tax
      */
     public function setTax($tax)
     {
-        $this->tax = $tax;
+        if (!is_numeric($tax)) {
+            return;
+        }
+
+        $this->tax = (float) $tax;
     }
 
     /**
-     * @return string $total
+     * @return float $total
      */
     public function getTotal()
     {
@@ -344,11 +360,15 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @param string $total
+     * @param float $total
      */
     public function setTotal($total)
     {
-        $this->total = $total;
+        if (!is_numeric($total)) {
+            return;
+        }
+
+        $this->total = (float) $total;
     }
 
     /**

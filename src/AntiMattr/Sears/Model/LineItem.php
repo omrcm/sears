@@ -17,7 +17,7 @@ namespace AntiMattr\Sears\Model;
 class LineItem implements IdentifiableInterface
 {
 
-    /** @var string */
+    /** @var float */
     protected $commissionPerUnit;
 
     /** @var string */
@@ -35,17 +35,17 @@ class LineItem implements IdentifiableInterface
     /** @var string */
     protected $number;
 
-    /** @var string */
+    /** @var float */
     protected $pricePerUnit;
 
-    /** @var string */
+    /** @var int */
     protected $quantity;
 
-    /** @var string */
+    /** @var float */
     protected $shippingHandling;
 
     /**
-     * @return string $commissionPerUnit
+     * @return float $commissionPerUnit
      */
     public function getCommissionPerUnit()
     {
@@ -53,11 +53,15 @@ class LineItem implements IdentifiableInterface
     }
 
     /**
-     * @param string $commissionPerUnit
+     * @param float $commissionPerUnit
      */
     public function setCommissionPerUnit($commissionPerUnit)
     {
-        $this->commissionPerUnit = $commissionPerUnit;
+        if (!is_numeric($commissionPerUnit)) {
+            return;
+        }
+
+        $this->commissionPerUnit = (float) $commissionPerUnit;
     }
 
     /**
@@ -141,7 +145,7 @@ class LineItem implements IdentifiableInterface
     }
 
     /**
-     * @return string $pricePerUnit
+     * @return float $pricePerUnit
      */
     public function getPricePerUnit()
     {
@@ -149,15 +153,19 @@ class LineItem implements IdentifiableInterface
     }
 
     /**
-     * @param string $pricePerUnit
+     * @param float $pricePerUnit
      */
     public function setPricePerUnit($pricePerUnit)
     {
-        $this->pricePerUnit = $pricePerUnit;
+        if (!is_numeric($pricePerUnit)) {
+            return;
+        }
+
+        $this->pricePerUnit = (float) $pricePerUnit;
     }
 
     /**
-     * @return string $quantity
+     * @return int $quantity
      */
     public function getQuantity()
     {
@@ -165,15 +173,19 @@ class LineItem implements IdentifiableInterface
     }
 
     /**
-     * @param string $quantity
+     * @param int $quantity
      */
     public function setQuantity($quantity)
     {
-        $this->quantity = $quantity;
+        if (!is_numeric($quantity)) {
+            return;
+        }
+
+        $this->quantity = (int) floor((float) $quantity);
     }
 
     /**
-     * @return string $shippingHandling
+     * @return float $shippingHandling
      */
     public function getShippingHandling()
     {
@@ -181,10 +193,14 @@ class LineItem implements IdentifiableInterface
     }
 
     /**
-     * @param string $shippingHandling
+     * @param float $shippingHandling
      */
     public function setShippingHandling($shippingHandling)
     {
-        $this->shippingHandling = $shippingHandling;
+        if (!is_numeric($shippingHandling)) {
+            return;
+        }
+
+        $this->shippingHandling = (float) $shippingHandling;
     }
 }
