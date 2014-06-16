@@ -85,7 +85,7 @@ class FakeResponseClient extends AbstractClient
         $this->log($response);
 
         $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
-        $this->responseHandler->bind($response, $collection);
+        $this->responseHandler->bindCollection($response, $collection);
 
         $this->reset();
 

@@ -36,7 +36,7 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
     /**
      * @expectedException AntiMattr\Sears\Exception\Http\BadRequestException
      */
-    public function testBindThrowsBadRequestException()
+    public function testBindCollectionThrowsBadRequestException()
     {
         $response = $this->buildMock('Buzz\Message\Response');
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');
@@ -49,7 +49,7 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
             ->method('getStatusCode')
             ->will($this->returnValue(400));
 
-        $this->responseHandler->bind($response, $collection);
+        $this->responseHandler->bindCollection($response, $collection);
     }
 
     public function testBindFindsNoPurchaseOrders()
@@ -66,7 +66,7 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
             ->method('getStatusCode')
             ->will($this->returnValue(200));
 
-        $this->responseHandler->bind($response, $collection);
+        $this->responseHandler->bindCollection($response, $collection);
 
         $this->assertEquals(0, $collection->count());
     }
@@ -85,7 +85,7 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
             ->method('getStatusCode')
             ->will($this->returnValue(200));
 
-        $this->responseHandler->bind($response, $collection);
+        $this->responseHandler->bindCollection($response, $collection);
 
         $count = $collection->count();
 

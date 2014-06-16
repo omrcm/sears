@@ -67,7 +67,7 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
      * @param Buzz\Message\Response                  $response
      * @param Doctrine\Common\Collections\Collection $collection
      */
-    public function bind(Response $response, Collection $collection)
+    public function bindCollection(Response $response, Collection $collection)
     {
         $content = $this->getContent($response);
         $status = $response->getStatusCode();
