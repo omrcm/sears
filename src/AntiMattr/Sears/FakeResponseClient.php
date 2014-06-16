@@ -11,27 +11,23 @@
 
 namespace AntiMattr\Sears;
 
-use AntiMattr\Sears\Exception\Connection\ConnectionException;
 use AntiMattr\Sears\Model\ObjectFactory;
 use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
-use Buzz\Client\Curl;
-use Buzz\Exception\ClientException;
 use Buzz\Message\Factory\Factory as MessageFactory;
 use Psr\Log\LoggerInterface;
 
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
+ * Sears Marketplace doesn't provide Sandbox testing
+ * Use this client to functionally test your integration
  */
-class Client extends AbstractClient
+class FakeResponseClient extends AbstractClient
 {
-    /** @var Buzz\Client\Curl */
-    private $buzz;
-
     /** @var string */
-    private $email;
+    private $content = '';
 
-    /** @var string */
-    private $host;
+    /** @var array */
+    private $headers = array();
 
     /** @var Buzz\Message\Factory\Factory */
     private $messageFactory;
@@ -39,56 +35,51 @@ class Client extends AbstractClient
     /** @var AntiMattr\Sears\Model\ObjectFactory */
     private $objectFactory;
 
-    /** @var string */
-    private $password;
-
     /** @var AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface */
     private $responseHandler;
 
     public function __construct(
-        $host,
-        $email,
-        $password,
-        Curl $buzz,
         MessageFactory $messageFactory,
         ObjectFactory $objectFactory,
         ResponseHandlerInterface $responseHandler,
         LoggerInterface $logger = null)
     {
-        $this->buzz = $buzz;
-        $this->email = $email;
-        $this->host = $host;
         $this->logger = $logger;
         $this->messageFactory = $messageFactory;
         $this->objectFactory = $objectFactory;
-        $this->password = $password;
         $this->responseHandler = $responseHandler;
     }
 
     /**
-     * @param  string                                        $status
-     * @return Doctrine\Common\Collections\ArrayCollection   $collection
-     * @throws AntiMattr\Sears\Exception\ConnectionException
+     * @param string $content
+     */
+    public function setContent($content = '')
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @param array $headers
+     */
+    public function setHeaders(array $headers = array())
+    {
+        $this->headers = $headers;
+    }
+
+    /**
+     * @param  string                                      $status
+     * @param  array                                       $headers
+     * @return Doctrine\Common\Collections\ArrayCollection $collection
      */
     public function findPurchaseOrdersByStatus($status = 'New')
     {
-        $resource = sprintf(
-            '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&status=%s',
-            $this->email,
-            $this->password,
-            $status
-        );
-
-        $request = $this->messageFactory->createRequest('GET', $resource, $this->host);
         $response = $this->messageFactory->createResponse();
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
 
-        $this->log($request);
-
-        try {
-            $this->buzz->send($request, $response);
-        } catch (ClientException $e) {
-            $subject = $e->getMessage();
-            throw new ConnectionException($subject);
+        if ('' != $this->content) {
+            $response->setContent($this->content);
         }
 
         $this->log($response);
@@ -96,6 +87,14 @@ class Client extends AbstractClient
         $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
         $this->responseHandler->bind($response, $collection);
 
+        $this->reset();
+
         return $collection;
+    }
+
+    private function reset()
+    {
+        $this->content = '';
+        $this->headers = array();
     }
 }

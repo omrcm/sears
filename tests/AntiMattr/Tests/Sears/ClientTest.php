@@ -39,6 +39,11 @@ class ClientTest extends AntiMattrTestCase
         );
     }
 
+    public function testConstructor()
+    {
+        $this->assertInstanceOf('AntiMattr\Sears\AbstractClient', $this->client);
+    }
+
     /**
      * @expectedException AntiMattr\Sears\Exception\Connection\ConnectionException
      */
@@ -62,7 +67,7 @@ class ClientTest extends AntiMattrTestCase
             ->with($request, $response)
             ->will($this->throwException($clientException));
 
-        $event = $this->client->findPurchaseOrdersByStatus('New');
+        $this->client->findPurchaseOrdersByStatus('New');
     }
 
     public function testFindPurchaseOrdersByStatus()
@@ -89,40 +94,7 @@ class ClientTest extends AntiMattrTestCase
             ->with('\Doctrine\Common\Collections\ArrayCollection')
             ->will($this->returnValue($collection));
 
-        $event = $this->client->findPurchaseOrdersByStatus('New');
-    }
-
-    /**
-     * @dataProvider provideLogMessages
-     */
-    public function testLog($rawMessage, $expectedMessage)
-    {
-        $this->client = new ClientStubLog(
-            $this->host,
-            $this->email,
-            $this->password,
-            $this->buzz,
-            $this->messageFactory,
-            $this->objectFactory,
-            $this->responseHandler,
-            $this->logger
-        );
-
-        $this->logger->expects($this->once())
-            ->method('debug')
-            ->with($expectedMessage);
-
-        $this->client->doLog($rawMessage);
-    }
-
-    public function provideLogMessages()
-    {
-        return array(
-            array(
-                'https://example.com/resource?email=foo@bar.com&password=yyyyyy&status=New',
-                'https://example.com/resource?email=xxxxxx&password=yyyyyy&status=New'
-            )
-        );
+        $this->client->findPurchaseOrdersByStatus('New');
     }
 }
 
@@ -131,13 +103,5 @@ class ClientStub extends Client
     protected function log(&$message, $pattern = null, $replacement = null)
     {
 
-    }
-}
-
-class ClientStubLog extends Client
-{
-    public function doLog(&$message)
-    {
-        $this->log($message);
     }
 }
