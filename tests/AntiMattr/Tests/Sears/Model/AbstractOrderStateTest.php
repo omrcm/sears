@@ -20,7 +20,7 @@ class AbstractOrderStateTest extends AntiMattrTestCase
         $this->assertNull($this->orderState->getPurchaseOrderId());
         $this->assertNull($this->orderState->getPurchaseOrderDate());
         $this->assertNull($this->orderState->getLineItemNumber());
-        $this->assertNull($this->orderState->getLineItemId());
+        $this->assertNull($this->orderState->getProductId());
         $this->assertNotNull($this->orderState->getReason());
         $this->assertNotNull($this->orderState->getStatus());
     }
@@ -39,9 +39,9 @@ class AbstractOrderStateTest extends AntiMattrTestCase
         $this->orderState->setLineItemNumber($lineItemNumber);
         $this->assertSame(3, $this->orderState->getLineItemNumber());
 
-        $lineItemId = 'lineItemId';
-        $this->orderState->setLineItemId($lineItemId);
-        $this->assertSame($lineItemId, $this->orderState->getLineItemId());
+        $productId = 'productId';
+        $this->orderState->setProductId($productId);
+        $this->assertSame($productId, $this->orderState->getProductId());
 
         $reason = AbstractOrderState::REASON_SKU;
         $this->orderState->setReason($reason);

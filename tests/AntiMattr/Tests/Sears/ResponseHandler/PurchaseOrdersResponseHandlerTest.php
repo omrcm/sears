@@ -139,8 +139,8 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
         }
 
         $this->assertEquals(3, $item->getNumber());
-        $this->assertEquals('item id b', $item->getId());
-        $this->assertEquals('item name', $item->getName());
+        $this->assertEquals('item id b', $item->getProductId());
+        $this->assertEquals('item name', $item->getProductName());
         $this->assertEquals('None', $item->getHandlingInstructions());
         $this->assertEquals('p', $item->getHandlingInd());
         $this->assertEquals(25.00, $item->getPricePerUnit());

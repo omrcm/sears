@@ -51,11 +51,11 @@ abstract class AbstractOrderState implements RequestHandlerInterface
         self::STATUS_RETURNED
     );
 
-    /** @var string */
-    protected $lineItemId;
-
     /** @var int */
     protected $lineItemNumber;
+
+    /** @var string */
+    protected $productId;
 
     /** @var DateTime */
     protected $purchaseOrderDate;
@@ -76,19 +76,19 @@ abstract class AbstractOrderState implements RequestHandlerInterface
     }
 
     /**
-     * @param string $lineItemId
+     * @param string $productId
      */
-    public function setLineItemId($lineItemId)
+    public function setProductId($productId)
     {
-        $this->lineItemId = $lineItemId;
+        $this->productId = $productId;
     }
 
     /**
-     * @return string $lineItemId
+     * @return string $productId
      */
-    public function getLineItemId()
+    public function getProductId()
     {
-        return $this->lineItemId;
+        return $this->productId;
     }
 
     /**

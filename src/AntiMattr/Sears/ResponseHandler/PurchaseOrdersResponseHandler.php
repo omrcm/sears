@@ -53,8 +53,8 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
 
     private $lineItemMap = array(
         "line-number" => "number",
-        "item-id" => "id",
-        "item-name" => "name",
+        "item-id" => "productId",
+        "item-name" => "productName",
         "handling-instructions" => "handlingInstructions",
         "handling-ind" => "handlingInd",
         "selling-price-each" => "pricePerUnit",

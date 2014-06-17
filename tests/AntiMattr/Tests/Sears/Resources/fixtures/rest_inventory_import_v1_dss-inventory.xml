@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dss-inventory-feed 
+    xmlns="http://seller.marketplace.sears.com/inventory/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://seller.marketplace.sears.com/inventory/v1 dss-inventory.xsd ">
+    <dss-inventory>
+        <item item-id="770011">
+            <quantity>5</quantity>
+            <low-inventory-threshold>3</low-inventory-threshold>
+            <inventory-timestamp>2001-12-31T12:00:00</inventory-timestamp>
+        </item>
+        <item item-id="770077">
+            <quantity>10</quantity>
+            <low-inventory-threshold>7</low-inventory-threshold>
+            <inventory-timestamp>2001-12-31T12:00:00</inventory-timestamp>
+        </item>
+        <item item-id="990099">
+            <quantity>10</quantity>
+            <low-inventory-threshold>5</low-inventory-threshold>
+            <inventory-timestamp>2001-12-31T12:00:00</inventory-timestamp>
+        </item>
+    </dss-inventory>
+</dss-inventory-feed>

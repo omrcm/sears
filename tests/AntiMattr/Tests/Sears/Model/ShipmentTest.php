@@ -21,7 +21,7 @@ class ShipmentTest extends AntiMattrTestCase
         $this->assertNull($this->shipment->getPurchaseOrderId());
         $this->assertNull($this->shipment->getPurchaseOrderDate());
         $this->assertNull($this->shipment->getLineItemNumber());
-        $this->assertNull($this->shipment->getLineItemId());
+        $this->assertNull($this->shipment->getProductId());
         $this->assertNotNull($this->shipment->getCarrier());
         $this->assertNotNull($this->shipment->getMethod());
         $this->assertNull($this->shipment->getId());
@@ -43,9 +43,9 @@ class ShipmentTest extends AntiMattrTestCase
         $this->shipment->setLineItemNumber($lineItemNumber);
         $this->assertSame(3, $this->shipment->getLineItemNumber());
 
-        $lineItemId = 'lineItemId';
-        $this->shipment->setLineItemId($lineItemId);
-        $this->assertSame($lineItemId, $this->shipment->getLineItemId());
+        $productId = 'productId';
+        $this->shipment->setProductId($productId);
+        $this->assertSame($productId, $this->shipment->getProductId());
 
         $carrier = 'UPS';
         $this->shipment->setCarrier($carrier);

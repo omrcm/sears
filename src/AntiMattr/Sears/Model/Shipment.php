@@ -49,14 +49,14 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
     /** @var string */
     protected $id;
 
-    /** @var string */
-    protected $lineItemId;
-
     /** @var int */
     protected $lineItemNumber;
 
     /** @var string */
     protected $method;
+
+    /** @var string */
+    protected $productId;
 
     /** @var DateTime */
     protected $purchaseOrderDate;
@@ -116,22 +116,6 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
     }
 
     /**
-     * @param string $lineItemId
-     */
-    public function setLineItemId($lineItemId)
-    {
-        $this->lineItemId = $lineItemId;
-    }
-
-    /**
-     * @return string $lineItemId
-     */
-    public function getLineItemId()
-    {
-        return $this->lineItemId;
-    }
-
-    /**
      * @param int $lineItemNumber
      */
     public function setLineItemNumber($lineItemNumber)
@@ -165,6 +149,22 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
             throw new IntegrationException(sprintf('Invalid method %s for shipment.', $method));
         }
         $this->method = $method;
+    }
+
+    /**
+     * @param string $productId
+     */
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+    }
+
+    /**
+     * @return string $productId
+     */
+    public function getProductId()
+    {
+        return $this->productId;
     }
 
     /**

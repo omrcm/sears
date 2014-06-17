@@ -16,12 +16,11 @@ class LineItemTest extends AntiMattrTestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('AntiMattr\Sears\Model\IdentifiableInterface', $this->lineItem);
         $this->assertNull($this->lineItem->getCommissionPerUnit());
         $this->assertNull($this->lineItem->getHandlingInd());
         $this->assertNull($this->lineItem->getHandlingInstructions());
-        $this->assertNull($this->lineItem->getId());
-        $this->assertNull($this->lineItem->getName());
+        $this->assertNull($this->lineItem->getProductId());
+        $this->assertNull($this->lineItem->getProductName());
         $this->assertNull($this->lineItem->getNumber());
         $this->assertNull($this->lineItem->getPricePerUnit());
         $this->assertNull($this->lineItem->getQuantity());
@@ -47,12 +46,12 @@ class LineItemTest extends AntiMattrTestCase
         $this->assertSame($handlingInstructions, $this->lineItem->getHandlingInstructions());
 
         $id = 'id';
-        $this->lineItem->setId($id);
-        $this->assertSame($id, $this->lineItem->getId());
+        $this->lineItem->setProductId($id);
+        $this->assertSame($id, $this->lineItem->getProductId());
 
         $name = 'name';
-        $this->lineItem->setName($name);
-        $this->assertSame($name, $this->lineItem->getName());
+        $this->lineItem->setProductName($name);
+        $this->assertSame($name, $this->lineItem->getProductName());
 
         $number = 'number';
         $this->lineItem->setNumber($number);

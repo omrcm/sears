@@ -14,7 +14,7 @@ namespace AntiMattr\Sears\Model;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-class LineItem
+class Inventory implements RequestHandlerInterface
 {
 
     /** @var float */
@@ -27,16 +27,16 @@ class LineItem
     protected $handlingInstructions;
 
     /** @var string */
+    protected $id;
+
+    /** @var string */
+    protected $name;
+
+    /** @var string */
     protected $number;
 
     /** @var float */
     protected $pricePerUnit;
-
-    /** @var string */
-    protected $productId;
-
-    /** @var string */
-    protected $productName;
 
     /** @var int */
     protected $quantity;
@@ -97,6 +97,38 @@ class LineItem
     }
 
     /**
+     * @return string $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return string $number
      */
     public function getNumber()
@@ -130,38 +162,6 @@ class LineItem
         }
 
         $this->pricePerUnit = (float) $pricePerUnit;
-    }
-
-    /**
-     * @return string $productId
-     */
-    public function getProductId()
-    {
-        return $this->productId;
-    }
-
-    /**
-     * @param string $productId
-     */
-    public function setProductId($productId)
-    {
-        $this->productId = $productId;
-    }
-
-    /**
-     * @return string $productName
-     */
-    public function getProductName()
-    {
-        return $this->productName;
-    }
-
-    /**
-     * @param string $productName
-     */
-    public function setProductName($productName)
-    {
-        $this->productName = $productName;
     }
 
     /**
