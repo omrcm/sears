@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dss-order-adjustment-feed 
+    xmlns="http://seller.marketplace.sears.com/oms/v1"
+	
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://seller.marketplace.sears.com/oms/v1 dss-order-return-v1.xsd ">
+    <date-time-stamp>2013-07-10T21:01:41</date-time-stamp>
+    <dss-order-adjustment>
+        <oa-header>
+            <po-number>1379156</po-number>
+            <po-date>2014-02-05</po-date>
+        </oa-header>
+        <oa-detail>
+            <sale-adjustment>
+                <line-number>2</line-number>
+                <item-id>DNA02218-66</item-id>
+                <return>
+                    <return-unique-id>1111222345</return-unique-id>
+                    <return-reason>GENERAL-ADJUSTMENT</return-reason>
+                    <return-date>2013-07-10</return-date>
+                    <quantity>1</quantity>
+                    <internal-memo>Wrong shipping method</internal-memo>
+                </return>
+            </sale-adjustment>
+        </oa-detail>
+    </dss-order-adjustment>
+</dss-order-adjustment-feed>
