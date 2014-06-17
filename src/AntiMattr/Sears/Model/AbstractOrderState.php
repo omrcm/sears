@@ -16,7 +16,7 @@ use DateTime;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-abstract class AbstractOrderState
+abstract class AbstractOrderState implements RequestHandlerInterface
 {
     const STATUS_CANCELED = 'Canceled';
     const STATUS_RETURNED = 'Returned';
@@ -73,11 +73,6 @@ abstract class AbstractOrderState
         $this->reason = self::REASON_OTHER;
         $this->status = self::STATUS_CANCELED;
     }
-
-    /**
-     * @return array
-     */
-    abstract public function toArray();
 
     /**
      * @param string $lineItemId

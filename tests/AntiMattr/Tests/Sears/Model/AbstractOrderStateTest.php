@@ -16,6 +16,7 @@ class AbstractOrderStateTest extends AntiMattrTestCase
 
     public function testConstructor()
     {
+        $this->assertInstanceOf('AntiMattr\Sears\Model\RequestHandlerInterface', $this->shipment);
         $this->assertNull($this->orderState->getPurchaseOrderId());
         $this->assertNull($this->orderState->getPurchaseOrderDate());
         $this->assertNull($this->orderState->getLineItemNumber());

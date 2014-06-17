@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shipment-feed 
+    xmlns="http://seller.marketplace.sears.com/oms/v5"
+	
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://seller.marketplace.sears.com/oms/v5 asn.xsd ">
+    <shipment>
+        <header>
+            <asn-number>00601780002</asn-number>
+            <po-number>0060180</po-number>
+            <po-date>2009-09-26</po-date>
+        </header>
+        <detail>
+            <tracking-number>UPS1XXX</tracking-number>
+            <ship-date>2001-01-01</ship-date>
+            <shipping-carrier>UPS</shipping-carrier>
+            <shipping-method>GROUND</shipping-method>
+            <package-detail>
+                <line-number>1</line-number>
+                <item-id>AB12345678912345456789123456789CD</item-id>
+                <quantity>1</quantity>
+            </package-detail>
+        </detail>
+    </shipment>
+</shipment-feed>
