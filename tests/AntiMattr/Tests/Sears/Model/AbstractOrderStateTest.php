@@ -16,7 +16,7 @@ class AbstractOrderStateTest extends AntiMattrTestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('AntiMattr\Sears\Model\RequestHandlerInterface', $this->shipment);
+        $this->assertInstanceOf('AntiMattr\Sears\Model\RequestHandlerInterface', $this->orderState);
         $this->assertNull($this->orderState->getPurchaseOrderId());
         $this->assertNull($this->orderState->getPurchaseOrderDate());
         $this->assertNull($this->orderState->getLineItemNumber());
@@ -50,6 +50,22 @@ class AbstractOrderStateTest extends AntiMattrTestCase
         $status = AbstractOrderState::STATUS_CANCELED;
         $this->orderState->setStatus($status);
         $this->assertSame($status, $this->orderState->getStatus());
+    }
+
+    /**
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testSetReasonThrowsIntegrationException()
+    {
+        $this->orderState->setReason('foo');
+    }
+
+    /**
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testSetStatusThrowsIntegrationException()
+    {
+        $this->orderState->setStatus('foo');
     }
 }
 

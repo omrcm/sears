@@ -11,6 +11,7 @@
 
 namespace AntiMattr\Sears\Model;
 
+use AntiMattr\Sears\Exception\IntegrationException;
 use DateTime;
 
 /**
@@ -18,6 +19,30 @@ use DateTime;
  */
 class Shipment implements IdentifiableInterface, RequestHandlerInterface
 {
+    const CARRIER_UPS = 'UPS';
+    const CARRIER_FDE = 'FDE';
+    const CARRIER_OTH = 'OTH';
+    const CARRIER_USPS = 'USPS';
+
+    const METHOD_GROUND = 'GROUND';
+    const METHOD_PRIORITY = 'PRIORITY';
+    const METHOD_EXPRESS = 'EXPRESS';
+    const METHOD_PICKUP = 'PICKUP';
+
+    protected static $carriers = array(
+        self::CARRIER_UPS,
+        self::CARRIER_FDE,
+        self::CARRIER_OTH,
+        self::CARRIER_USPS
+    );
+
+    protected static $methods = array(
+        self::METHOD_GROUND,
+        self::METHOD_PRIORITY,
+        self::METHOD_EXPRESS,
+        self::METHOD_PICKUP,
+    );
+
     /** @var string */
     protected $carrier;
 
@@ -48,6 +73,12 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
     /** @var string */
     protected $trackingNumber;
 
+    public function __construct()
+    {
+        $this->carrier = self::CARRIER_UPS;
+        $this->method = self::METHOD_GROUND;
+    }
+
     /**
      * @return string $carrier
      */
@@ -57,10 +88,14 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
     }
 
     /**
-     * @param string $carrier
+     * @param  string                                          $carrier
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
     public function setCarrier($carrier)
     {
+        if (!in_array($carrier, self::$carriers)) {
+            throw new IntegrationException(sprintf('Invalid carrier %s for shipment.', $carrier));
+        }
         $this->carrier = $carrier;
     }
 
@@ -121,10 +156,14 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
     }
 
     /**
-     * @param string $method
+     * @param  string                                          $method
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
     public function setMethod($method)
     {
+        if (!in_array($method, self::$methods)) {
+            throw new IntegrationException(sprintf('Invalid method %s for shipment.', $method));
+        }
         $this->method = $method;
     }
 

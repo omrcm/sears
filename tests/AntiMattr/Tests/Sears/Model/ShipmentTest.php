@@ -22,8 +22,8 @@ class ShipmentTest extends AntiMattrTestCase
         $this->assertNull($this->shipment->getPurchaseOrderDate());
         $this->assertNull($this->shipment->getLineItemNumber());
         $this->assertNull($this->shipment->getLineItemId());
-        $this->assertNull($this->shipment->getCarrier());
-        $this->assertNull($this->shipment->getMethod());
+        $this->assertNotNull($this->shipment->getCarrier());
+        $this->assertNotNull($this->shipment->getMethod());
         $this->assertNull($this->shipment->getId());
         $this->assertNull($this->shipment->getTrackingNumber());
         $this->assertNull($this->shipment->getQuantity());
@@ -51,7 +51,7 @@ class ShipmentTest extends AntiMattrTestCase
         $this->shipment->setCarrier($carrier);
         $this->assertEquals($carrier, $this->shipment->getCarrier());
 
-        $method = 'Ground';
+        $method = 'GROUND';
         $this->shipment->setMethod($method);
         $this->assertEquals($method, $this->shipment->getMethod());
 
@@ -62,5 +62,21 @@ class ShipmentTest extends AntiMattrTestCase
         $quantity = '3';
         $this->shipment->setQuantity($quantity);
         $this->assertSame(3, $this->shipment->getQuantity());
+    }
+
+    /**
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testSetCarrierThrowsIntegrationException()
+    {
+        $this->shipment->setCarrier('foo');
+    }
+
+    /**
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testSetMethodThrowsIntegrationException()
+    {
+        $this->shipment->setMethod('foo');
     }
 }

@@ -11,6 +11,7 @@
 
 namespace AntiMattr\Sears\Model;
 
+use AntiMattr\Sears\Exception\IntegrationException;
 use DateTime;
 
 /**
@@ -139,13 +140,13 @@ abstract class AbstractOrderState implements RequestHandlerInterface
     }
 
     /**
-     * @param  string                    $reason
-     * @throws \InvalidArgumentException
+     * @param  string                                          $reason
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
     public function setReason($reason)
     {
         if (!in_array($reason, self::$reasons)) {
-            throw new \InvalidArgumentException(sprintf('Invalid reason %s for order.', $reason));
+            throw new IntegrationException(sprintf('Invalid reason %s for order.', $reason));
         }
 
         $this->reason = $reason;
@@ -157,13 +158,13 @@ abstract class AbstractOrderState implements RequestHandlerInterface
     }
 
     /**
-     * @param  string                    $status
-     * @throws \InvalidArgumentException
+     * @param  string                                          $status
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
     public function setStatus($status)
     {
         if (!in_array($status, self::$statuses)) {
-            throw new \InvalidArgumentException(sprintf('Invalid status %s for order.', $status));
+            throw new IntegrationException(sprintf('Invalid status %s for order.', $status));
         }
 
         $this->status = $status;
