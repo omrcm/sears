@@ -21,4 +21,27 @@ class OrderCancellation extends AbstractOrderState
         $this->reason = self::REASON_OTHER;
         $this->status = self::STATUS_CANCELED;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'order-cancel' => array(
+                'header' => array(
+                    'po-number' => $this->getPurchaseOrderId(),
+                    'po-date' => $this->getPurchaseOrderDate()->format('Y-m-d')
+                ),
+                'detail' => array(
+                    'line-number' => $this->getLineItemNumber(),
+                    'item-id' => $this->getLineItemId(),
+                    'cancel' => array(
+                        'line-status' => $this->getStatus(),
+                        'cancel-reason' => $this->getReason()
+                    )
+                )
+            )
+        );
+    }
 }

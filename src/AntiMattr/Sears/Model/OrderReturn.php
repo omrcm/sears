@@ -18,11 +18,14 @@ use DateTime;
  */
 class OrderReturn extends AbstractOrderState implements IdentifiableInterface
 {
+    /** @var DateTime */
+    protected $createdAt;
+
     /** @var string */
     protected $id;
 
-    /** @var DateTime */
-    protected $createdAt;
+    /** @var string */
+    protected $memo;
 
     /** @var int */
     protected $quantity;
@@ -50,6 +53,38 @@ class OrderReturn extends AbstractOrderState implements IdentifiableInterface
     }
 
     /**
+     * @param string
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string
+     */
+    public function setMemo($memo)
+    {
+        $this->memo = $memo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemo()
+    {
+        return $this->memo;
+    }
+
+    /**
      * @param int
      */
     public function setQuantity($quantity)
@@ -66,18 +101,30 @@ class OrderReturn extends AbstractOrderState implements IdentifiableInterface
     }
 
     /**
-     * @param string
+     * @return array
      */
-    public function setId($id)
+    public function toArray()
     {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
+        return array(
+            'dss-order-adjustment' => array(
+                'oa-header' => array(
+                    'po-number' => $this->getPurchaseOrderId(),
+                    'po-date' => $this->getPurchaseOrderDate()->format('Y-m-d')
+                ),
+                'oa-detail' => array(
+                    'sale-adjustment' => array(
+                        'line-number' => $this->getLineItemNumber(),
+                        'item-id' => $this->getLineItemId(),
+                        'return' => array(
+                            'return-unique-id' => $this->getId(),
+                            'return-reason' => $this->getReason(),
+                            'return-date' => $this->getCreatedAt()->format('Y-m-d'),
+                            'quantity' => $this->getQuantity(),
+                            'internal-memo' => $this->getMemo(),
+                        )
+                    )
+                )
+            )
+        );
     }
 }

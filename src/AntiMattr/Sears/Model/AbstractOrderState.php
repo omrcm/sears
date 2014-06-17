@@ -75,6 +75,11 @@ abstract class AbstractOrderState
     }
 
     /**
+     * @return array
+     */
+    abstract public function toArray();
+
+    /**
      * @param string $lineItemId
      */
     public function setLineItemId($lineItemId)
@@ -145,7 +150,7 @@ abstract class AbstractOrderState
     public function setReason($reason)
     {
         if (!in_array($reason, self::$reasons)) {
-            throw new \InvalidArgumentException(sprintf('Invalid reason %s for cancellation.', $reason));
+            throw new \InvalidArgumentException(sprintf('Invalid reason %s for order.', $reason));
         }
 
         $this->reason = $reason;
@@ -163,7 +168,7 @@ abstract class AbstractOrderState
     public function setStatus($status)
     {
         if (!in_array($status, self::$statuses)) {
-            throw new \InvalidArgumentException(sprintf('Invalid status %s for cancellation.', $status));
+            throw new \InvalidArgumentException(sprintf('Invalid status %s for order.', $status));
         }
 
         $this->status = $status;

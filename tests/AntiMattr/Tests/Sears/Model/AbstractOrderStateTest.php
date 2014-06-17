@@ -54,5 +54,8 @@ class AbstractOrderStateTest extends AntiMattrTestCase
 
 class AbstractOrderStateStub extends AbstractOrderState
 {
-
+    public function toArray()
+    {
+        return;
+    }
 }
