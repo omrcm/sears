@@ -48,4 +48,13 @@ class InventoryTest extends AntiMattrTestCase
         $this->inventory->setQuantity($quantityString);
         $this->assertSame(7, $this->inventory->getQuantity());
     }
+
+    /**
+     * @expectedException \AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testToArrayThrowsIntegrationException()
+    {
+        $this->inventory->toArray();
+    }
+
 }

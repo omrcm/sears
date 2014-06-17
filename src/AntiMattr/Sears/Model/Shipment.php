@@ -253,25 +253,44 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
 
     /**
      * @return array
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
     public function toArray()
     {
+        $id = $this->getId();
+        $purchaseOrderId = $this->getPurchaseOrderId();
+        $purchaseOrderDate = $this->getPurchaseOrderDate();
+        $trackingNumber = $this->getTrackingNumber();
+        $shipAt = $this->getShipAt();
+        $carrier = $this->getCarrier();
+        $method = $this->getMethod();
+        $lineItemNumber = $this->getLineItemNumber();
+        $productId = $this->getProductId();
+        $quantity = $this->getQuantity();
+
+        if (null === $id || null === $purchaseOrderId || null === $purchaseOrderDate ||
+            null === $trackingNumber || null === $shipAt || null === $carrier ||
+            null === $method || null === $lineItemNumber || null === $productId ||
+            null === $quantity) {
+            throw new IntegrationException('ID, PurchaseOrderID, PurchaseOrderDate, ProductID, TrackingNumber, ShipAt, Carrier, Method, LineItemNumber, ProductID, and Quantity are required');
+        }
+
         return array(
             'shipment' => array(
                 'header' => array(
-                    'asn-number' => $this->getId(),
-                    'po-number' => $this->getPurchaseOrderId(),
-                    'po-date' => $this->getPurchaseOrderDate()->format('Y-m-d')
+                    'asn-number' => $id,
+                    'po-number' => $purchaseOrderId,
+                    'po-date' => $purchaseOrderDate->format('Y-m-d')
                 ),
                 'detail' => array(
-                    'tracking-number' => $this->getTrackingNumber(),
-                    'ship-date' => $this->getShipAt()->format('Y-m-d'),
-                    'shipping-carrier' => $this->getCarrier(),
-                    'shipping-method' => $this->getMethod(),
+                    'tracking-number' => $trackingNumber,
+                    'ship-date' => $shipAt->format('Y-m-d'),
+                    'shipping-carrier' => $carrier,
+                    'shipping-method' => $method,
                     'package-detail' => array(
-                        'line-number' => $this->getLineItemNumber(),
-                        'item-id' => $this->getLineItemId(),
-                        'quantity' => $this->getQuantity()
+                        'line-number' => $lineItemNumber,
+                        'item-id' => $productId,
+                        'quantity' => $quantity
                     )
                 )
             )

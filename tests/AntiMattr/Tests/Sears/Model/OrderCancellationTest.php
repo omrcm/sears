@@ -20,4 +20,13 @@ class OrderCancellationTest extends AntiMattrTestCase
         $this->assertEquals(OrderCancellation::REASON_OTHER, $this->orderCancellation->getReason());
         $this->assertEquals(OrderCancellation::STATUS_CANCELED, $this->orderCancellation->getStatus());
     }
+
+    /**
+     * @expectedException \AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testToArrayThrowsIntegrationException()
+    {
+        $this->orderCancellation->toArray();
+    }
+
 }

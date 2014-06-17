@@ -11,6 +11,7 @@
 
 namespace AntiMattr\Sears\Model;
 
+use AntiMattr\Sears\Exception\IntegrationException;
 use DateTime;
 
 /**
@@ -29,20 +30,6 @@ class Inventory implements RequestHandlerInterface
 
     /** @var DateTime */
     protected $updatedAt;
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return array(
-            'item' => array(
-                'quantity' => $this->getQuantity(),
-                'low-inventory-threshold' => $this->getThreshold(),
-                'inventory-timestamp' => $this->getUpdatedAt()->format('Y-m-d\TH:i:s')
-            )
-        );
-    }
 
     /**
      * @return string $productId
@@ -114,5 +101,32 @@ class Inventory implements RequestHandlerInterface
     public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return array
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function toArray()
+    {
+        $productId = $this->getProductId();
+        $quantity = $this->getQuantity();
+        $threshold = $this->getThreshold();
+        $updatedAt = $this->getUpdatedAt();
+
+        if (null === $productId || null === $quantity || null === $threshold || null === $updatedAt) {
+            throw new IntegrationException('ProductID, Quantity, Threshold and UpdatedAt are required');
+        }
+
+        return array(
+            'item' => array(
+                '_attributes' => array(
+                    'item-id' => $productId
+                ),
+                'quantity' => $quantity,
+                'low-inventory-threshold' => $threshold,
+                'inventory-timestamp' => $updatedAt->format('Y-m-d\TH:i:s')
+            )
+        );
     }
 }

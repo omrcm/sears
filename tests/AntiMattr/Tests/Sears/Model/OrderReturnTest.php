@@ -35,4 +35,13 @@ class OrderReturnTest extends AntiMattrTestCase
         $this->orderReturn->setQuantity($quantity);
         $this->assertSame(3, $this->orderReturn->getQuantity());
     }
+
+    /**
+     * @expectedException \AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testToArrayThrowsIntegrationException()
+    {
+        $this->orderReturn->toArray();
+    }
+
 }

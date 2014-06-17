@@ -11,6 +11,7 @@
 
 namespace AntiMattr\Sears\Model;
 
+use AntiMattr\Sears\Exception\IntegrationException;
 use DateTime;
 
 /**
@@ -106,25 +107,42 @@ class OrderReturn extends AbstractOrderState implements IdentifiableInterface
 
     /**
      * @return array
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
     public function toArray()
     {
+        $purchaseOrderId = $this->getPurchaseOrderId();
+        $purchaseOrderDate = $this->getPurchaseOrderDate();
+        $lineItemNumber = $this->getLineItemNumber();
+        $productId = $this->getProductId();
+        $id = $this->getId();
+        $reason = $this->getReason();
+        $createdAt = $this->getCreatedAt();
+        $quantity = $this->getQuantity();
+        $memo = $this->getMemo();
+
+        if (null === $purchaseOrderId || null === $purchaseOrderDate || null === $lineItemNumber ||
+            null === $productId || null === $id || null === $reason ||
+            null === $createdAt || null === $quantity || null === $memo) {
+            throw new IntegrationException('PurchaseOrderID, PurchaseOrderDate, LineItemNumber, ProductID, ID, Reason, CreatedAt, Quantity and Memo are required');
+        }
+
         return array(
             'dss-order-adjustment' => array(
                 'oa-header' => array(
-                    'po-number' => $this->getPurchaseOrderId(),
-                    'po-date' => $this->getPurchaseOrderDate()->format('Y-m-d')
+                    'po-number' => $purchaseOrderId,
+                    'po-date' => $purchaseOrderDate->format('Y-m-d')
                 ),
                 'oa-detail' => array(
                     'sale-adjustment' => array(
-                        'line-number' => $this->getLineItemNumber(),
-                        'item-id' => $this->getLineItemId(),
+                        'line-number' => $lineItemNumber,
+                        'item-id' => $productId,
                         'return' => array(
-                            'return-unique-id' => $this->getId(),
-                            'return-reason' => $this->getReason(),
-                            'return-date' => $this->getCreatedAt()->format('Y-m-d'),
-                            'quantity' => $this->getQuantity(),
-                            'internal-memo' => $this->getMemo(),
+                            'return-unique-id' => $id,
+                            'return-reason' => $reason,
+                            'return-date' => $createdAt->format('Y-m-d'),
+                            'quantity' => $quantity,
+                            'internal-memo' => $memo,
                         )
                     )
                 )

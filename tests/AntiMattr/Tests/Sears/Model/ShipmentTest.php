@@ -79,4 +79,13 @@ class ShipmentTest extends AntiMattrTestCase
     {
         $this->shipment->setMethod('foo');
     }
+
+    /**
+     * @expectedException \AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testToArrayThrowsIntegrationException()
+    {
+        $this->shipment->toArray();
+    }
+
 }

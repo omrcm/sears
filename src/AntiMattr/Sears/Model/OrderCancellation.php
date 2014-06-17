@@ -11,6 +11,8 @@
 
 namespace AntiMattr\Sears\Model;
 
+use AntiMattr\Sears\Exception\IntegrationException;
+
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
@@ -24,21 +26,34 @@ class OrderCancellation extends AbstractOrderState
 
     /**
      * @return array
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
     public function toArray()
     {
+        $purchaseOrderId = $this->getPurchaseOrderId();
+        $purchaseOrderDate = $this->getPurchaseOrderDate();
+        $lineItemNumber = $this->getLineItemNumber();
+        $productId = $this->getProductId();
+        $status = $this->getStatus();
+        $reason = $this->getReason();
+
+        if (null === $purchaseOrderId || null === $purchaseOrderDate || null === $lineItemNumber ||
+            null === $productId || null === $status || null === $reason) {
+            throw new IntegrationException('PurchaseOrderID, PurchaseOrderDate, LineItemNumber, ProductID, Status and Reason are required');
+        }
+
         return array(
             'order-cancel' => array(
                 'header' => array(
-                    'po-number' => $this->getPurchaseOrderId(),
-                    'po-date' => $this->getPurchaseOrderDate()->format('Y-m-d')
+                    'po-number' => $purchaseOrderId,
+                    'po-date' => $purchaseOrderDate->format('Y-m-d')
                 ),
                 'detail' => array(
-                    'line-number' => $this->getLineItemNumber(),
-                    'item-id' => $this->getLineItemId(),
+                    'line-number' => $lineItemNumber,
+                    'item-id' => $productId,
                     'cancel' => array(
-                        'line-status' => $this->getStatus(),
-                        'cancel-reason' => $this->getReason()
+                        'line-status' => $status,
+                        'cancel-reason' => $reason
                     )
                 )
             )
