@@ -89,6 +89,10 @@ class OrderReturn extends AbstractOrderState implements IdentifiableInterface
      */
     public function setQuantity($quantity)
     {
+        if (!is_numeric($quantity)) {
+            return;
+        }
+
         $this->quantity = (int) $quantity;
     }
 

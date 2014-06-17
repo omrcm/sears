@@ -11,157 +11,53 @@
 
 namespace AntiMattr\Sears\Model;
 
+use DateTime;
+
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
 class Inventory implements RequestHandlerInterface
 {
-
-    /** @var float */
-    protected $commissionPerUnit;
-
     /** @var string */
-    protected $handlingInd;
-
-    /** @var string */
-    protected $handlingInstructions;
-
-    /** @var string */
-    protected $id;
-
-    /** @var string */
-    protected $name;
-
-    /** @var string */
-    protected $number;
-
-    /** @var float */
-    protected $pricePerUnit;
+    protected $productId;
 
     /** @var int */
     protected $quantity;
 
-    /** @var float */
-    protected $shippingHandling;
+    /** @var int */
+    protected $threshold;
+
+    /** @var DateTime */
+    protected $updatedAt;
 
     /**
-     * @return float $commissionPerUnit
+     * @return array
      */
-    public function getCommissionPerUnit()
+    public function toArray()
     {
-        return $this->commissionPerUnit;
+        return array(
+            'item' => array(
+                'quantity' => $this->getQuantity(),
+                'low-inventory-threshold' => $this->getThreshold(),
+                'inventory-timestamp' => $this->getUpdatedAt()->format('Y-m-d\TH:i:s')
+            )
+        );
     }
 
     /**
-     * @param float $commissionPerUnit
+     * @return string $productId
      */
-    public function setCommissionPerUnit($commissionPerUnit)
+    public function getProductId()
     {
-        if (!is_numeric($commissionPerUnit)) {
-            return;
-        }
-
-        $this->commissionPerUnit = (float) $commissionPerUnit;
+        return $this->productId;
     }
 
     /**
-     * @return string $handlingInd
+     * @param string $productId
      */
-    public function getHandlingInd()
+    public function setProductId($productId)
     {
-        return $this->handlingInd;
-    }
-
-    /**
-     * @param string $handlingInd
-     */
-    public function setHandlingInd($handlingInd)
-    {
-        $this->handlingInd = $handlingInd;
-    }
-
-    /**
-     * @return string $handlingInstructions
-     */
-    public function getHandlingInstructions()
-    {
-        return $this->handlingInstructions;
-    }
-
-    /**
-     * @param string $handlingInstructions
-     */
-    public function setHandlingInstructions($handlingInstructions)
-    {
-        $this->handlingInstructions = $handlingInstructions;
-    }
-
-    /**
-     * @return string $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string $name
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string $number
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * @param string $number
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-    }
-
-    /**
-     * @return float $pricePerUnit
-     */
-    public function getPricePerUnit()
-    {
-        return $this->pricePerUnit;
-    }
-
-    /**
-     * @param float $pricePerUnit
-     */
-    public function setPricePerUnit($pricePerUnit)
-    {
-        if (!is_numeric($pricePerUnit)) {
-            return;
-        }
-
-        $this->pricePerUnit = (float) $pricePerUnit;
+        $this->productId = $productId;
     }
 
     /**
@@ -181,26 +77,42 @@ class Inventory implements RequestHandlerInterface
             return;
         }
 
-        $this->quantity = (int) floor((float) $quantity);
+        $this->quantity = (int) $quantity;
     }
 
     /**
-     * @return float $shippingHandling
+     * @return int $threshold
      */
-    public function getShippingHandling()
+    public function getThreshold()
     {
-        return $this->shippingHandling;
+        return $this->threshold;
     }
 
     /**
-     * @param float $shippingHandling
+     * @param int $threshold
      */
-    public function setShippingHandling($shippingHandling)
+    public function setThreshold($threshold)
     {
-        if (!is_numeric($shippingHandling)) {
+        if (!is_numeric($threshold)) {
             return;
         }
 
-        $this->shippingHandling = (float) $shippingHandling;
+        $this->threshold = (int) $threshold;
+    }
+
+    /**
+     * @return DateTime $updatedAt
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

@@ -204,6 +204,10 @@ class Shipment implements IdentifiableInterface, RequestHandlerInterface
      */
     public function setQuantity($quantity)
     {
+        if (!is_numeric($quantity)) {
+            return;
+        }
+
         $this->quantity = (int) $quantity;
     }
 

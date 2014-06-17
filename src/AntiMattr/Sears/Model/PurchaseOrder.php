@@ -136,7 +136,7 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @return string $createdAt
+     * @return DateTime $createdAt
      */
     public function getCreatedAt()
     {
@@ -144,7 +144,7 @@ class PurchaseOrder implements IdentifiableInterface
     }
 
     /**
-     * @param string $createdAt
+     * @param DateTime $createdAt
      */
     public function setCreatedAt(DateTime $createdAt)
     {
