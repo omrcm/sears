@@ -20,7 +20,8 @@ class XMLBuilderTest extends AntiMattrTestCase
             ->setRoot('api-response')
             ->setVersion('1.0')
             ->setEncoding('UTF-8')
-            ->setData(array('foo' => 'bar'));
+            ->setNamespace('http://seller.marketplace.sears.com/inventory/v1')
+            ->setSchemaLocation('http://seller.marketplace.sears.com/inventory/v1 dss-inventory.xsd ');
 
         $expectedElement = $this->builder->create();
 

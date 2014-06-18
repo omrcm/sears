@@ -119,14 +119,12 @@ class Inventory implements RequestSerializerInterface
         }
 
         return array(
-            'item' => array(
-                '_attributes' => array(
-                    'item-id' => $productId
-                ),
-                'quantity' => $quantity,
-                'low-inventory-threshold' => $threshold,
-                'inventory-timestamp' => $updatedAt->format('Y-m-d\TH:i:s')
-            )
+            '_attributes' => array(
+                'item-id' => $productId
+            ),
+            'quantity' => $quantity,
+            'low-inventory-threshold' => $threshold,
+            'inventory-timestamp' => $updatedAt->format('Y-m-d\TH:i:s')
         );
     }
 }

@@ -2,9 +2,12 @@
 
 namespace AntiMattr\Tests\Sears\RequestHandler;
 
+use AntiMattr\Sears\Format\XMLBuilder;
+use AntiMattr\Sears\Model\Shipment;
 use AntiMattr\Sears\RequestHandler\ShipmentRequestHandler;
 use AntiMattr\Tests\AntiMattrTestCase;
 use Buzz\Message\Request;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class ShipmentRequestHandlerTest extends AntiMattrTestCase
@@ -25,7 +28,7 @@ class ShipmentRequestHandlerTest extends AntiMattrTestCase
 
     protected function setUp()
     {
-        $this->xmlBuilder = $this->buildMock('AntiMattr\Sears\Format\XMLBuilder');
+        $this->xmlBuilder = new XMLBuilder();
         $this->requestHandler = new ShipmentRequestHandler($this->xmlBuilder);
     }
 
@@ -36,41 +39,27 @@ class ShipmentRequestHandlerTest extends AntiMattrTestCase
 
     public function testBindCollection()
     {
-        $request = $this->buildMock('Buzz\Message\Request');
+        $request = new Request();
         $collection = new ArrayCollection();
-        $item = $this->buildMock('AntiMattr\Sears\Model\Shipment');
+        $item = new Shipment();
+
+        $item->setId('00601780002');
+        $item->setPurchaseOrderId('0060180');
+        $item->setPurchaseOrderDate(new DateTime('2009-09-26'));
+        $item->setTrackingNumber('UPS1XXX');
+        $item->setShipAt(new DateTime('2001-01-01'));
+        $item->setCarrier('UPS');
+        $item->setMethod('GROUND');
+        $item->setLineItemNumber('1');
+        $item->setProductId('AB12345678912345456789123456789CD');
+        $item->setQuantity('1');
         $collection->add($item);
-        $simpleXMLElement = $this->getMock('Iterator', array('count', 'current', 'next', 'key', 'valid', 'rewind', 'asXML'));
-
-        $item->expects($this->once())
-            ->method('toArray');
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setRoot')
-            ->with('shipment-feed')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setData')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setData')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('create')
-            ->will($this->returnValue($simpleXMLElement));
-
-        $simpleXMLElement->expects($this->once())
-            ->method('asXML')
-            ->will($this->returnValue(self::$xml));
-
-        $request->expects($this->once())
-            ->method('setContent')
-            ->with(self::$xml);
 
         $this->requestHandler->bindCollection($request, $collection);
+
+        $content = $request->getContent();
+
+        $this->assertXmlStringEqualsXmlString(self::$xml, $content);
     }
 
 }

@@ -11,7 +11,6 @@
 
 namespace AntiMattr\Sears\RequestHandler;
 
-use AntiMattr\Sears\Model\Inventory;
 use Buzz\Message\Request;
 use Doctrine\Common\Collections\Collection;
 
@@ -26,15 +25,17 @@ class InventoryRequestHandler extends AbstractRequestHandler
      */
     public function bindCollection(Request $request, Collection $collection)
     {
-        $data = array();
-        foreach ($collection as $inventory) {
-            $data[] = $inventory->toArray();
-        }
-
         $element = $this->xmlBuilder
             ->setRoot('dss-inventory-feed')
-            ->setData($data)
+            ->setNamespace('http://seller.marketplace.sears.com/inventory/v1')
+            ->setSchemaLocation('http://seller.marketplace.sears.com/inventory/v1 dss-inventory.xsd ')
             ->create();
+
+        $parent = $element->addChild('dss-inventory');
+
+        foreach ($collection as $inventory) {
+            $this->xmlBuilder->addChild($parent, 'item', $inventory->toArray());
+        }
 
         $xml = $element->asXML();
         $request->setContent($xml);

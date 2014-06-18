@@ -2,9 +2,12 @@
 
 namespace AntiMattr\Tests\Sears\RequestHandler;
 
+use AntiMattr\Sears\Format\XMLBuilder;
+use AntiMattr\Sears\Model\OrderReturn;
 use AntiMattr\Sears\RequestHandler\OrderReturnRequestHandler;
 use AntiMattr\Tests\AntiMattrTestCase;
 use Buzz\Message\Request;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class OrderReturnRequestHandlerTest extends AntiMattrTestCase
@@ -25,7 +28,7 @@ class OrderReturnRequestHandlerTest extends AntiMattrTestCase
 
     protected function setUp()
     {
-        $this->xmlBuilder = $this->buildMock('AntiMattr\Sears\Format\XMLBuilder');
+        $this->xmlBuilder = new XMLBuilder();
         $this->requestHandler = new OrderReturnRequestHandler($this->xmlBuilder);
     }
 
@@ -34,43 +37,56 @@ class OrderReturnRequestHandlerTest extends AntiMattrTestCase
         $this->assertInstanceOf('AntiMattr\Sears\RequestHandler\AbstractRequestHandler', $this->requestHandler);
     }
 
-    public function testBindCollection()
+    /**
+     * @expectedException \AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testBindCollectionWithoutCreatedAtThrowsIntegrationException()
     {
-        $request = $this->buildMock('Buzz\Message\Request');
+        $request = new Request();
         $collection = new ArrayCollection();
-        $item = $this->buildMock('AntiMattr\Sears\Model\OrderReturn');
+        $item = new OrderReturn();
         $collection->add($item);
-        $simpleXMLElement = $this->getMock('Iterator', array('count', 'current', 'next', 'key', 'valid', 'rewind', 'asXML'));
 
-        $item->expects($this->once())
-            ->method('toArray');
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setRoot')
-            ->with('dss-order-adjustment-feed')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setData')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setData')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('create')
-            ->will($this->returnValue($simpleXMLElement));
-
-        $simpleXMLElement->expects($this->once())
-            ->method('asXML')
-            ->will($this->returnValue(self::$xml));
-
-        $request->expects($this->once())
-            ->method('setContent')
-            ->with(self::$xml);
+        $item->setPurchaseOrderId('1379156');
+        $item->setPurchaseOrderDate(new DateTime('2014-02-05'));
+        $item->setLineItemNumber('2');
+        $item->setProductId('DNA02218-66');
+        $item->setId('1111222345');
+        $item->setReason('GENERAL-ADJUSTMENT');
+        $item->setCreatedAt(new DateTime('2013-07-10'));
+        $item->setQuantity('1');
+        $item->setMemo('Wrong shipping method');
 
         $this->requestHandler->bindCollection($request, $collection);
+
+        $content = $request->getContent();
+
+        $this->assertXmlStringEqualsXmlString(self::$xml, $content);
+    }
+
+    public function testBindCollection()
+    {
+        $request = new Request();
+        $collection = new ArrayCollection();
+        $item = new OrderReturn();
+
+        $item->setPurchaseOrderId('1379156');
+        $item->setPurchaseOrderDate(new DateTime('2014-02-05'));
+        $item->setLineItemNumber('2');
+        $item->setProductId('DNA02218-66');
+        $item->setId('1111222345');
+        $item->setReason('GENERAL-ADJUSTMENT');
+        $item->setCreatedAt(new DateTime('2013-07-10'));
+        $item->setQuantity('1');
+        $item->setMemo('Wrong shipping method');
+        $collection->add($item);
+
+        $this->requestHandler->setCreatedAt(new DateTime('2013-07-10T21:01:41'));
+        $this->requestHandler->bindCollection($request, $collection);
+
+        $content = $request->getContent();
+
+        $this->assertXmlStringEqualsXmlString(self::$xml, $content);
     }
 
 }

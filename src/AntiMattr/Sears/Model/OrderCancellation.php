@@ -43,18 +43,16 @@ class OrderCancellation extends AbstractOrderState
         }
 
         return array(
-            'order-cancel' => array(
-                'header' => array(
-                    'po-number' => $purchaseOrderId,
-                    'po-date' => $purchaseOrderDate->format('Y-m-d')
-                ),
-                'detail' => array(
-                    'line-number' => $lineItemNumber,
-                    'item-id' => $productId,
-                    'cancel' => array(
-                        'line-status' => $status,
-                        'cancel-reason' => $reason
-                    )
+            'header' => array(
+                'po-number' => $purchaseOrderId,
+                'po-date' => $purchaseOrderDate->format('Y-m-d')
+            ),
+            'detail' => array(
+                'line-number' => $lineItemNumber,
+                'item-id' => $productId,
+                'cancel' => array(
+                    'line-status' => $status,
+                    'cancel-reason' => $reason
                 )
             )
         );

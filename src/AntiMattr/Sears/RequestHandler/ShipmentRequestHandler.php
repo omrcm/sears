@@ -11,7 +11,6 @@
 
 namespace AntiMattr\Sears\RequestHandler;
 
-use AntiMattr\Sears\Model\Shipment;
 use Buzz\Message\Request;
 use Doctrine\Common\Collections\Collection;
 
@@ -26,15 +25,15 @@ class ShipmentRequestHandler extends AbstractRequestHandler
      */
     public function bindCollection(Request $request, Collection $collection)
     {
-        $data = array();
-        foreach ($collection as $shipment) {
-            $data[] = $shipment->toArray();
-        }
-
         $element = $this->xmlBuilder
             ->setRoot('shipment-feed')
-            ->setData($data)
+            ->setNamespace('http://seller.marketplace.sears.com/oms/v5')
+            ->setSchemaLocation('http://seller.marketplace.sears.com/oms/v5 asn.xsd ')
             ->create();
+
+        foreach ($collection as $shipment) {
+            $this->xmlBuilder->addChild($element, 'shipment', $shipment->toArray());
+        }
 
         $xml = $element->asXML();
         $request->setContent($xml);

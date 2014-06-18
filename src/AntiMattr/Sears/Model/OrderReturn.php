@@ -128,22 +128,20 @@ class OrderReturn extends AbstractOrderState implements IdentifiableInterface
         }
 
         return array(
-            'dss-order-adjustment' => array(
-                'oa-header' => array(
-                    'po-number' => $purchaseOrderId,
-                    'po-date' => $purchaseOrderDate->format('Y-m-d')
-                ),
-                'oa-detail' => array(
-                    'sale-adjustment' => array(
-                        'line-number' => $lineItemNumber,
-                        'item-id' => $productId,
-                        'return' => array(
-                            'return-unique-id' => $id,
-                            'return-reason' => $reason,
-                            'return-date' => $createdAt->format('Y-m-d'),
-                            'quantity' => $quantity,
-                            'internal-memo' => $memo,
-                        )
+            'oa-header' => array(
+                'po-number' => $purchaseOrderId,
+                'po-date' => $purchaseOrderDate->format('Y-m-d')
+            ),
+            'oa-detail' => array(
+                'sale-adjustment' => array(
+                    'line-number' => $lineItemNumber,
+                    'item-id' => $productId,
+                    'return' => array(
+                        'return-unique-id' => $id,
+                        'return-reason' => $reason,
+                        'return-date' => $createdAt->format('Y-m-d'),
+                        'quantity' => $quantity,
+                        'internal-memo' => $memo,
                     )
                 )
             )

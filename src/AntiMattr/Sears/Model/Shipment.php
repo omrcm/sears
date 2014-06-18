@@ -276,22 +276,20 @@ class Shipment implements IdentifiableInterface, RequestSerializerInterface
         }
 
         return array(
-            'shipment' => array(
-                'header' => array(
-                    'asn-number' => $id,
-                    'po-number' => $purchaseOrderId,
-                    'po-date' => $purchaseOrderDate->format('Y-m-d')
-                ),
-                'detail' => array(
-                    'tracking-number' => $trackingNumber,
-                    'ship-date' => $shipAt->format('Y-m-d'),
-                    'shipping-carrier' => $carrier,
-                    'shipping-method' => $method,
-                    'package-detail' => array(
-                        'line-number' => $lineItemNumber,
-                        'item-id' => $productId,
-                        'quantity' => $quantity
-                    )
+            'header' => array(
+                'asn-number' => $id,
+                'po-number' => $purchaseOrderId,
+                'po-date' => $purchaseOrderDate->format('Y-m-d')
+            ),
+            'detail' => array(
+                'tracking-number' => $trackingNumber,
+                'ship-date' => $shipAt->format('Y-m-d'),
+                'shipping-carrier' => $carrier,
+                'shipping-method' => $method,
+                'package-detail' => array(
+                    'line-number' => $lineItemNumber,
+                    'item-id' => $productId,
+                    'quantity' => $quantity
                 )
             )
         );

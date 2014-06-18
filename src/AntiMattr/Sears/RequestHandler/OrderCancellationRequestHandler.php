@@ -11,7 +11,6 @@
 
 namespace AntiMattr\Sears\RequestHandler;
 
-use AntiMattr\Sears\Model\OrderCancellation;
 use Buzz\Message\Request;
 use Doctrine\Common\Collections\Collection;
 
@@ -26,15 +25,15 @@ class OrderCancellationRequestHandler extends AbstractRequestHandler
      */
     public function bindCollection(Request $request, Collection $collection)
     {
-        $data = array();
-        foreach ($collection as $orderCancellation) {
-            $data[] = $orderCancellation->toArray();
-        }
-
         $element = $this->xmlBuilder
             ->setRoot('order-cancel-feed')
-            ->setData($data)
+            ->setNamespace('http://seller.marketplace.sears.com/oms/v1')
+            ->setSchemaLocation('http://seller.marketplace.sears.com/oms/v1 order-cancel.xsd ')
             ->create();
+
+        foreach ($collection as $orderCancellation) {
+            $this->xmlBuilder->addChild($element, 'order-cancel', $orderCancellation->toArray());
+        }
 
         $xml = $element->asXML();
         $request->setContent($xml);

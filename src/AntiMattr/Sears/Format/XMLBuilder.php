@@ -18,10 +18,12 @@ use SimpleXMLElement;
  */
 class XMLBuilder
 {
+    const ATTRIBUTES = '_attributes';
+
     /**
-     * @var array
+     * @var string
      */
-    private $data = array();
+    private $namespace;
 
     /**
      * @var string
@@ -36,14 +38,12 @@ class XMLBuilder
     /**
      * @var string
      */
+    private $schemaLocation;
+
+    /**
+     * @var string
+     */
     private $version = '1.0';
-
-    public function setData(array $data)
-    {
-        $this->data = $data;
-
-        return $this;
-    }
 
     public function setEncoding($encoding)
     {
@@ -52,9 +52,23 @@ class XMLBuilder
         return $this;
     }
 
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+
+        return $this;
+    }
+
     public function setRoot($root)
     {
         $this->root = $root;
+
+        return $this;
+    }
+
+    public function setSchemaLocation($schemaLocation)
+    {
+        $this->schemaLocation = $schemaLocation;
 
         return $this;
     }
@@ -78,9 +92,30 @@ class XMLBuilder
             $this->root
         );
         $element = new SimpleXMLElement($definition);
-        $this->arrayToXml($this->data, $element);
+
+        if (null !== $this->namespace) {
+            $element->addAttribute('xmlns', $this->namespace);
+        }
+
+        if (null !== $this->schemaLocation) {
+            $element->addAttribute('xsi:schemaLocation', $this->schemaLocation, 'http://www.w3.org/2001/XMLSchema-instance');
+        }
 
         return $element;
+    }
+
+    /**
+     * @param  \SimpleXMLElement $element
+     * @param  string            $name
+     * @param  mixed             $values
+     * @return \SimpleXMLElement $element
+     */
+    public function addChild($parent, $name, $values)
+    {
+        $child = $parent->addChild($name);
+        $this->arrayToXML($values, $child);
+
+        return $child;
     }
 
     /**
@@ -91,7 +126,13 @@ class XMLBuilder
     private function arrayToXml(array $data, SimpleXMLElement $element)
     {
         foreach ($data as $key => $value) {
-            if (is_array($value)) {
+            if ($key === self::ATTRIBUTES) {
+                if (is_array($value)) {
+                    foreach ($value as $attributeName => $attributeValue) {
+                        $element->addAttribute($attributeName, $attributeValue);
+                    }
+                }
+            } elseif (is_array($value)) {
                 if (!is_numeric($key)) {
                     $subnode = $element->addChild("$key");
                     $this->arrayToXml($value, $subnode);

@@ -2,9 +2,12 @@
 
 namespace AntiMattr\Tests\Sears\RequestHandler;
 
+use AntiMattr\Sears\Format\XMLBuilder;
+use AntiMattr\Sears\Model\Inventory;
 use AntiMattr\Sears\RequestHandler\InventoryRequestHandler;
 use AntiMattr\Tests\AntiMattrTestCase;
 use Buzz\Message\Request;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class InventoryRequestHandlerTest extends AntiMattrTestCase
@@ -25,7 +28,7 @@ class InventoryRequestHandlerTest extends AntiMattrTestCase
 
     protected function setUp()
     {
-        $this->xmlBuilder = $this->buildMock('AntiMattr\Sears\Format\XMLBuilder');
+        $this->xmlBuilder = new XMLBuilder();
         $this->requestHandler = new InventoryRequestHandler($this->xmlBuilder);
     }
 
@@ -36,40 +39,32 @@ class InventoryRequestHandlerTest extends AntiMattrTestCase
 
     public function testBindCollection()
     {
-        $request = $this->buildMock('Buzz\Message\Request');
+        $request = new Request();
         $collection = new ArrayCollection();
-        $item = $this->buildMock('AntiMattr\Sears\Model\Inventory');
-        $collection->add($item);
-        $simpleXMLElement = $this->getMock('Iterator', array('count', 'current', 'next', 'key', 'valid', 'rewind', 'asXML'));
 
-        $item->expects($this->once())
-            ->method('toArray');
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setRoot')
-            ->with('dss-inventory-feed')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setData')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('setData')
-            ->will($this->returnValue($this->xmlBuilder));
-
-        $this->xmlBuilder->expects($this->once())
-            ->method('create')
-            ->will($this->returnValue($simpleXMLElement));
-
-        $simpleXMLElement->expects($this->once())
-            ->method('asXML')
-            ->will($this->returnValue(self::$xml));
-
-        $request->expects($this->once())
-            ->method('setContent')
-            ->with(self::$xml);
+        $item1 = new Inventory();
+        $item1->setProductId('770011');
+        $item1->setQuantity('5');
+        $item1->setThreshold('3');
+        $item1->setUpdatedAt(new DateTime('2001-12-31T12:00:00'));
+        $item2 = new Inventory();
+        $item2->setProductId('770077');
+        $item2->setQuantity('10');
+        $item2->setThreshold('7');
+        $item2->setUpdatedAt(new DateTime('2001-12-31T12:00:00'));
+        $item3 = new Inventory();
+        $item3->setProductId('990099');
+        $item3->setQuantity('10');
+        $item3->setThreshold('5');
+        $item3->setUpdatedAt(new DateTime('2001-12-31T12:00:00'));
+        $collection->add($item1);
+        $collection->add($item2);
+        $collection->add($item3);
 
         $this->requestHandler->bindCollection($request, $collection);
+
+        $content = $request->getContent();
+
+        $this->assertXmlStringEqualsXmlString(self::$xml, $content);
     }
 }
