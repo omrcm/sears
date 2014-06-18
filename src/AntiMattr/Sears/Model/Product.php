@@ -375,7 +375,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'image-url' => array(
                 'url' => $image
             ),
-            'no-warranty-available' => !$warranty,
+            'no-warranty-available' => ($warranty ? 'false': 'true'),
             'country-of-origin' => array(
                 'country-code' => $country
             )
