@@ -17,7 +17,7 @@ class ShipmentTest extends AntiMattrTestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('AntiMattr\Sears\Model\IdentifiableInterface', $this->shipment);
-        $this->assertInstanceOf('AntiMattr\Sears\Model\RequestHandlerInterface', $this->shipment);
+        $this->assertInstanceOf('AntiMattr\Sears\Model\RequestSerializerInterface', $this->shipment);
         $this->assertNull($this->shipment->getPurchaseOrderId());
         $this->assertNull($this->shipment->getPurchaseOrderDate());
         $this->assertNull($this->shipment->getLineItemNumber());

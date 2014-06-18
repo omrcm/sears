@@ -17,7 +17,7 @@ use DateTime;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-class Shipment implements IdentifiableInterface, RequestHandlerInterface
+class Shipment implements IdentifiableInterface, RequestSerializerInterface
 {
     const CARRIER_UPS = 'UPS';
     const CARRIER_FDE = 'FDE';

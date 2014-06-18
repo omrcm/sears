@@ -9,7 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AntiMattr\Sears\Model;
+namespace AntiMattr\Sears\RequestHandler;
+
+use Doctrine\Common\Collections\Collection;
+use Buzz\Message\Request;
 
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
@@ -17,7 +20,8 @@ namespace AntiMattr\Sears\Model;
 interface RequestHandlerInterface
 {
     /**
-     * @return array
+     * @param Buzz\Message\Request                   $request
+     * @param Doctrine\Common\Collections\Collection $collection
      */
-    public function toArray();
+    public function bindCollection(Request $response, Collection $collection);
 }

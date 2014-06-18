@@ -16,6 +16,7 @@ class InventoryTest extends AntiMattrTestCase
 
     public function testConstructor()
     {
+        $this->assertInstanceOf('AntiMattr\Sears\Model\RequestSerializerInterface', $this->inventory);
         $this->assertNull($this->inventory->getUpdatedAt());
         $this->assertNull($this->inventory->getThreshold());
         $this->assertNull($this->inventory->getQuantity());

@@ -17,7 +17,7 @@ use DateTime;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-abstract class AbstractOrderState implements RequestHandlerInterface
+abstract class AbstractOrderState implements RequestSerializerInterface
 {
     const STATUS_CANCELED = 'Canceled';
     const STATUS_RETURNED = 'Returned';

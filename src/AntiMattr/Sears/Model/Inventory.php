@@ -17,7 +17,7 @@ use DateTime;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-class Inventory implements RequestHandlerInterface
+class Inventory implements RequestSerializerInterface
 {
     /** @var string */
     protected $productId;
