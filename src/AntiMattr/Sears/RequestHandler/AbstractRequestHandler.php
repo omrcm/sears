@@ -11,17 +11,26 @@
 
 namespace AntiMattr\Sears\RequestHandler;
 
-use Doctrine\Common\Collections\Collection;
+use AntiMattr\Sears\Format\XMLBuilder;
 use Buzz\Message\Request;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-interface RequestHandlerInterface
+abstract class AbstractRequestHandler
 {
+    /** @var AntiMattr\Sears\Format\XMLBuilder */
+    protected $xmlBuilder;
+
+    public function __construct(XMLBuilder $xmlBuilder)
+    {
+        $this->xmlBuilder = $xmlBuilder;
+    }
+
     /**
      * @param Buzz\Message\Request                   $request
      * @param Doctrine\Common\Collections\Collection $collection
      */
-    public function bindCollection(Request $request, Collection $collection);
+    abstract public function bindCollection(Request $request, Collection $collection);
 }
