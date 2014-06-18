@@ -47,6 +47,9 @@ class InventoryTest extends AntiMattrTestCase
         $quantityString = '7.999';
         $this->inventory->setQuantity($quantityString);
         $this->assertSame(7, $this->inventory->getQuantity());
+
+        $array = $this->inventory->toArray();
+        $this->assertInternalType('array', $array);
     }
 
     /**

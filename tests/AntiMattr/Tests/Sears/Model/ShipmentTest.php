@@ -31,6 +31,10 @@ class ShipmentTest extends AntiMattrTestCase
 
     public function testSettersAndGetters()
     {
+        $id = 'id';
+        $this->shipment->setId($id);
+        $this->assertSame($id, $this->shipment->getId());
+
         $purchaseId = 'purchaseId';
         $this->shipment->setPurchaseOrderId($purchaseId);
         $this->assertSame($purchaseId, $this->shipment->getPurchaseOrderId());
@@ -62,6 +66,13 @@ class ShipmentTest extends AntiMattrTestCase
         $quantity = '3';
         $this->shipment->setQuantity($quantity);
         $this->assertSame(3, $this->shipment->getQuantity());
+
+        $trackingNumber = 'trackingNumber';
+        $this->shipment->setTrackingNumber($trackingNumber);
+        $this->assertEquals($trackingNumber, $this->shipment->getTrackingNumber());
+
+        $array = $this->shipment->toArray();
+        $this->assertInternalType('array', $array);
     }
 
     /**
