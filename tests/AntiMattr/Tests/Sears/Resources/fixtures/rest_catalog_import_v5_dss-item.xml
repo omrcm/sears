@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog-feed xmlns="http://seller.marketplace.sears.com/catalog/v5"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://seller.marketplace.sears.com/catalog/v5 ../../../../../rest/catalog/import/v5/dss-item.xsd ">
+	<dss-catalog>
+		<items>
+			
+			<item item-id="5316cf5c1b0ba0252e000d04"> 
+				<title>Abstract Print Leggings</title> 
+				<short-desc>Abstract Print Leggings</short-desc> 
+				<upc>616806998832</upc>
+				<item-class id="2611"> 
+				</item-class>
+				<model-number>BOUJIBR-8B63</model-number> 
+				<cost>26</cost> 
+				<brand>Bouji Broad</brand> 
+				<shipping-length>11</shipping-length>
+				<shipping-width>10</shipping-width>
+				<shipping-height>1</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn5.opensky.com/boujibroad/product/abstract-print-leggings-1/images/ce16190/7312cc8/generous/abstract-print-leggings-1.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>CN</country-code>
+				</country-of-origin>
+			</item>
+
+
+			<item item-id="533b99011c0ba0f340000420"> 
+				<title>Blue Jean Swarovski Skull Lava Rock Beaded Bracelet</title> 
+				<short-desc>Swarovski Black Beaded Bracelet</short-desc> 
+				<upc>616806998849</upc>
+				<item-class id="2611"> 
+				</item-class>
+				<model-number>BOUJIBR-2F37</model-number> 
+				<cost>60</cost> 
+				<brand>Bouji Broad</brand> 
+				<shipping-length>9</shipping-length>
+				<shipping-width>6</shipping-width>
+				<shipping-height>2</shipping-height>
+				<shipping-weight>.5</shipping-weight>
+				<image-url>
+					<url>http://cdn1.opensky.com/boujibroad/product/bouji-broad-exclusive-men-s-blue-jean-swarovski-skull-lava-rock-beaded-bracelet/images/90593b1/4808293/behemoth/bouji-broad-exclusive-men-s-blue-jean-swarovski-skull-lava-rock-beaded-bracelet.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>US</country-code>
+				</country-of-origin>
+			</item>
+
+
+			<item item-id="5383b73a1c0ba041340008bf"> 
+				<title>Boho Beach Cover Up</title> 
+				<short-desc>Black Beach Coverup</short-desc> 
+				<upc>725410593422</upc>
+				<item-class id="1210"> 
+				</item-class>
+				<model-number>BLONDEV-617A</model-number> 
+				<cost>72</cost> 
+				<brand>Blonde Vagabond</brand> 
+				<shipping-length>16</shipping-length>
+				<shipping-width>12</shipping-width>
+				<shipping-height>3</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn4.opensky.com/blondevagabond/product/boho-beach-cover-up/images/97ce516/7312cc8/generous/boho-beach-cover-up.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>CN</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="51e889f83337d08c56000d1c"> 
+				<title>Concrete Planter with Color Band</title> 
+				<short-desc>Hand Crafted Mini Concrete Planter</short-desc> 
+				<upc>852681940010</upc>
+				<item-class id="2854"> 
+				</item-class>
+				<model-number>ANSONDE-2041</model-number> 
+				<cost>14</cost> 
+				<brand>Anson Design CO
+				</brand> 
+				<shipping-length>6</shipping-length>
+				<shipping-width>6</shipping-width>
+				<shipping-height>6</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn2.opensky.com/anson-design-co/product/concrete-planter-with-color-band-2/images/b5f5c42/7312cc8/generous/concrete-planter-with-color-band-2.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>US</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="52fbf78bb1f964b91800082a"> 
+				<title>Dream of Paisley Infinity Scarf</title> 
+				<short-desc>Light Summer Scarf</short-desc> 
+				<upc>748252323354</upc>
+				<item-class id="1063"> 
+				</item-class>
+				<model-number>4AH709</model-number> 
+				<cost>24</cost> 
+				<brand>4 All Humanity</brand> 
+				<shipping-length>15</shipping-length>
+				<shipping-width>12</shipping-width>
+				<shipping-height>1</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn4.opensky.com/4allhumanity/product/dream-of-paisley-infinity-scarf/images/cf733dc/33653ce/ample/dream-of-paisley-infinity-scarf.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>IN</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="537b720a1c0ba081370007e7"> 
+				<title>Fruit Loop Fruit Bowl</title> 
+				<short-desc>Steel Wire Fruit Bowl</short-desc> 
+				<upc>5060089720300</upc>
+				<item-class id="397610">
+				</item-class>
+				<model-number>FR001US2</model-number> 
+				<cost>46</cost> 
+				<brand>	Black+ Blum</brand> 
+				<shipping-length>5.5</shipping-length>
+				<shipping-width>10</shipping-width>
+				<shipping-height>10</shipping-height>
+				<shipping-weight>2</shipping-weight>
+				<image-url>
+					<url>http://cdn4.opensky.com/blackblum/product/new-fruit-loop-fruit-bowl/images/eab1c00/7312cc8/generous/new-fruit-loop-fruit-bowl.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>CN</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="537cd702b1f964365c0000d0"> 
+				<title>Hair Fixer Coconut Argan Oil Hair Conditioning Spray</title> 
+				<short-desc>Coconut and Argan Conditioner</short-desc> 
+				<upc>899312009029</upc>
+				<item-class id="825"> 
+				</item-class>
+				<model-number>GSCPROD-EE9</model-number> 
+				<cost>16.99</cost> 
+				<brand>Greensations</brand> 
+				<shipping-length>6.5</shipping-length>
+				<shipping-width>10</shipping-width>
+				<shipping-height>2</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn2.opensky.com/gsc-products-llc/product/hair-fixer-coconut-argan-oil-hair-conditioning-spray/images/e80478b/7312cc8/generous/hair-fixer-coconut-argan-oil-hair-conditioning-spray.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>US</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="5395706272989a02790000b3"> 
+				<title>Lace Swimsuit Cover Up</title> 
+				<short-desc>Lace Swimsuit Cover Up</short-desc> 
+				<upc>725410596652</upc>
+				<item-class id="1210"> 
+				</item-class>
+				<model-number>AMARYLL-40B4</model-number> 
+				<cost>68</cost> 
+				<brand>Amaryllis</brand> 
+				<shipping-length>10</shipping-length>
+				<shipping-width>16</shipping-width>
+				<shipping-height>1</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn1.opensky.com/amaryllis/product/lace-swimsuit-cover-up/images/18f6be6/7312cc8/generous/lace-swimsuit-cover-up.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>CN</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="51941091f05a2fa67e001652"> 
+				<title>Satechi Armor-X Waterproof Case</title> 
+				<short-desc>Waterproof Electronics Case</short-desc> 
+				<upc>879961002916</upc>
+				<item-class id="481010"> 
+				</item-class>
+				<model-number>B0098NKHSK</model-number> 
+				<cost>29.99</cost> 
+				<brand>Satechi</brand> 
+				<shipping-length>2.5</shipping-length>
+				<shipping-width>2.5</shipping-width>
+				<shipping-height>5.5</shipping-height>
+				<shipping-weight>.5</shipping-weight>
+				<image-url>
+					<url>http://cdn5.opensky.com/satechi/product/satechi-armor-x-waterproof-case/images/c0803c3/7312cc8/generous/satechi-armor-x-waterproof-case.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>CN</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="5254517d1c0ba09f7b0000f2"> 
+				<title>Satechi Smart Travel Router / Travel Adapter with USB Port</title> 
+				<short-desc>Travel Router and Adapter</short-desc> 
+				<upc>879961003814</upc>
+				<item-class id="1311"> 
+				</item-class>
+				<model-number>B00EZT2PB4</model-number> 
+				<cost>44.99</cost> 
+				<brand>Satechi</brand> 
+				<shipping-length>2.7</shipping-length>
+				<shipping-width>2.3</shipping-width>
+				<shipping-height>3.5</shipping-height>
+				<shipping-weight>.5</shipping-weight>
+				<image-url>
+					<url>http://cdn2.opensky.com/satechi/product/satechi-smart-travel-router-travel-adapter-with-usb-port/images/2dd8f39/7312cc8/generous/satechi-smart-travel-router-travel-adapter-with-usb-port.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>TW</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="5369a9701a0ba02477000035"> 
+				<title>Skin Fixer Coconut Argan Oil Body Spray</title> 
+				<short-desc>Hydrating Argan Oil Body Spray</short-desc> 
+				<upc>899312009012</upc>
+				<item-class id="792"> 
+				</item-class>
+				<model-number>GSCPROD-26E8</model-number> 
+				<cost>15.99</cost> 
+				<brand>Greensations</brand> 
+				<shipping-length>6.5</shipping-length>
+				<shipping-width>10</shipping-width>
+				<shipping-height>2</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn3.opensky.com/gsc-products-llc/product/skin-fixer-coconut-argan-oil-beauty-spray/images/b3b24ff/7312cc8/generous/skin-fixer-coconut-argan-oil-beauty-spray.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>US</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="50a66fd09b7827fa5c000298"> 
+				<title>Venomous Thermal Anti Wrinkle Serum with Syn-Ake</title> 
+				<short-desc>Anti Wrinkle Creme</short-desc> 
+				<upc>899312002662</upc>
+				<item-class id="808"> 
+				</item-class>
+				<model-number>GSCPROD-7D74D-mp</model-number> 
+				<cost>19.99</cost> 
+				<brand>Greensations</brand> 
+				<shipping-length>6.5</shipping-length>
+				<shipping-width>10</shipping-width>
+				<shipping-height>1</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn5.opensky.com/gsc-products-llc/product/venomous-wrinkle-serum-with-snake-venom/images/597701d/7312cc8/generous/venomous-wrinkle-serum-with-snake-venom.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>US</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="52fcf9fdf05a2f1b250010ff"> 
+				<title>Zig to Zag Bangle</title> 
+				<short-desc>Colorful Metal Bangle</short-desc> 
+				<upc>748252323552</upc>
+				<item-class id="707410"> 
+				</item-class>
+				<model-number>4ALLHUM-60F5</model-number> 
+				<cost>9.50</cost> 
+				<brand>4 All Humanity</brand> 
+				<shipping-length>7</shipping-length>
+				<shipping-width>4</shipping-width>
+				<shipping-height>3</shipping-height>
+				<shipping-weight>1</shipping-weight>
+				<image-url>
+					<url>http://cdn4.opensky.com/4allhumanity/product/zig-to-zag-bangle/images/14f2e15/33653ce/ample/zig-to-zag-bangle.jpg</url>
+				</image-url>
+				<no-warranty-available>true</no-warranty-available>
+				<country-of-origin>
+				      <country-code>IN</country-code>
+				</country-of-origin>
+			</item>
+
+			<item item-id="532f31463337d023270001ed">
+<title>Tiger eye, earth tones and a bit of sparkle wrap</title>
+<short-desc>Soooooo pretty! Tiger eye, amber and earth tones 5 wrap bracelet. Boho chic stunner. Handmade.</short-desc>
+<upc>616639103502</upc>
+<item-class id="1060"></item-class>
+<model-number>MEANSTR-A944</model-number>
+<cost>79</cost>
+<brand>mean streets LA</brand>
+<shipping-length>6</shipping-length>
+<shipping-width>9</shipping-width>
+<shipping-height>1</shipping-height>
+<shipping-weight>1</shipping-weight>
+<image-url>
+<url>http://cdn2.opensky.com/meanstreetsla/product/tiger-eye-earth-tones-and-a-bit-of-sparkle-wrap/images/4356107/7312cc8/generous/tiger-eye-earth-tones-and-a-bit-of-sparkle-wrap.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>US</country-code>
+</country-of-origin>
+</item>
+
+
+<item item-id="53618042b1f9649b11000246">
+<title>Leaf tassel necklace</title>
+<short-desc>A little bit bohemian, a little bit vintage but a lot of UNIQUE .</short-desc>
+<upc>616639103496</upc>
+<item-class id="1060"></item-class>
+<model-number>MEANSTR-7016</model-number>
+<cost>39</cost>
+<brand>mean streets LA</brand>
+<shipping-length>6</shipping-length>
+<shipping-width>9</shipping-width>
+<shipping-height>1</shipping-height>
+<shipping-weight>1</shipping-weight>
+<image-url>
+<url>http://cdn5.opensky.com/meanstreetsla/product/leaf-tassel-necklace/images/1475651/7312cc8/generous/leaf-tassel-necklace.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>US</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="303e20472989afa0900063c">
+<title>Black faceted bead wrap bracelet</title>
+<short-desc>Black twisting cords secure a handcrafted line of black faceted and transparent beads for subtle sparkle that wraps the wrist.</short-desc>
+<upc>6616639103489</upc>
+<item-class id="1060"></item-class>
+<model-number>MEANSTR-580E</model-number>
+<cost>39</cost>
+<brand>mean streets LA</brand>
+<shipping-length>6</shipping-length>
+<shipping-width>9</shipping-width>
+<shipping-height>1</shipping-height>
+<shipping-weight>1</shipping-weight>
+<image-url>
+<url>http://cdn3.opensky.com/meanstreetsla/product/black-faceted-bead-wrap-bracelet/images/85e1864/7312cc8/generous/black-faceted-bead-wrap-bracelet.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>US</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="5397614c1a0ba058120000c6">
+<title>Pink Tribal iPhone Case by Mrked</title>
+<short-desc> We donate 15% of our proceeds to a non-profit organization to help educate girls in Asian and African countries.</short-desc>
+<upc>856407004574</upc>
+<item-class id="471910"></item-class>
+<model-number>CR514-411F</model-number>
+<cost>24.95</cost>
+<brand>mrked</brand>
+<shipping-length>3</shipping-length>
+<shipping-width>6</shipping-width>
+<shipping-height>4</shipping-height>
+<shipping-weight>.5</shipping-weight>
+<image-url>
+<url>http://cdn1.opensky.com/mrked/product/pink-tribal/images/3fa108e/3ffa514/generous/pink-tribal.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>CN</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="539761461a0ba058120000b0">
+<title>Mirrors iPhone Case by Mrked</title>
+<short-desc> We donate 15% of our proceeds to a non-profit organization to help educate girls in Asian and African countries.</short-desc>
+<upc>856407004550</upc>
+<item-class id="471910"></item-class>
+<model-number>CR512</model-number>
+<cost>24.95</cost>
+<brand>mrked</brand>
+<shipping-length>3</shipping-length>
+<shipping-width>6</shipping-width>
+<shipping-height>4</shipping-height>
+<shipping-weight>.5</shipping-weight>
+<image-url>
+<url>http://cdn4.opensky.com/mrked/product/mirrors/images/42fd0dc/3ffa514/generous/mirrors.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>CN</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="5397612c1a0ba05812000044">
+<title>Colored Chevron iPhone Case by Mrked</title>
+<short-desc> We donate 15% of our proceeds to a non-profit organization to help educate girls in Asian and African countries.</short-desc>
+<upc>856407004529</upc>
+<item-class id="471910"></item-class>
+<model-number>CR509</model-number>
+<cost>24.95</cost>
+<brand>mrked</brand>
+<shipping-length>3</shipping-length>
+<shipping-width>6</shipping-width>
+<shipping-height>4</shipping-height>
+<shipping-weight>.5</shipping-weight>
+<image-url>
+<url>http://cdn3.opensky.com/mrked/product/colored-chevron/images/b2616eb/3ffa514/generous/colored-chevron.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>CN</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="539761271a0ba05812000020">
+<title>Bright Floral iPhone Case by Mrked</title>
+<short-desc> We donate 15% of our proceeds to a non-profit organization to help educate girls in Asian and African countries.</short-desc>
+<upc>856407004512</upc>
+<item-class id="471910"></item-class>
+<model-number>CR508</model-number>
+<cost>24.95</cost>
+<brand>mrked</brand>
+<shipping-length>3</shipping-length>
+<shipping-width>6</shipping-width>
+<shipping-height>4</shipping-height>
+<shipping-weight>.5</shipping-weight>
+<image-url>
+<url>http://cdn5.opensky.com/mrked/product/bright-floral/images/81d9590/3ffa514/generous/bright-floral.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>CN</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="5381f679b1f964d7760012b0">
+<title>Aqua and Navy Vine Silk Harem Pants</title>
+<short-desc> Move in comfort and style with these super-lush harem pants.</short-desc>
+<upc>616639084061</upc>
+<item-class id="1185"></item-class>
+<model-number>AquaNavyLeavesHarem</model-number>
+<cost>24.95</cost>
+<brand>womanshopsworld</brand>
+<shipping-length>9</shipping-length>
+<shipping-width>6</shipping-width>
+<shipping-height>2</shipping-height>
+<shipping-weight>1</shipping-weight>
+<image-url>
+<url>http://cdn1.opensky.com/womanshopsworld/product/aqua-and-navy-vine-silk-harem-pants/images/57689f6/7312cc8/generous/aqua-and-navy-vine-silk-harem-pants.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>IN</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="5382759b3337d0573b000cca">
+<title>Fuchsia Flowers Motif Silk Harem Pants</title>
+<short-desc> Move in comfort and style with these super-lush harem pants.</short-desc>
+<upc>616639084078</upc>
+<item-class id="1185"></item-class>
+<model-number>HaremFuchsiaFlowers</model-number>
+<cost>25</cost>
+<brand>womanshopsworld</brand>
+<shipping-length>9</shipping-length>
+<shipping-width>6</shipping-width>
+<shipping-height>2</shipping-height>
+<shipping-weight>1</shipping-weight>
+<image-url>
+<url>http://cdn5.opensky.com/womanshopsworld/product/fuchsia-flowers-motif-silk-harem-pants/images/bd9f36a/7312cc8/generous/fuchsia-flowers-motif-silk-harem-pants.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>IN</country-code>
+</country-of-origin>
+</item>
+
+<item item-id="538f4c8c1b0ba0502200008b">
+<title>Aqua + Blue Flower Motif Silk Harem Pants</title>
+<short-desc> Move in comfort and style with these super-lush harem pants.</short-desc>
+<upc>616639084092</upc>
+<item-class id="1185"></item-class>
+<model-number>HaremFuchsiaFlowers</model-number>
+<cost>25</cost>
+<brand>AquaBlueFloralMotifHarem</brand>
+<shipping-length>9</shipping-length>
+<shipping-width>6</shipping-width>
+<shipping-height>2</shipping-height>
+<shipping-weight>1</shipping-weight>
+<image-url>
+<url>http://cdn4.opensky.com/womanshopsworld/product/aqua-blue-flower-motif-silk-harem-pants/images/d33f2f1/7312cc8/generous/aqua-blue-flower-motif-silk-harem-pants.jpg</url>
+</image-url>
+<no-warranty-available>true</no-warranty-available>
+<country-of-origin>
+<country-code>IN</country-code>
+</country-of-origin>
+</item>
+
+
+		</items>
+	</dss-catalog>
+</catalog-feed>
