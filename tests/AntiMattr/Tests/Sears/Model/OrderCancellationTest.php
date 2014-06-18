@@ -29,4 +29,33 @@ class OrderCancellationTest extends AntiMattrTestCase
         $this->orderCancellation->toArray();
     }
 
+    public function testToArray()
+    {
+        $purchaseId = 'purchaseId';
+        $this->orderCancellation->setPurchaseOrderId($purchaseId);
+        $this->assertSame($purchaseId, $this->orderCancellation->getPurchaseOrderId());
+
+        $purchaseOrderDate = new \DateTime();
+        $this->orderCancellation->setPurchaseOrderDate($purchaseOrderDate);
+        $this->assertSame($purchaseOrderDate, $this->orderCancellation->getPurchaseOrderDate());
+
+        $lineItemNumber = '3';
+        $this->orderCancellation->setLineItemNumber($lineItemNumber);
+        $this->assertSame(3, $this->orderCancellation->getLineItemNumber());
+
+        $productId = 'productId';
+        $this->orderCancellation->setProductId($productId);
+        $this->assertSame($productId, $this->orderCancellation->getProductId());
+
+        $reason = OrderCancellation::REASON_SKU;
+        $this->orderCancellation->setReason($reason);
+        $this->assertSame($reason, $this->orderCancellation->getReason());
+
+        $status = OrderCancellation::STATUS_CANCELED;
+        $this->orderCancellation->setStatus($status);
+        $this->assertSame($status, $this->orderCancellation->getStatus());
+
+        $array = $this->orderCancellation->toArray();
+        $this->assertInternalType('array', $array);
+    }
 }
