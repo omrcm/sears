@@ -21,7 +21,7 @@ Install once with
 
 ```bash
 ./bin/install.sh 
-Copying /payment/bin/pre-commit.sh -> /payment/bin/../.git/hooks/pre-commit
+Copying /sears/bin/pre-commit.sh -> /payment/bin/../.git/hooks/pre-commit
 ```
 
 Testing
@@ -44,5 +44,5 @@ Features
 
  * Read New Orders (Working on it)
  * Update Product Catalog (TODO)
- * Update Inventory (TODO)
- * Update Tracking Information (TODO)
+ * Update Inventory (Working on it)
+ * Update Tracking Information (Working on it)
