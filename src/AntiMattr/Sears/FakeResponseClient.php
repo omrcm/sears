@@ -80,6 +80,14 @@ class FakeResponseClient extends AbstractClient
      */
     public function findPurchaseOrdersByStatus($status = 'New')
     {
+        $resource = sprintf(
+            '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&status=%s',
+            'xxxxxx',
+            'yyyyyy',
+            $status
+        );
+
+        $request = $this->messageFactory->createRequest('GET', $resource, 'http://www.example.com');
         $response = $this->messageFactory->createResponse();
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
@@ -89,6 +97,7 @@ class FakeResponseClient extends AbstractClient
             $response->setContent($this->content);
         }
 
+        $this->log($request);
         $this->log($response);
 
         $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
@@ -114,7 +123,7 @@ class FakeResponseClient extends AbstractClient
             'yyyyyy'
         );
 
-        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+        $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
         $this->log($request);
@@ -148,7 +157,7 @@ class FakeResponseClient extends AbstractClient
             'yyyyyy'
         );
 
-        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+        $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
         $this->log($request);
@@ -182,7 +191,7 @@ class FakeResponseClient extends AbstractClient
             'yyyyyy'
         );
 
-        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+        $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
         $this->log($request);
@@ -216,7 +225,7 @@ class FakeResponseClient extends AbstractClient
             'yyyyyy'
         );
 
-        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+        $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
         $this->log($request);
@@ -250,7 +259,7 @@ class FakeResponseClient extends AbstractClient
             'yyyyyy'
         );
 
-        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+        $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
         $this->log($request);
