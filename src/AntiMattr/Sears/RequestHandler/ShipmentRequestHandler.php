@@ -20,8 +20,9 @@ use Doctrine\Common\Collections\Collection;
 class ShipmentRequestHandler extends AbstractRequestHandler
 {
     /**
-     * @param Buzz\Message\Request                   $request
-     * @param Doctrine\Common\Collections\Collection $collection
+     * @param  Buzz\Message\Request                           $request
+     * @param  Doctrine\Common\Collections\Collection         $collection
+     * @throws AntiMattr\Sears\Exception\IntegrationException
      */
     public function bindCollection(Request $request, Collection $collection)
     {

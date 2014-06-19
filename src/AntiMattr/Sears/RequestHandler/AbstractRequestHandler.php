@@ -29,8 +29,9 @@ abstract class AbstractRequestHandler
     }
 
     /**
-     * @param Buzz\Message\Request                   $request
-     * @param Doctrine\Common\Collections\Collection $collection
+     * @param  Buzz\Message\Request                           $request
+     * @param  Doctrine\Common\Collections\Collection         $collection
+     * @throws AntiMattr\Sears\Exception\IntegrationException
      */
     abstract public function bindCollection(Request $request, Collection $collection);
 }

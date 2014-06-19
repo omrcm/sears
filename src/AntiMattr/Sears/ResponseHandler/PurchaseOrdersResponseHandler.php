@@ -64,8 +64,9 @@ class PurchaseOrdersResponseHandler implements ResponseHandlerInterface
     );
 
     /**
-     * @param Buzz\Message\Response                  $response
-     * @param Doctrine\Common\Collections\Collection $collection
+     * @param  Buzz\Message\Response                              $response
+     * @param  Doctrine\Common\Collections\Collection             $collection
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
      */
     public function bindCollection(Response $response, Collection $collection)
     {

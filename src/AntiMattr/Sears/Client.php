@@ -17,6 +17,7 @@ use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
 use Buzz\Client\Curl;
 use Buzz\Exception\ClientException;
 use Buzz\Message\Factory\Factory as MessageFactory;
+use Doctrine\Common\Collections\Collection;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -66,9 +67,10 @@ class Client extends AbstractClient
     }
 
     /**
-     * @param  string                                        $status
-     * @return Doctrine\Common\Collections\ArrayCollection   $collection
-     * @throws AntiMattr\Sears\Exception\ConnectionException
+     * @param  string                                                   $status
+     * @return Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
      */
     public function findPurchaseOrdersByStatus($status = 'New')
     {
@@ -97,5 +99,60 @@ class Client extends AbstractClient
         $this->responseHandler->bindCollection($response, $collection);
 
         return $collection;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function cancelOrders(Collection $collection)
+    {
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function returnOrders(Collection $collection)
+    {
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function updateInventory(Collection $collection)
+    {
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function updateProducts(Collection $collection)
+    {
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function updateShipments(Collection $collection)
+    {
+        return;
     }
 }

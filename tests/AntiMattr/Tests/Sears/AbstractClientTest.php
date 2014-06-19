@@ -4,6 +4,7 @@ namespace AntiMattr\Tests\Sears;
 
 use AntiMattr\Sears\AbstractClient;
 use AntiMattr\Tests\AntiMattrTestCase;
+use Doctrine\Common\Collections\Collection;
 
 class AbstractClientTest extends AntiMattrTestCase
 {
@@ -54,6 +55,31 @@ class AbstractClientStub extends AbstractClient
     }
 
     public function findPurchaseOrdersByStatus($status = '')
+    {
+        return;
+    }
+
+    public function cancelOrders(Collection $collection)
+    {
+        return;
+    }
+
+    public function returnOrders(Collection $collection)
+    {
+        return;
+    }
+
+    public function updateInventory(Collection $collection)
+    {
+        return;
+    }
+
+    public function updateProducts(Collection $collection)
+    {
+        return;
+    }
+
+    public function updateShipments(Collection $collection)
     {
         return;
     }

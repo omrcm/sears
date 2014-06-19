@@ -14,6 +14,7 @@ namespace AntiMattr\Sears;
 use AntiMattr\Sears\Model\ObjectFactory;
 use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
 use Buzz\Message\Factory\Factory as MessageFactory;
+use Doctrine\Common\Collections\Collection;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -90,6 +91,71 @@ class FakeResponseClient extends AbstractClient
         $this->reset();
 
         return $collection;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function cancelOrders(Collection $collection)
+    {
+        $this->reset();
+
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function returnOrders(Collection $collection)
+    {
+        $this->reset();
+
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function updateInventory(Collection $collection)
+    {
+        $this->reset();
+
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function updateProducts(Collection $collection)
+    {
+        $this->reset();
+
+        return;
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function updateShipments(Collection $collection)
+    {
+        $this->reset();
+
+        return;
     }
 
     private function reset()

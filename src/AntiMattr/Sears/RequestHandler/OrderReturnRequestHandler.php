@@ -25,8 +25,9 @@ class OrderReturnRequestHandler extends AbstractRequestHandler
     protected $createdAt;
 
     /**
-     * @param Buzz\Message\Request                   $request
-     * @param Doctrine\Common\Collections\Collection $collection
+     * @param  Buzz\Message\Request                           $request
+     * @param  Doctrine\Common\Collections\Collection         $collection
+     * @throws AntiMattr\Sears\Exception\IntegrationException
      */
     public function bindCollection(Request $request, Collection $collection)
     {
