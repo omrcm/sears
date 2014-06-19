@@ -12,6 +12,7 @@
 namespace AntiMattr\Sears;
 
 use AntiMattr\Sears\Model\ObjectFactory;
+use AntiMattr\Sears\RequestHandler\RequestHandlerFactory;
 use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
 use Buzz\Message\Factory\Factory as MessageFactory;
 use Doctrine\Common\Collections\Collection;
@@ -36,18 +37,23 @@ class FakeResponseClient extends AbstractClient
     /** @var AntiMattr\Sears\Model\ObjectFactory */
     private $objectFactory;
 
+    /** @var AntiMattr\Sears\RequestHandler\RequestHandlerFactory */
+    private $requestHandlerFactory;
+
     /** @var AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface */
     private $responseHandler;
 
     public function __construct(
         MessageFactory $messageFactory,
         ObjectFactory $objectFactory,
+        RequestHandlerFactory $requestHandlerFactory,
         ResponseHandlerInterface $responseHandler,
         LoggerInterface $logger = null)
     {
         $this->logger = $logger;
         $this->messageFactory = $messageFactory;
         $this->objectFactory = $objectFactory;
+        $this->requestHandlerFactory = $requestHandlerFactory;
         $this->responseHandler = $responseHandler;
     }
 
@@ -101,9 +107,30 @@ class FakeResponseClient extends AbstractClient
      */
     public function cancelOrders(Collection $collection)
     {
-        $this->reset();
+        $handler = $this->requestHandlerFactory->createRequestHandler('cancelOrders');
+        $resource = sprintf(
+            '/SellerPortal/api/oms/order/cancel/v1?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
 
-        return;
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
+
+        if ('' != $this->content) {
+            $response->setContent($this->content);
+        }
+
+        $this->log($response);
+
+        $this->reset();
     }
 
     /**
@@ -114,9 +141,30 @@ class FakeResponseClient extends AbstractClient
      */
     public function returnOrders(Collection $collection)
     {
-        $this->reset();
+        $handler = $this->requestHandlerFactory->createRequestHandler('returnOrders');
+        $resource = sprintf(
+            '/SellerPortal/api/oms/dss/orderreturn/v1?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
 
-        return;
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
+
+        if ('' != $this->content) {
+            $response->setContent($this->content);
+        }
+
+        $this->log($response);
+
+        $this->reset();
     }
 
     /**
@@ -127,9 +175,30 @@ class FakeResponseClient extends AbstractClient
      */
     public function updateInventory(Collection $collection)
     {
-        $this->reset();
+        $handler = $this->requestHandlerFactory->createRequestHandler('updateInventory');
+        $resource = sprintf(
+            '/SellerPortal/api/inventory/dss/v1?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
 
-        return;
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
+
+        if ('' != $this->content) {
+            $response->setContent($this->content);
+        }
+
+        $this->log($response);
+
+        $this->reset();
     }
 
     /**
@@ -140,9 +209,30 @@ class FakeResponseClient extends AbstractClient
      */
     public function updateProducts(Collection $collection)
     {
-        $this->reset();
+        $handler = $this->requestHandlerFactory->createRequestHandler('updateProducts');
+        $resource = sprintf(
+            '/SellerPortal/api/catalog/dss/v4?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
 
-        return;
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
+
+        if ('' != $this->content) {
+            $response->setContent($this->content);
+        }
+
+        $this->log($response);
+
+        $this->reset();
     }
 
     /**
@@ -153,9 +243,30 @@ class FakeResponseClient extends AbstractClient
      */
     public function updateShipments(Collection $collection)
     {
-        $this->reset();
+        $handler = $this->requestHandlerFactory->createRequestHandler('updateShipments');
+        $resource = sprintf(
+            '/SellerPortal/api/oms/asn/v5?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
 
-        return;
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
+
+        if ('' != $this->content) {
+            $response->setContent($this->content);
+        }
+
+        $this->log($response);
+
+        $this->reset();
     }
 
     private function reset()

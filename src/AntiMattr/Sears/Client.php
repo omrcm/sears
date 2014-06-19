@@ -13,6 +13,7 @@ namespace AntiMattr\Sears;
 
 use AntiMattr\Sears\Exception\Connection\ConnectionException;
 use AntiMattr\Sears\Model\ObjectFactory;
+use AntiMattr\Sears\RequestHandler\RequestHandlerFactory;
 use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
 use Buzz\Client\Curl;
 use Buzz\Exception\ClientException;
@@ -43,6 +44,9 @@ class Client extends AbstractClient
     /** @var string */
     private $password;
 
+    /** @var AntiMattr\Sears\RequestHandler\RequestHandlerFactory */
+    private $requestHandlerFactory;
+
     /** @var AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface */
     private $responseHandler;
 
@@ -53,6 +57,7 @@ class Client extends AbstractClient
         Curl $buzz,
         MessageFactory $messageFactory,
         ObjectFactory $objectFactory,
+        RequestHandlerFactory $requestHandlerFactory,
         ResponseHandlerInterface $responseHandler,
         LoggerInterface $logger = null)
     {
@@ -63,6 +68,7 @@ class Client extends AbstractClient
         $this->messageFactory = $messageFactory;
         $this->objectFactory = $objectFactory;
         $this->password = $password;
+        $this->requestHandlerFactory = $requestHandlerFactory;
         $this->responseHandler = $responseHandler;
     }
 
@@ -109,7 +115,28 @@ class Client extends AbstractClient
      */
     public function cancelOrders(Collection $collection)
     {
-        return;
+        $handler = $this->requestHandlerFactory->createRequestHandler('cancelOrders');
+        $resource = sprintf(
+            '/SellerPortal/api/oms/order/cancel/v1?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
+
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $this->log($response);
     }
 
     /**
@@ -120,7 +147,28 @@ class Client extends AbstractClient
      */
     public function returnOrders(Collection $collection)
     {
-        return;
+        $handler = $this->requestHandlerFactory->createRequestHandler('returnOrders');
+        $resource = sprintf(
+            '/SellerPortal/api/oms/dss/orderreturn/v1?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
+
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $this->log($response);
     }
 
     /**
@@ -131,7 +179,28 @@ class Client extends AbstractClient
      */
     public function updateInventory(Collection $collection)
     {
-        return;
+        $handler = $this->requestHandlerFactory->createRequestHandler('updateInventory');
+        $resource = sprintf(
+            '/SellerPortal/api/inventory/dss/v1?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
+
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $this->log($response);
     }
 
     /**
@@ -142,7 +211,28 @@ class Client extends AbstractClient
      */
     public function updateProducts(Collection $collection)
     {
-        return;
+        $handler = $this->requestHandlerFactory->createRequestHandler('updateProducts');
+        $resource = sprintf(
+            '/SellerPortal/api/catalog/dss/v4?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
+
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $this->log($response);
     }
 
     /**
@@ -153,6 +243,27 @@ class Client extends AbstractClient
      */
     public function updateShipments(Collection $collection)
     {
-        return;
+        $handler = $this->requestHandlerFactory->createRequestHandler('updateShipments');
+        $resource = sprintf(
+            '/SellerPortal/api/oms/asn/v5?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
+
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $this->log($request);
+
+        $response = $this->messageFactory->createResponse();
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $this->log($response);
     }
 }

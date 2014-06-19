@@ -15,6 +15,7 @@ class ClientTest extends AntiMattrTestCase
     private $messageFactory;
     private $objectFactory;
     private $password;
+    private $requestHandlerFactory;
     private $responseHandler;
 
     protected function setUp()
@@ -26,6 +27,7 @@ class ClientTest extends AntiMattrTestCase
         $this->messageFactory = $this->buildMock('Buzz\Message\Factory\Factory');
         $this->objectFactory = $this->buildMock('AntiMattr\Sears\Model\ObjectFactory');
         $this->password = 'yyyyyy';
+        $this->requestHandlerFactory = $this->buildMock('AntiMattr\Sears\RequestHandler\RequestHandlerFactory');
         $this->responseHandler = $this->getMock('AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface');
         $this->client = new ClientStub(
             $this->host,
@@ -34,6 +36,7 @@ class ClientTest extends AntiMattrTestCase
             $this->buzz,
             $this->messageFactory,
             $this->objectFactory,
+            $this->requestHandlerFactory,
             $this->responseHandler,
             $this->logger
         );

@@ -11,6 +11,7 @@ class FakeResponseClientTest extends AntiMattrTestCase
     private $logger;
     private $messageFactory;
     private $objectFactory;
+    private $requestHandlerFactory;
     private $responseHandler;
 
     protected function setUp()
@@ -18,10 +19,12 @@ class FakeResponseClientTest extends AntiMattrTestCase
         $this->logger = $this->getMock('Psr\Log\LoggerInterface');
         $this->messageFactory = $this->buildMock('Buzz\Message\Factory\Factory');
         $this->objectFactory = $this->buildMock('AntiMattr\Sears\Model\ObjectFactory');
+        $this->requestHandlerFactory = $this->buildMock('AntiMattr\Sears\RequestHandler\RequestHandlerFactory');
         $this->responseHandler = $this->getMock('AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface');
         $this->client = new FakeResponseClientStub(
             $this->messageFactory,
             $this->objectFactory,
+            $this->requestHandlerFactory,
             $this->responseHandler,
             $this->logger
         );
