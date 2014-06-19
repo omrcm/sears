@@ -110,8 +110,8 @@ class FakeResponseClient extends AbstractClient
         $handler = $this->requestHandlerFactory->createRequestHandler('cancelOrders');
         $resource = sprintf(
             '/SellerPortal/api/oms/order/cancel/v1?email=%s&password=%s',
-            $this->email,
-            $this->password
+            'xxxxxx',
+            'yyyyyy'
         );
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
@@ -144,8 +144,8 @@ class FakeResponseClient extends AbstractClient
         $handler = $this->requestHandlerFactory->createRequestHandler('returnOrders');
         $resource = sprintf(
             '/SellerPortal/api/oms/dss/orderreturn/v1?email=%s&password=%s',
-            $this->email,
-            $this->password
+            'xxxxxx',
+            'yyyyyy'
         );
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
@@ -178,8 +178,8 @@ class FakeResponseClient extends AbstractClient
         $handler = $this->requestHandlerFactory->createRequestHandler('updateInventory');
         $resource = sprintf(
             '/SellerPortal/api/inventory/dss/v1?email=%s&password=%s',
-            $this->email,
-            $this->password
+            'xxxxxx',
+            'yyyyyy'
         );
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
@@ -212,8 +212,8 @@ class FakeResponseClient extends AbstractClient
         $handler = $this->requestHandlerFactory->createRequestHandler('updateProducts');
         $resource = sprintf(
             '/SellerPortal/api/catalog/dss/v4?email=%s&password=%s',
-            $this->email,
-            $this->password
+            'xxxxxx',
+            'yyyyyy'
         );
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
@@ -246,8 +246,8 @@ class FakeResponseClient extends AbstractClient
         $handler = $this->requestHandlerFactory->createRequestHandler('updateShipments');
         $resource = sprintf(
             '/SellerPortal/api/oms/asn/v5?email=%s&password=%s',
-            $this->email,
-            $this->password
+            'xxxxxx',
+            'yyyyyy'
         );
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
