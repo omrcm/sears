@@ -11,7 +11,7 @@
     "require": {
         "php": ">=5.3.2",
         "doctrine/collections": "1.2.*@dev",
-        "kriswallsmith/buzz": "dev-master@dev",
+        "kriswallsmith/buzz": "~0.10",
         "psr/log": "1.0.*@dev"
     },
     "require-dev": {
