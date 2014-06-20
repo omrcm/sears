@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="sears.client.email"></parameter>
+        <parameter key="sears.client.host"></parameter>
+        <parameter key="sears.client.password"></parameter>
+    </parameters>
+
+    <services>
+
+        <!-- Buzz Services -->
+        <!-- All Buzz Services are currently public=false -->  
+        <service id="sears.buzz.client" class="Buzz\Client\Curl" public="false">
+            <call method="setTimeout">
+                <argument>30</argument>
+            </call>            
+        </service>
+        <service id="sears.buzz.message.factory" class="Buzz\Message\Factory\Factory" public="false" />
+
+        <!-- Internal Sears Services -->
+        <!-- All Internal Services are currently public=false -->  
+        <service id="sears.format.xml_builder" class="AntiMattr\Sears\Format\XMLBuilder" public="false" />
+        <service id="sears.model.object_factory" class="AntiMattr\Sears\Model\ObjectFactory" public="false" />
+        <service id="sears.request_handler.request_handler_factory" class="AntiMattr\Sears\RequestHandler\RequestHandlerFactory" public="false">
+            <argument type="service" id="sears.format.xml_builder" />
+        </service>
+        <service id="sears.response_handler.purchase_order_response_handler" class="AntiMattr\Sears\ResponseHandler\PurchaseOrderResponseHandler" public="false" />
+
+        <!-- Public Services -->
+        <service id="sears.client" class="AntiMattr\Sears\Client">
+            <argument>%sears.client.email%</argument>
+            <argument>%sears.client.host%</argument>
+            <argument>%sears.client.password%</argument>
+            <argument type="service" id="sears.buzz.client" />
+            <argument type="service" id="sears.buzz.message.factory" />
+            <argument type="service" id="sears.model.object_factory" />
+            <argument type="service" id="sears.request_handler.request_handler_factory" />
+            <argument type="service" id="sears.response_handler.purchase_order_response_handler" />
+            <argument type="service" id="logger" />            
+        </service>
+        <service id="sears.fake_response_client" class="AntiMattr\Sears\FakeResponseClient">
+            <argument type="service" id="sears.buzz.client" />
+            <argument type="service" id="sears.buzz.message.factory" />
+            <argument type="service" id="sears.model.object_factory" />
+            <argument type="service" id="sears.request_handler.request_handler_factory" />
+            <argument type="service" id="sears.response_handler.purchase_order_response_handler" />
+            <argument type="service" id="logger" />            
+        </service>
+    </services>
+</container>

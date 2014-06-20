@@ -2,12 +2,12 @@
 
 namespace AntiMattr\Tests\Sears\ResponseHandler;
 
-use AntiMattr\Sears\ResponseHandler\PurchaseOrdersResponseHandler;
+use AntiMattr\Sears\ResponseHandler\PurchaseOrderResponseHandler;
 use AntiMattr\Tests\AntiMattrTestCase;
 use Buzz\Message\Response;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
+class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
 {
     private $responseHandler;
 
@@ -25,7 +25,7 @@ class PurchaseOrdersResponseHandlerTest extends AntiMattrTestCase
 
     protected function setUp()
     {
-        $this->responseHandler = new PurchaseOrdersResponseHandler();
+        $this->responseHandler = new PurchaseOrderResponseHandler();
     }
 
     public function testConstructor()
