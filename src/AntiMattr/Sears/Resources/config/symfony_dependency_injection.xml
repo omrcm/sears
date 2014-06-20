@@ -42,7 +42,6 @@
             <argument type="service" id="logger" />            
         </service>
         <service id="sears.fake_response_client" class="AntiMattr\Sears\FakeResponseClient">
-            <argument type="service" id="sears.buzz.client" />
             <argument type="service" id="sears.buzz.message.factory" />
             <argument type="service" id="sears.model.object_factory" />
             <argument type="service" id="sears.request_handler.request_handler_factory" />
