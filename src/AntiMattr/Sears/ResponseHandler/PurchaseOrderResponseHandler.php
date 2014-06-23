@@ -72,8 +72,9 @@ class PurchaseOrderResponseHandler implements ResponseHandlerInterface
     {
         $content = $this->getContent($response);
         $status = $response->getStatusCode();
+
         if (200 !== $status) {
-            throw new BadRequestException();
+            throw new BadRequestException('Response Status Code '. $status);
         }
 
         if (!isset($content->{"purchase-order"})) {

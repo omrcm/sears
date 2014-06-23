@@ -89,6 +89,7 @@ class FakeResponseClient extends AbstractClient
 
         $request = $this->messageFactory->createRequest('GET', $resource, 'http://www.example.com');
         $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');        
 
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
@@ -134,6 +135,8 @@ class FakeResponseClient extends AbstractClient
         $handler->bindCollection($request, $collection);
 
         $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');        
+
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
         }
@@ -171,6 +174,8 @@ class FakeResponseClient extends AbstractClient
         $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');        
+
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
         }
@@ -207,6 +212,8 @@ class FakeResponseClient extends AbstractClient
         $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');        
+
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
         }
@@ -243,6 +250,8 @@ class FakeResponseClient extends AbstractClient
         $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');        
+
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
         }
@@ -279,6 +288,8 @@ class FakeResponseClient extends AbstractClient
         $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');        
+
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
         }
