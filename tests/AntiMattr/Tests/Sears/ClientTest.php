@@ -59,9 +59,16 @@ class ClientTest extends AntiMattrTestCase
             ->method('createRequest')
             ->will($this->returnValue($request));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->never())
+            ->method('__toString');       
 
         $clientException = $this->buildMock('\Buzz\Exception\ClientException');
 
@@ -82,9 +89,17 @@ class ClientTest extends AntiMattrTestCase
             ->method('createRequest')
             ->will($this->returnValue($request));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));    
 
         $this->buzz->expects($this->once())
             ->method('send')
@@ -119,9 +134,16 @@ class ClientTest extends AntiMattrTestCase
             ->with('cancelOrders')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->never())
+            ->method('__toString');    
 
         $clientException = $this->buildMock('\Buzz\Exception\ClientException');
 
@@ -149,9 +171,17 @@ class ClientTest extends AntiMattrTestCase
             ->with('cancelOrders')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));    
 
         $this->buzz->expects($this->once())
             ->method('send')
@@ -179,9 +209,16 @@ class ClientTest extends AntiMattrTestCase
             ->with('returnOrders')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->never())
+            ->method('__toString');       
 
         $clientException = $this->buildMock('\Buzz\Exception\ClientException');
 
@@ -209,9 +246,17 @@ class ClientTest extends AntiMattrTestCase
             ->with('returnOrders')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));    
 
         $this->buzz->expects($this->once())
             ->method('send')
@@ -239,9 +284,16 @@ class ClientTest extends AntiMattrTestCase
             ->with('updateInventory')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->never())
+            ->method('__toString');    
 
         $clientException = $this->buildMock('\Buzz\Exception\ClientException');
 
@@ -269,9 +321,17 @@ class ClientTest extends AntiMattrTestCase
             ->with('updateInventory')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));    
 
         $this->buzz->expects($this->once())
             ->method('send')
@@ -299,9 +359,16 @@ class ClientTest extends AntiMattrTestCase
             ->with('updateProducts')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->never())
+            ->method('__toString');    
 
         $clientException = $this->buildMock('\Buzz\Exception\ClientException');
 
@@ -329,9 +396,17 @@ class ClientTest extends AntiMattrTestCase
             ->with('updateProducts')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
 
         $this->buzz->expects($this->once())
             ->method('send')
@@ -359,9 +434,16 @@ class ClientTest extends AntiMattrTestCase
             ->with('updateShipments')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->never())
+            ->method('__toString');    
 
         $clientException = $this->buildMock('\Buzz\Exception\ClientException');
 
@@ -388,6 +470,10 @@ class ClientTest extends AntiMattrTestCase
             ->method('createRequestHandler')
             ->with('updateShipments')
             ->will($this->returnValue($handler));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
 
         $this->messageFactory->expects($this->once())
             ->method('createResponse')

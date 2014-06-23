@@ -89,6 +89,7 @@ class FakeResponseClient extends AbstractClient
 
         $request = $this->messageFactory->createRequest('GET', $resource, 'http://www.example.com');
         $response = $this->messageFactory->createResponse();
+
         if (!empty($this->headers)) {
             $response->addHeaders($this->headers);
         }
@@ -97,8 +98,10 @@ class FakeResponseClient extends AbstractClient
             $response->setContent($this->content);
         }
 
-        $this->log($request);
-        $this->log($response);
+        $requestString = $request->__toString();
+        $responseString = $response->__toString();
+        $this->log($requestString);
+        $this->log($responseString);
 
         $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
         $this->responseHandler->bindCollection($response, $collection);
@@ -125,8 +128,10 @@ class FakeResponseClient extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
+        $requestString = $request->__toString();
+        $this->log($requestString);
+
         $handler->bindCollection($request, $collection);
-        $this->log($request);
 
         $response = $this->messageFactory->createResponse();
         if (!empty($this->headers)) {
@@ -137,7 +142,8 @@ class FakeResponseClient extends AbstractClient
             $response->setContent($this->content);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
 
         $this->reset();
     }
@@ -160,7 +166,9 @@ class FakeResponseClient extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
         if (!empty($this->headers)) {
@@ -171,7 +179,8 @@ class FakeResponseClient extends AbstractClient
             $response->setContent($this->content);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
 
         $this->reset();
     }
@@ -194,7 +203,8 @@ class FakeResponseClient extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
         if (!empty($this->headers)) {
@@ -205,7 +215,8 @@ class FakeResponseClient extends AbstractClient
             $response->setContent($this->content);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
 
         $this->reset();
     }
@@ -228,7 +239,8 @@ class FakeResponseClient extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
         if (!empty($this->headers)) {
@@ -239,7 +251,8 @@ class FakeResponseClient extends AbstractClient
             $response->setContent($this->content);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
 
         $this->reset();
     }
@@ -262,7 +275,8 @@ class FakeResponseClient extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
         if (!empty($this->headers)) {
@@ -273,8 +287,9 @@ class FakeResponseClient extends AbstractClient
             $response->setContent($this->content);
         }
 
-        $this->log($response);
-
+        $responseString = $response->__toString();
+        $this->log($responseString);
+        
         $this->reset();
     }
 

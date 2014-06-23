@@ -90,7 +90,8 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('GET', $resource, $this->host);
         $response = $this->messageFactory->createResponse();
 
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         try {
             $this->buzz->send($request, $response);
@@ -99,7 +100,8 @@ class Client extends AbstractClient
             throw new ConnectionException($subject);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
 
         $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
         $this->responseHandler->bindCollection($response, $collection);
@@ -125,7 +127,8 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
 
@@ -136,7 +139,8 @@ class Client extends AbstractClient
             throw new ConnectionException($subject);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
     }
 
     /**
@@ -157,7 +161,8 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
 
@@ -168,7 +173,8 @@ class Client extends AbstractClient
             throw new ConnectionException($subject);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
     }
 
     /**
@@ -189,7 +195,8 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
 
@@ -200,7 +207,8 @@ class Client extends AbstractClient
             throw new ConnectionException($subject);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
     }
 
     /**
@@ -221,7 +229,8 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
 
@@ -231,8 +240,9 @@ class Client extends AbstractClient
             $subject = $e->getMessage();
             throw new ConnectionException($subject);
         }
-
-        $this->log($response);
+        
+        $responseString = $response->__toString();
+        $this->log($responseString);
     }
 
     /**
@@ -253,7 +263,8 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
-        $this->log($request);
+        $requestString = $request->__toString();
+        $this->log($requestString);
 
         $response = $this->messageFactory->createResponse();
 
@@ -264,6 +275,7 @@ class Client extends AbstractClient
             throw new ConnectionException($subject);
         }
 
-        $this->log($response);
+        $responseString = $response->__toString();
+        $this->log($responseString);
     }
 }

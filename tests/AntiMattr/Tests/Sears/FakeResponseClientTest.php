@@ -37,7 +37,16 @@ class FakeResponseClientTest extends AntiMattrTestCase
 
     public function testFindPurchaseOrdersByStatus()
     {
+        $request = $this->buildMock('Buzz\Message\Form\FormRequest');        
         $response = $this->buildMock('Buzz\Message\Response');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
 
         $content = '<xml>content</xml>';
         $headers = array('key' => 'value');
@@ -53,6 +62,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
         $response->expects($this->once())
             ->method('addHeaders')
             ->with($headers);
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
 
         $collection = $this->buildMock('Doctrine\Common\Collections\ArrayCollection');
 
@@ -83,6 +96,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
             ->with('cancelOrders')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $content = '<xml>content</xml>';
         $headers = array('key' => 'value');
 
@@ -97,6 +114,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
         $response->expects($this->once())
             ->method('addHeaders')
             ->with($headers);
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
 
         $this->client->setContent($content);
         $this->client->setHeaders($headers);
@@ -120,9 +141,17 @@ class FakeResponseClientTest extends AntiMattrTestCase
             ->with('returnOrders')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));            
+
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
             ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
 
         $this->client->returnOrders($collection);
     }
@@ -143,6 +172,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
             ->with('updateInventory')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
         $content = '<xml>content</xml>';
         $headers = array('key' => 'value');
 
@@ -157,6 +190,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
         $response->expects($this->once())
             ->method('addHeaders')
             ->with($headers);
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
 
         $this->client->setContent($content);
         $this->client->setHeaders($headers);
@@ -180,6 +217,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
             ->with('updateProducts')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $content = '<xml>content</xml>';
         $headers = array('key' => 'value');
 
@@ -194,6 +235,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
         $response->expects($this->once())
             ->method('addHeaders')
             ->with($headers);
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
 
         $this->client->setContent($content);
         $this->client->setHeaders($headers);
@@ -217,6 +262,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
             ->with('updateShipments')
             ->will($this->returnValue($handler));
 
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
         $content = '<xml>content</xml>';
         $headers = array('key' => 'value');
 
@@ -231,6 +280,10 @@ class FakeResponseClientTest extends AntiMattrTestCase
         $response->expects($this->once())
             ->method('addHeaders')
             ->with($headers);
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
 
         $this->client->setContent($content);
         $this->client->setHeaders($headers);
