@@ -23,6 +23,7 @@ class LineItemTest extends AntiMattrTestCase
         $this->assertNull($this->lineItem->getProductName());
         $this->assertNull($this->lineItem->getNumber());
         $this->assertNull($this->lineItem->getPricePerUnit());
+        $this->assertNull($this->lineItem->getPurchaseOrder());
         $this->assertNull($this->lineItem->getQuantity());
         $this->assertNull($this->lineItem->getShippingHandling());
     }
@@ -80,5 +81,9 @@ class LineItemTest extends AntiMattrTestCase
         $shippingHandlingString = '99.22222';
         $this->lineItem->setShippingHandling($shippingHandlingString);
         $this->assertSame(99.22222, $this->lineItem->getShippingHandling());
+
+        $purchaseOrder = $this->buildMock('AntiMattr\Sears\Model\PurchaseOrder');
+        $this->lineItem->setPurchaseOrder($purchaseOrder);
+        $this->assertSame($purchaseOrder, $this->lineItem->getPurchaseOrder());
     }
 }

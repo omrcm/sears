@@ -38,6 +38,9 @@ class LineItem
     /** @var string */
     protected $productName;
 
+    /** @var AntiMattr\Sears\Model\PurchaseOrder */
+    protected $purchaseOrder;
+
     /** @var int */
     protected $quantity;
 
@@ -162,6 +165,22 @@ class LineItem
     public function setProductName($productName)
     {
         $this->productName = $productName;
+    }
+
+    /**
+     * @return AntiMattr\Sears\Model\PurchaseOrder
+     */
+    public function getPurchaseOrder()
+    {
+        return $this->purchaseOrder;
+    }
+
+    /**
+     * @param AntiMattr\Sears\Model\PurchaseOrder $purchaseOrder
+     */
+    public function setPurchaseOrder(PurchaseOrder $purchaseOrder)
+    {
+        $this->purchaseOrder = $purchaseOrder;
     }
 
     /**

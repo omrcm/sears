@@ -136,6 +136,7 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
 
         foreach ($items as $item) {
             $this->assertInstanceOf('AntiMattr\Sears\Model\LineItem', $item);
+            $this->assertSame($purchaseOrder2, $item->getPurchaseOrder());
         }
 
         $this->assertEquals(3, $item->getNumber());

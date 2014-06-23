@@ -143,6 +143,7 @@ class PurchaseOrderResponseHandler implements ResponseHandlerInterface
                         continue;
                     }
                     $lineItem = $this->createLineItem();
+                    $lineItem->setPurchaseOrder($purchaseOrder);
                     foreach ($line->{"po-line-header"} as $key => $value) {
                         if (!isset($this->lineItemMap[$key])) {
                             continue;
