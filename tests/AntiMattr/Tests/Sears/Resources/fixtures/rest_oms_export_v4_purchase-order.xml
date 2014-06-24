@@ -134,7 +134,7 @@
         </po-line>
         <order-total-sell-price>75.00</order-total-sell-price>
         <total-commission>11.25</total-commission>
-        <total-shipping-handling>0.00</total-shipping-handling>
+        <total-shipping-handling>12.50</total-shipping-handling>
         <balance-due>63.75</balance-due>
         <sales-tax>6.80</sales-tax>
         <po-status>New</po-status>
