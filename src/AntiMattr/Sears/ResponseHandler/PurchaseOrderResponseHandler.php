@@ -138,22 +138,19 @@ class PurchaseOrderResponseHandler implements ResponseHandlerInterface
             // Build Line Items
             if (isset($iteration->{"po-line"})) {
                 $items = $purchaseOrder->getItems();
-                foreach ($iteration->{"po-line"} as $line) {
-                    if (!isset($line->{"po-line-header"})) {
-                        continue;
-                    }
-                    $lineItem = $this->createLineItem();
-                    $lineItem->setPurchaseOrder($purchaseOrder);
-                    foreach ($line->{"po-line-header"} as $key => $value) {
-                        if (!isset($this->lineItemMap[$key])) {
-                            continue;
+                if (is_array($iteration->{"po-line"})) {
+                    foreach ($iteration->{"po-line"} as $line) {
+                        $lineItem = $this->buildLineItem($purchaseOrder, $line);
+                        if (null !== $lineItem) {
+                            $items->add($lineItem);
                         }
-                        call_user_func_array(
-                            array($lineItem, sprintf('set%s', ucfirst($this->lineItemMap[$key]))),
-                            array($value)
-                        );
                     }
-                    $items->add($lineItem);
+                } else {
+                    $line = $iteration->{"po-line"};
+                    $lineItem = $this->buildLineItem($purchaseOrder, $line);
+                    if (null !== $lineItem) {
+                        $items->add($lineItem);
+                    }
                 }
             }
 
@@ -196,4 +193,28 @@ class PurchaseOrderResponseHandler implements ResponseHandlerInterface
     {
         return new PurchaseOrder();
     }
+
+    /**
+     * @param AntiMattr\Sears\Model\PurchaseOrder
+     * @param stdClass         
+     * @return AntiMattr\Sears\Model\LineItem
+     */
+    protected function buildLineItem(PurchaseOrder $purchaseOrder, $line)
+    {
+        if (!isset($line->{"po-line-header"})) {
+            continue;
+        }
+        $lineItem = $this->createLineItem();
+        $lineItem->setPurchaseOrder($purchaseOrder);
+        foreach ($line->{"po-line-header"} as $key => $value) {
+            if (!isset($this->lineItemMap[$key])) {
+                continue;
+            }
+            call_user_func_array(
+                array($lineItem, sprintf('set%s', ucfirst($this->lineItemMap[$key]))),
+                array($value)
+            );
+        }
+        return $lineItem;
+    }    
 }

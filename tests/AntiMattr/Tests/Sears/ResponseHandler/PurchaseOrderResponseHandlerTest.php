@@ -127,6 +127,11 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
         $this->assertEquals('state', $shippingDetail->getRegion());
         $this->assertEquals('address', $shippingDetail->getStreetAddress());
 
+        $items1 = $purchaseOrder1->getItems();
+        $count1 = $items1->count();
+
+        $this->assertEquals(1, $count1);
+
         $items = $purchaseOrder2->getItems();
         $count = $items->count();
 
