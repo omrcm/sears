@@ -4,9 +4,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="sears.client.email"></parameter>
-        <parameter key="sears.client.host"></parameter>
-        <parameter key="sears.client.password"></parameter>
+        <parameter key="sears.client.email">test@example.com</parameter>
+        <parameter key="sears.client.host">https://seller.marketplace.sears.com</parameter>
+        <parameter key="sears.client.password">xxxxxx</parameter>
     </parameters>
 
     <services>
@@ -29,7 +29,7 @@
         </service>
         <service id="sears.response_handler.purchase_order_response_handler" class="AntiMattr\Sears\ResponseHandler\PurchaseOrderResponseHandler" public="false" />
 
-        <!-- Public Services -->
+        <!-- Clients -->
         <service id="sears.client" class="AntiMattr\Sears\Client">
             <argument>%sears.client.email%</argument>
             <argument>%sears.client.host%</argument>
@@ -47,6 +47,24 @@
             <argument type="service" id="sears.request_handler.request_handler_factory" />
             <argument type="service" id="sears.response_handler.purchase_order_response_handler" />
             <argument type="service" id="logger" />            
+        </service>
+        <service id="sears.client_factory" class="AntiMattr\Sears\ClientFactory">
+            <argument type="service" id="sears.client" />
+            <argument type="service" id="sears.fake_response_client" />
+        </service>
+
+        <!-- Public Services -->
+        <service id="sears.default_client" class="AntiMattr\Sears\AbstractClient" factory-service="sears.client_factory" factory-method="getClient">
+            <argument>default</argument>
+            <argument type="service" id="sears.client" />
+        </service>
+        <service id="sears.primary_client" class="AntiMattr\Sears\AbstractClient" factory-service="sears.client_factory" factory-method="getClient">
+            <argument>primary</argument>
+            <argument type="service" id="sears.client" />
+        </service>
+        <service id="sears.test_client" class="AntiMattr\Sears\AbstractClient" factory-service="sears.client_factory" factory-method="getClient">
+            <argument>fake</argument>
+            <argument type="service" id="sears.fake_response_client" />
         </service>
     </services>
 </container>
