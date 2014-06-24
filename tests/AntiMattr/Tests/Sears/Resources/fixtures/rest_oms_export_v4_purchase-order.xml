@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <po-response 
     xmlns="http://seller.marketplace.sears.com/oms/v4" 
-	
+    
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://seller.marketplace.sears.com/oms/v4 ../../../../../rest/oms/export/v4/purchase-order.xsd">
+    xsi:schemaLocation="http://seller.marketplace.sears.com/oms/v4 ../../../../../rest/oms/export/v4/purchase-order.xsd">
     <purchase-order>
         <!--This is a shipping order-->
         <customer-order-confirmation-number>657402988</customer-order-confirmation-number>
         <!--confirmation number customer sees in his order confirmation email and order center-->
         <customer-email>masked-email@seller.sears.com</customer-email>
-        <po-number>1234567</po-number>
+        <po-number>1410048</po-number>
         <po-date>2011-10-01</po-date>
         <po-time>20:45:48</po-time>
         <po-number-with-date>201110011234567</po-number-with-date>
@@ -19,21 +19,21 @@
         <location-id>27</location-id>
         <expected-ship-date>2011-10-05</expected-ship-date>
         <shipping-detail>
-            <ship-to-name>ship-to-name</ship-to-name>
+            <ship-to-name>John1 Receiver</ship-to-name>
             <address>address</address>
             <city>city</city>
-            <state>state</state>
+            <state>NY</state>
             <zipcode>zipcode</zipcode>
             <phone>phone</phone>
             <shipping-method>Ground</shipping-method>
         </shipping-detail>
-        <customer-name>John Doe</customer-name>
+        <customer-name>John1 Sender</customer-name>
         <po-line>
             <po-line-header>
                 <!--There could be multiple line items within an order and your items may or may not start with line number 1-->
                 <line-number>1</line-number>
                 <!--Item id can have 50 characters-->
-                <item-id>AB123456789123456789123456789123456789123456789CD</item-id>
+                <item-id>53a25d45cea2248b23000027</item-id>
                 <item-name>item-name</item-name>
                 <handling-instructions>perishable</handling-instructions>
                 <handling-ind>p</handling-ind>
@@ -62,7 +62,7 @@
         <!--This is a local (pickup) order-->
         <customer-order-confirmation-number>201913732</customer-order-confirmation-number>
         <customer-email>masked-email2@seller.sears.com</customer-email>
-        <po-number>1410044</po-number>
+        <po-number>1410049</po-number>
         <po-date>2011-03-14</po-date>
         <po-time>19:09:09</po-time>
         <po-number-with-date>201103141410044</po-number-with-date>
@@ -77,7 +77,7 @@
                 <name>name</name>
                 <address>address</address>
                 <city>city</city>
-                <state>state</state>
+                <state>NY</state>
                 <zipcode>zipcode</zipcode>
                 <phone>1254866683</phone>
             </pickup-location>
@@ -89,19 +89,19 @@
         </lmp-details>
         <expected-ship-date>2011-03-14</expected-ship-date>
         <shipping-detail>
-            <ship-to-name>ship-to-name</ship-to-name>
+            <ship-to-name>John2 Receiver</ship-to-name>
             <address>address</address>
             <city>city</city>
-            <state>state</state>
+            <state>NY</state>
             <zipcode>zipcode</zipcode>
             <phone>phone</phone>
             <shipping-method>Ground</shipping-method>
         </shipping-detail>
-        <customer-name>Shane Bennett</customer-name>
+        <customer-name>John2 Sender</customer-name>
         <po-line>
             <po-line-header>
                 <line-number>2</line-number>
-                <item-id>item id a</item-id>
+                <item-id>53a25d45cea2248b23000027</item-id>
                 <item-name>item name</item-name>
                 <handling-instructions>perishable</handling-instructions>
                 <handling-ind>p</handling-ind>
@@ -118,7 +118,7 @@
         <po-line>
             <po-line-header>
                 <line-number>3</line-number>
-                <item-id>item id b</item-id>
+                <item-id>53a25d48cea2248b2300003f</item-id>
                 <item-name>item name</item-name>
                 <handling-instructions>None</handling-instructions>
                 <handling-ind>p</handling-ind>

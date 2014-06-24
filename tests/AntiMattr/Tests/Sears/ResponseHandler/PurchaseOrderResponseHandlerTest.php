@@ -102,9 +102,9 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
         $this->assertEquals(5.10, $purchaseOrder1->getCommission());
         $this->assertEquals('2011-10-01 20:45:48 CST', $purchaseOrder1->getCreatedAt()->format('Y-m-d H:i:s e'));
         $this->assertEquals('masked-email@seller.sears.com', $purchaseOrder1->getEmail());
-        $this->assertEquals('1234567', $purchaseOrder1->getId());
+        $this->assertEquals('1410048', $purchaseOrder1->getId());
         $this->assertEquals('27', $purchaseOrder1->getLocationId());
-        $this->assertEquals('John Doe', $purchaseOrder1->getName());
+        $this->assertEquals('John1 Sender', $purchaseOrder1->getName());
         $this->assertEquals('657402988', $purchaseOrder1->getOrderId());
         $this->assertEquals('2011-10-05 23:59:59 CST', $purchaseOrder1->getShipAt()->format('Y-m-d H:i:s e'));
         $this->assertEquals(6.25, $purchaseOrder1->getShippingHandling());
@@ -118,13 +118,13 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
 
         $this->assertNotNull($shippingDetail);
         $this->assertEquals('US', $shippingDetail->getCountry());
-        $this->assertEquals('5b3cf2e7fea855a42794a8cdd587d2e9', $shippingDetail->getId());
+        $this->assertEquals('5b3c127ecadf3c6bf5123d55d057c24b', $shippingDetail->getId());
         $this->assertEquals('city', $shippingDetail->getLocality());
         $this->assertEquals('Ground', $shippingDetail->getMethod());
-        $this->assertEquals('ship-to-name', $shippingDetail->getName());
+        $this->assertEquals('John1 Receiver', $shippingDetail->getName());
         $this->assertEquals('phone', $shippingDetail->getPhone());
         $this->assertEquals('zipcode', $shippingDetail->getPostalCode());
-        $this->assertEquals('state', $shippingDetail->getRegion());
+        $this->assertEquals('NY', $shippingDetail->getRegion());
         $this->assertEquals('address', $shippingDetail->getStreetAddress());
 
         $items1 = $purchaseOrder1->getItems();
@@ -145,7 +145,7 @@ class PurchaseOrderResponseHandlerTest extends AntiMattrTestCase
         }
 
         $this->assertEquals(3, $item->getNumber());
-        $this->assertEquals('item id b', $item->getProductId());
+        $this->assertEquals('53a25d48cea2248b2300003f', $item->getProductId());
         $this->assertEquals('item name', $item->getProductName());
         $this->assertEquals('None', $item->getHandlingInstructions());
         $this->assertEquals('p', $item->getHandlingInd());
