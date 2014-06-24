@@ -46,3 +46,15 @@ Features
  * Update Product Catalog (TODO)
  * Update Inventory (Working on it)
  * Update Tracking Information (Working on it)
+
+Exporting Products via Sears Client
+===================================
+
+```php
+$product = $ObjectFactory->getInstance("AntiMattr\Sears\Model\Product");
+$product->setId('foo');
+$products = new ArrayCollection; // Doctrine collection
+$products->add($product);
+$SearsClient->updateProducts($products);
+```
+
