@@ -56,15 +56,15 @@
         <!-- Public Services -->
         <service id="sears.default_client" class="AntiMattr\Sears\AbstractClient" factory-service="sears.client_factory" factory-method="getClient">
             <argument>default</argument>
-            <argument type="service" id="sears.client" />
+            <argument>AntiMattr\Sears\Client</argument>
         </service>
         <service id="sears.primary_client" class="AntiMattr\Sears\AbstractClient" factory-service="sears.client_factory" factory-method="getClient">
             <argument>primary</argument>
-            <argument type="service" id="sears.client" />
+            <argument>AntiMattr\Sears\Client</argument>
         </service>
         <service id="sears.test_client" class="AntiMattr\Sears\AbstractClient" factory-service="sears.client_factory" factory-method="getClient">
             <argument>fake</argument>
-            <argument type="service" id="sears.fake_response_client" />
+            <argument>AntiMattr\Sears\FakeResponseClient</argument>
         </service>
     </services>
 </container>
