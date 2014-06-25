@@ -121,4 +121,12 @@ class ProductTest extends AntiMattrTestCase
         $this->assertInternalType('array', $array);
     }
 
+    /**
+     * @expectedException \AntiMattr\Sears\Exception\IntegrationException    
+     */
+    public function testToArrayThrowsIntegrationException()
+    {
+        $this->product->setBrand('foo');
+        $this->product->toArray();
+    }
 }

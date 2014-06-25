@@ -329,55 +329,61 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
      */
     public function toArray()
     {
-        $brand = $this->getBrand();
-        $classification = $this->getClassification();
-        $cost = $this->getCost();
-        $country = $this->getCountry();
-        $description = $this->getDescription();
-        $height = $this->getHeight();
-        $id = $this->getId();
-        $image = $this->getImage();
-        $length = $this->getLength();
-        $model = $this->getModel();
-        $title = $this->getTitle();
-        $upc = $this->getUpc();
-        $warranty = $this->getWarranty();
-        $weight = $this->getWeight();
-        $width = $this->getWidth();
+        $required = array(
+            'brand' => $this->getBrand(),
+            'classification' => $this->getClassification(),
+            'cost' => $this->getCost(),
+            'country' => $this->getCountry(),
+            'description' => $this->getDescription(),
+            'height' => $this->getHeight(),
+            'id' => $this->getId(),
+            'image' => $this->getImage(),
+            'length' => $this->getLength(),
+            'model' => $this->getModel(),
+            'title' => $this->getTitle(),
+            'upc' => $this->getUpc(),
+            'warranty' => $this->getWarranty(),
+            'weight' => $this->getWeight(),
+            'width' => $this->getWidth()
+        );
 
-        if (null === $brand || null === $classification || null === $cost ||
-            null === $country || null === $description || null === $height ||
-            null === $id || null === $image || null === $length ||
-            null === $model || null === $title || null === $upc ||
-            null === $warranty || null === $weight || null === $width) {
-            throw new IntegrationException('brand, classification, cost, country, description, height, id, image, length, model, title, upc, warranty, weight and width are required');
+        $missing = array_filter($required, function($item){
+            return (null === $item) ? true : false;
+        });
+
+        if (count($missing) > 0) {
+            $message = sprintf(
+                '%s are required',
+                implode(" ", array_keys($missing))
+            );
+            throw new IntegrationException($message);
         }
 
         return array(
            '_attributes' => array(
-                'item-id' => $id
+                'item-id' => $required['id']
             ),
-            'title' => $title,
-            'short-desc' => $description,
-            'upc' => $upc,
+            'title' => $required['title'],
+            'short-desc' => $required['description'],
+            'upc' => $required['upc'],
             'item-class' => array(
                 '_attributes' => array(
-                    'id' => $classification
+                    'id' => $required['classification']
                 )
             ),
-            'model-number' => $model,
-            'cost' => $cost,
-            'brand' => $brand,
-            'shipping-length' => $length,
-            'shipping-width' => $width,
-            'shipping-height' => $height,
-            'shipping-weight' => $weight,
+            'model-number' => $required['model'],
+            'cost' => $required['cost'],
+            'brand' => $required['brand'],
+            'shipping-length' => $required['length'],
+            'shipping-width' => $required['width'],
+            'shipping-height' => $required['height'],
+            'shipping-weight' => $required['weight'],
             'image-url' => array(
-                'url' => $image
+                'url' => $required['image']
             ),
-            'no-warranty-available' => ($warranty ? 'false': 'true'),
+            'no-warranty-available' => ($required['warranty'] ? 'false': 'true'),
             'country-of-origin' => array(
-                'country-code' => $country
+                'country-code' => $required['country']
             )
         );
     }
