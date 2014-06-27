@@ -59,6 +59,14 @@ abstract class AbstractClient
      * @throws AntiMattr\Sears\Exception\Http\BadRequestException
      * @throws AntiMattr\Sears\Exception\IntegrationException
      */
+    abstract public function updatePricing(Collection $collection);
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
     abstract public function updateProducts(Collection $collection);
 
     /**

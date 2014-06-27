@@ -201,6 +201,51 @@ class FakeResponseClientTest extends AntiMattrTestCase
         $this->client->updateInventory($collection);
     }        
 
+    public function testUpdatePricing()
+    {
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
+        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response = $this->buildMock('Buzz\Message\Response');
+        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $this->requestHandlerFactory->expects($this->once())
+            ->method('createRequestHandler')
+            ->with('updatePricing')
+            ->will($this->returnValue($handler));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $content = '<xml>content</xml>';
+        $headers = array('key' => 'value');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('setContent')
+            ->with($content);
+
+        $response->expects($this->once())
+            ->method('addHeaders')
+            ->with($headers);
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->client->setContent($content);
+        $this->client->setHeaders($headers);
+
+        $this->client->updatePricing($collection);
+    }    
+
     public function testUpdateProducts()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        

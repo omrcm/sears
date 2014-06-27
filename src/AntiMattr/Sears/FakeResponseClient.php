@@ -234,6 +234,44 @@ class FakeResponseClient extends AbstractClient
      * @throws AntiMattr\Sears\Exception\Http\BadRequestException
      * @throws AntiMattr\Sears\Exception\IntegrationException
      */
+    public function updatePricing(Collection $collection)
+    {
+        $handler = $this->requestHandlerFactory->createRequestHandler('updatePricing');
+        $resource = sprintf(
+            '/SellerPortal/api/pricing/dss/v2?email=%s&password=%s',
+            'xxxxxx',
+            'yyyyyy'
+        );
+
+        $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
+
+        $handler->bindCollection($request, $collection);
+        $requestString = $request->__toString();
+        $this->log($requestString);
+
+        $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');        
+
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
+
+        if ('' != $this->content) {
+            $response->setContent($this->content);
+        }
+
+        $responseString = $response->__toString();
+        $this->log($responseString);
+
+        $this->reset();
+    }    
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
     public function updateProducts(Collection $collection)
     {
         $handler = $this->requestHandlerFactory->createRequestHandler('updateProducts');

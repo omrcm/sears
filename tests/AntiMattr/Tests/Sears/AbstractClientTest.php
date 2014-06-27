@@ -74,6 +74,11 @@ class AbstractClientStub extends AbstractClient
         return;
     }
 
+    public function updatePricing(Collection $collection)
+    {
+        return;
+    }
+
     public function updateProducts(Collection $collection)
     {
         return;
