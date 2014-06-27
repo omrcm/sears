@@ -217,6 +217,40 @@ class Client extends AbstractClient
      * @throws AntiMattr\Sears\Exception\Http\BadRequestException
      * @throws AntiMattr\Sears\Exception\IntegrationException
      */
+    public function updatePricing(Collection $collection)
+    {
+        $handler = $this->requestHandlerFactory->createRequestHandler('updatePricing');
+        $resource = sprintf(
+            '/SellerPortal/api/pricing/dss/v2?email=%s&password=%s',
+            $this->email,
+            $this->password
+        );
+
+        $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
+
+        $handler->bindCollection($request, $collection);
+        $requestString = $request->__toString();
+        $this->log($requestString);
+
+        $response = $this->messageFactory->createResponse();
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $responseString = $response->__toString();
+        $this->log($responseString);
+    }
+
+    /**
+     * @param  Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     * @throws AntiMattr\Sears\Exception\IntegrationException
+     */
     public function updateProducts(Collection $collection)
     {
         $handler = $this->requestHandlerFactory->createRequestHandler('updateProducts');
