@@ -33,6 +33,7 @@ class RequestHandlerFactoryTest extends AntiMattrTestCase
             array('updateInventory', '\AntiMattr\Sears\RequestHandler\InventoryRequestHandler'),
             array('cancelOrders', '\AntiMattr\Sears\RequestHandler\OrderCancellationRequestHandler'),
             array('returnOrders', '\AntiMattr\Sears\RequestHandler\OrderReturnRequestHandler'),
+            array('updatePricing', '\AntiMattr\Sears\RequestHandler\PricingRequestHandler'),
             array('updateProducts', '\AntiMattr\Sears\RequestHandler\ProductRequestHandler'),
             array('updateShipments', '\AntiMattr\Sears\RequestHandler\ShipmentRequestHandler')
         );

@@ -36,6 +36,9 @@ class RequestHandlerFactory
             case 'returnOrders':
                 return new OrderReturnRequestHandler($xmlBuilder);
             break;
+            case 'updatePricing':
+                return new PricingRequestHandler($xmlBuilder);
+            break;
             case 'updateProducts':
                 return new ProductRequestHandler($xmlBuilder);
             break;
