@@ -32,8 +32,8 @@
 
         <!-- Clients -->
         <service id="sears.client" class="AntiMattr\Sears\Client">
-            <argument>%sears.client.email%</argument>
             <argument>%sears.client.host%</argument>
+            <argument>%sears.client.email%</argument>
             <argument>%sears.client.password%</argument>
             <argument type="service" id="sears.buzz.client" />
             <argument type="service" id="sears.buzz.message.factory" />

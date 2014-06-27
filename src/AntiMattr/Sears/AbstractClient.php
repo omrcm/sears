@@ -93,4 +93,15 @@ abstract class AbstractClient
             $this->logger->debug($message);
         }
     }
+
+    /** 
+     * @param Request $request
+     */
+    protected function updateHeaders($request)
+    {
+        $content = $request->getContent();
+        $contentLength = strlen($content);
+        $request->addHeader('Content-Length: '. $contentLength);
+        $request->addHeader('Content-Type: application/xml;charset=UTF-8');        
+    }   
 }

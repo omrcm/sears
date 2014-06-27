@@ -90,6 +90,8 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('GET', $resource, $this->host);
         $response = $this->messageFactory->createResponse();
 
+        $this->updateHeaders($request);
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -127,6 +129,9 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
+        
+        $this->updateHeaders($request);        
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -161,6 +166,9 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
+        
+        $this->updateHeaders($request);
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -195,6 +203,9 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
+
+        $this->updateHeaders($request);
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -229,6 +240,9 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
+
+        $this->updateHeaders($request);
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -263,6 +277,9 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
+
+        $this->updateHeaders($request);
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -297,6 +314,9 @@ class Client extends AbstractClient
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
         $handler->bindCollection($request, $collection);
+
+        $this->updateHeaders($request);
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
