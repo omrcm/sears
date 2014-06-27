@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dss-pricing-feed 
+    xmlns="http://seller.marketplace.sears.com/pricing/v2" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://seller.marketplace.sears.com/pricing/v2 dss-seller-pricing.xsd ">
+    <dss-pricing>
+        <item>
+            <item-id>A24467</item-id>
+            <cost>30</cost>
+            <msrp>32</msrp>
+        </item>
+        <item>
+            <item-id>A24468</item-id>
+            <cost>30</cost>
+        </item>
+        <item>
+            <item-id>A24469</item-id>
+            <cost>40</cost>
+            <msrp>42</msrp>
+        </item>
+    </dss-pricing>
+</dss-pricing-feed>
