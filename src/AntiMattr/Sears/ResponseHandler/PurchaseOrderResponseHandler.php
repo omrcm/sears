@@ -81,7 +81,13 @@ class PurchaseOrderResponseHandler implements ResponseHandlerInterface
             return;
         }
 
-        foreach ($content->{"purchase-order"} as $iteration) {
+        // Sometimes there is only one order
+        $purchaseOrders = $content->{"purchase-order"};
+        if (!is_array($purchaseOrders)) {
+            $purchaseOrders = array($purchaseOrders);
+        }
+
+        foreach ($purchaseOrders as $iteration) {
 
             $purchaseOrder = $this->createPurchaseOrder();
 
