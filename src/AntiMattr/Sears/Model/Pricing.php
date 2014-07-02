@@ -22,7 +22,7 @@ class Pricing implements  RequestSerializerInterface
     protected $cost;
 
     /** @var float */
-    protected $msrp;    
+    protected $msrp;
 
     /** @var string */
     protected $productId;
@@ -65,7 +65,7 @@ class Pricing implements  RequestSerializerInterface
     public function getMsrp()
     {
         return $this->msrp;
-    }    
+    }
 
     /**
      * @param string $productId
@@ -91,8 +91,12 @@ class Pricing implements  RequestSerializerInterface
     {
         $data = array(
             'item-id' => $this->getProductId(),
-            'cost' => $this->getCost()
+            'cost'    => $this->getCost()
         );
+
+        if ($msrp = $this->getMsrp()) {
+            $data['msrp'] = $msrp;
+        }
 
         $missing = array_filter($data, function($item){
             return (null === $item) ? true : false;
@@ -100,16 +104,10 @@ class Pricing implements  RequestSerializerInterface
 
         if (count($missing) > 0) {
             $message = sprintf(
-                '%s are required',
-                implode(" ", array_keys($missing))
+                'Pricing export requires the following missing properties: %s',
+                implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);
-        }
-
-        $msrp = $this->getMsrp();
-
-        if (isset($msrp)) {
-            $data['msrp'] = $msrp;
         }
 
         return $data;

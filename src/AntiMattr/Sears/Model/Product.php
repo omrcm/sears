@@ -330,21 +330,21 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     public function toArray()
     {
         $required = array(
-            'brand' => $this->getBrand(),
+            'brand'          => $this->getBrand(),
             'classification' => $this->getClassification(),
-            'cost' => $this->getCost(),
-            'country' => $this->getCountry(),
-            'description' => $this->getDescription(),
-            'height' => $this->getHeight(),
-            'id' => $this->getId(),
-            'image' => $this->getImage(),
-            'length' => $this->getLength(),
-            'model' => $this->getModel(),
-            'title' => $this->getTitle(),
-            'upc' => $this->getUpc(),
-            'warranty' => $this->getWarranty(),
-            'weight' => $this->getWeight(),
-            'width' => $this->getWidth()
+            'cost'           => $this->getCost(),
+            'country'        => $this->getCountry(),
+            'description'    => $this->getDescription(),
+            'height'         => $this->getHeight(),
+            'id'             => $this->getId(),
+            'image'          => $this->getImage(),
+            'length'         => $this->getLength(),
+            'model'          => $this->getModel(),
+            'title'          => $this->getTitle(),
+            'upc'            => $this->getUpc(),
+            'warranty'       => $this->getWarranty(),
+            'weight'         => $this->getWeight(),
+            'width'          => $this->getWidth()
         );
 
         $missing = array_filter($required, function($item){
@@ -353,31 +353,31 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
 
         if (count($missing) > 0) {
             $message = sprintf(
-                '%s are required',
-                implode(" ", array_keys($missing))
+                'Product export requires the following missing properties: %s',
+                implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);
         }
 
         return array(
-           '_attributes' => array(
+            '_attributes' => array(
                 'item-id' => $required['id']
             ),
-            'title' => $required['title'],
+            'title'      => $required['title'],
             'short-desc' => $required['description'],
-            'upc' => $required['upc'],
+            'upc'        => $required['upc'],
             'item-class' => array(
                 '_attributes' => array(
                     'id' => $required['classification']
                 )
             ),
-            'model-number' => $required['model'],
-            'cost' => $required['cost'],
-            'brand' => $required['brand'],
-            'shipping-length' => $required['length'],
-            'shipping-width' => $required['width'],
-            'shipping-height' => $required['height'],
-            'shipping-weight' => $required['weight'],
+            'model-number'      => $required['model'],
+            'cost'              => $required['cost'],
+            'brand'             => $required['brand'],
+            'shipping-length'   => $required['length'],
+            'shipping-width'    => $required['width'],
+            'shipping-height'   => $required['height'],
+            'shipping-weight'   => $required['weight'],
             'image-url' => array(
                 'url' => $required['image']
             ),
