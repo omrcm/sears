@@ -353,7 +353,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
 
         if (count($missing) > 0) {
             $message = sprintf(
-                'Product export requires the following missing properties: %s',
+                'Product requires: %s.',
                 implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);

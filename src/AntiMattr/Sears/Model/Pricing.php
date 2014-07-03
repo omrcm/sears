@@ -104,7 +104,7 @@ class Pricing implements  RequestSerializerInterface
 
         if (count($missing) > 0) {
             $message = sprintf(
-                'Pricing export requires the following missing properties: %s',
+                'Pricing requires: %s.',
                 implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);

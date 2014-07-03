@@ -122,7 +122,7 @@ class Inventory implements RequestSerializerInterface
 
         if (count($missing) > 0) {
             $message = sprintf(
-                'Inventory export requires the following missing properties: %s',
+                'Inventory requires: %s.',
                 implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);
