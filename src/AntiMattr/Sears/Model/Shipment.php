@@ -257,39 +257,46 @@ class Shipment implements IdentifiableInterface, RequestSerializerInterface
      */
     public function toArray()
     {
-        $id = $this->getId();
-        $purchaseOrderId = $this->getPurchaseOrderId();
-        $purchaseOrderDate = $this->getPurchaseOrderDate();
-        $trackingNumber = $this->getTrackingNumber();
-        $shipAt = $this->getShipAt();
-        $carrier = $this->getCarrier();
-        $method = $this->getMethod();
-        $lineItemNumber = $this->getLineItemNumber();
-        $productId = $this->getProductId();
-        $quantity = $this->getQuantity();
+        $required = array(
+            'id'                => $this->getId(),
+            'purchaseOrderId'   => $this->getPurchaseOrderId(),
+            'purchaseOrderDate' => $this->getPurchaseOrderDate()->format('Y-m-d'),
+            'trackingNumber'    => $this->getTrackingNumber(),
+            'shipAt'            => $this->getShipAt()->format('Y-m-d'),
+            'carrier'           => $this->getCarrier(),
+            'method'            => $this->getMethod(),
+            'lineItemNumber'    => $this->getLineItemNumber(),
+            'productId'         => $this->getProductId(),
+            'quantity'          => $this->getQuantity(),
+        );
 
-        if (null === $id || null === $purchaseOrderId || null === $purchaseOrderDate ||
-            null === $trackingNumber || null === $shipAt || null === $carrier ||
-            null === $method || null === $lineItemNumber || null === $productId ||
-            null === $quantity) {
-            throw new IntegrationException('ID, PurchaseOrderID, PurchaseOrderDate, ProductID, TrackingNumber, ShipAt, Carrier, Method, LineItemNumber, ProductID, and Quantity are required');
+        $missing = array_filter($required, function($item){
+            return (null === $item) ? true : false;
+        });
+
+        if (count($missing) > 0) {
+            $message = sprintf(
+                'Order Shipment requires: %s.',
+                implode(", ", array_keys($missing))
+            );
+            throw new IntegrationException($message);
         }
 
         return array(
             'header' => array(
-                'asn-number' => $id,
-                'po-number' => $purchaseOrderId,
-                'po-date' => $purchaseOrderDate->format('Y-m-d')
+                'asn-number' => $required['id'],
+                'po-number'  => $required['purchaseOrderId'],
+                'po-date'    => $required['purchaseOrderDate']
             ),
             'detail' => array(
-                'tracking-number' => $trackingNumber,
-                'ship-date' => $shipAt->format('Y-m-d'),
-                'shipping-carrier' => $carrier,
-                'shipping-method' => $method,
-                'package-detail' => array(
-                    'line-number' => $lineItemNumber,
-                    'item-id' => $productId,
-                    'quantity' => $quantity
+                'tracking-number'  => $required['trackingNumber'],
+                'ship-date'        => $required['shipAt'],
+                'shipping-carrier' => $required['carrier'],
+                'shipping-method'  => $required['method'],
+                'package-detail'   => array(
+                    'line-number'  => $required['lineItemNumber'],
+                    'item-id'      => $required['productId'],
+                    'quantity'     => $required['quantity']
                 )
             )
         );
