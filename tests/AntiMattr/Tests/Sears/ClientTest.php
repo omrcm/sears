@@ -809,9 +809,9 @@ class ClientTest extends AntiMattrTestCase
     public function testUpdateShipmentsSucceeds()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
