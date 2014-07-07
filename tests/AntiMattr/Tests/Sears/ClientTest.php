@@ -20,15 +20,16 @@ class ClientTest extends AntiMattrTestCase
 
     protected function setUp()
     {
-        $this->buzz = $this->buildMock('Buzz\Client\Curl');
-        $this->email = 'foo@bar.com';
-        $this->host = 'https://example.com';
-        $this->logger = $this->getMock('Psr\Log\LoggerInterface');
-        $this->messageFactory = $this->buildMock('Buzz\Message\Factory\Factory');
-        $this->objectFactory = $this->buildMock('AntiMattr\Sears\Model\ObjectFactory');
-        $this->password = 'yyyyyy';
+        $this->buzz                  = $this->buildMock('Buzz\Client\Curl');
+        $this->email                 = 'foo@bar.com';
+        $this->host                  = 'https://example.com';
+        $this->logger                = $this->getMock('Psr\Log\LoggerInterface');
+        $this->messageFactory        = $this->buildMock('Buzz\Message\Factory\Factory');
+        $this->objectFactory         = $this->buildMock('AntiMattr\Sears\Model\ObjectFactory');
+        $this->password              = 'yyyyyy';
         $this->requestHandlerFactory = $this->buildMock('AntiMattr\Sears\RequestHandler\RequestHandlerFactory');
-        $this->responseHandler = $this->getMock('AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface');
+        $this->responseHandler       = $this->getMock('AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface');
+
         $this->client = new ClientStub(
             $this->host,
             $this->email,
@@ -80,7 +81,7 @@ class ClientTest extends AntiMattrTestCase
         $this->client->findPurchaseOrdersByStatus('New');
     }
 
-    public function testFindPurchaseOrdersByStatus()
+    public function testFindPurchaseOrdersByStatusSucceeds()
     {
         $request = $this->buildMock('Buzz\Message\Form\FormRequest');
         $response = $this->buildMock('Buzz\Message\Response');
@@ -121,9 +122,9 @@ class ClientTest extends AntiMattrTestCase
     public function testCancelOrdersThrowsConnectionException()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -155,12 +156,58 @@ class ClientTest extends AntiMattrTestCase
         $this->client->cancelOrders($collection);
     }
 
-    public function testCancelOrders()
+    /**
+     * If RequestHandler throws an IntegrationException, Client should only throw that error
+     * AFTER it has completed the request. This allows successfully-serialized data to go through.
+     *
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testCancelOrdersThrowsIntegrationException()
+    {
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $exception  = $this->buildMock('AntiMattr\Sears\Exception\IntegrationException');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $this->requestHandlerFactory->expects($this->once())
+            ->method('createRequestHandler')
+            ->with('cancelOrders')
+            ->will($this->returnValue($handler));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $handler->expects($this->once())
+            ->method('bindCollection')
+            ->will($this->throwException($exception));
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response);
+
+        $this->client->cancelOrders($collection);
+    }
+
+    public function testCancelOrdersSucceeds()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -196,9 +243,9 @@ class ClientTest extends AntiMattrTestCase
     public function testReturnOrdersThrowsConnectionException()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -211,7 +258,7 @@ class ClientTest extends AntiMattrTestCase
 
         $request->expects($this->once())
             ->method('__toString')
-            ->will($this->returnValue(''));  
+            ->will($this->returnValue(''));
 
         $this->messageFactory->expects($this->once())
             ->method('createResponse')
@@ -230,12 +277,58 @@ class ClientTest extends AntiMattrTestCase
         $this->client->returnOrders($collection);
     }
 
-    public function testReturnOrders()
+    /**
+     * If RequestHandler throws an IntegrationException, Client should only throw that error
+     * AFTER it has completed the request. This allows successfully-serialized data to go through.
+     *
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testReturnOrdersThrowsIntegrationException()
+    {
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $exception  = $this->buildMock('AntiMattr\Sears\Exception\IntegrationException');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $this->requestHandlerFactory->expects($this->once())
+            ->method('createRequestHandler')
+            ->with('returnOrders')
+            ->will($this->returnValue($handler));
+
+        $handler->expects($this->once())
+            ->method('bindCollection')
+            ->will($this->throwException($exception));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response);
+
+        $this->client->returnOrders($collection);
+    }
+
+    public function testReturnOrdersSucceeds()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -271,9 +364,9 @@ class ClientTest extends AntiMattrTestCase
     public function testUpdateInventoryThrowsConnectionException()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -305,12 +398,59 @@ class ClientTest extends AntiMattrTestCase
         $this->client->updateInventory($collection);
     }
 
-    public function testUpdateInventory()
+    /**
+     * If RequestHandler throws an IntegrationException, Client should only throw that error
+     * AFTER it has completed the request. This allows successfully-serialized data to go through.
+     *
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testUpdateInventoryThrowsIntegrationException()
+    {
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $exception  = $this->buildMock('AntiMattr\Sears\Exception\IntegrationException');
+
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $this->requestHandlerFactory->expects($this->once())
+            ->method('createRequestHandler')
+            ->with('updateInventory')
+            ->will($this->returnValue($handler));
+
+        $handler->expects($this->once())
+            ->method('bindCollection')
+            ->will($this->throwException($exception));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response);
+
+        $this->client->updateInventory($collection);
+    }
+
+    public function testUpdateInventorySucceeds()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -346,9 +486,9 @@ class ClientTest extends AntiMattrTestCase
     public function testUpdatePricingThrowsConnectionException()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -380,12 +520,58 @@ class ClientTest extends AntiMattrTestCase
         $this->client->updatePricing($collection);
     }
 
-    public function testUpdatePricing()
+    /**
+     * If RequestHandler throws an IntegrationException, Client should only throw that error
+     * AFTER it has completed the request. This allows successfully-serialized data to go through.
+     *
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testUpdatePricingThrowsIntegrationException()
+    {
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $exception  = $this->buildMock('AntiMattr\Sears\Exception\IntegrationException');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $this->requestHandlerFactory->expects($this->once())
+            ->method('createRequestHandler')
+            ->with('updatePricing')
+            ->will($this->returnValue($handler));
+
+        $handler->expects($this->once())
+            ->method('bindCollection')
+            ->will($this->throwException($exception));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response);
+
+        $this->client->updatePricing($collection);
+    }
+
+    public function testUpdatePricingSucceeds()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -421,9 +607,9 @@ class ClientTest extends AntiMattrTestCase
     public function testUpdateProductsThrowsConnectionException()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -455,12 +641,59 @@ class ClientTest extends AntiMattrTestCase
         $this->client->updateProducts($collection);
     }
 
-    public function testUpdateProducts()
+    /**
+     * If RequestHandler throws an IntegrationException, Client should only throw that error
+     * AFTER it has completed the request. This allows successfully-serialized data to go through.
+     *
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testUpdateProductsThrowsIntegrationException()
+    {
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $exception  = $this->buildMock('AntiMattr\Sears\Exception\IntegrationException');
+
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $this->requestHandlerFactory->expects($this->once())
+            ->method('createRequestHandler')
+            ->with('updateProducts')
+            ->will($this->returnValue($handler));
+
+        $handler->expects($this->once())
+            ->method('bindCollection')
+            ->will($this->throwException($exception));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response);
+
+        $this->client->updateProducts($collection);
+    }
+
+    public function testUpdateProductsSucceeds()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -496,9 +729,9 @@ class ClientTest extends AntiMattrTestCase
     public function testUpdateShipmentsThrowsConnectionException()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');
-        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
-        $response = $this->buildMock('Buzz\Message\Response');
-        $handler = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
 
         $this->messageFactory->expects($this->once())
             ->method('createRequest')
@@ -530,7 +763,50 @@ class ClientTest extends AntiMattrTestCase
         $this->client->updateShipments($collection);
     }
 
-    public function testUpdateShipments()
+    /**
+     * If RequestHandler throws an IntegrationException, Client should only throw that error
+     * AFTER it has completed the request. This allows successfully-serialized data to go through.
+     *
+     * @expectedException AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function testUpdateShipmentsThrowsIntegrationException()
+    {
+        $collection = $this->getMock('Doctrine\Common\Collections\Collection');
+        $request    = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response   = $this->buildMock('Buzz\Message\Response');
+        $handler    = $this->buildMock('AntiMattr\Sears\RequestHandler\AbstractRequestHandler');
+        $exception  = $this->buildMock('AntiMattr\Sears\Exception\IntegrationException');
+
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $this->requestHandlerFactory->expects($this->once())
+            ->method('createRequestHandler')
+            ->with('updateShipments')
+            ->will($this->returnValue($handler));
+
+        $handler->expects($this->once())
+            ->method('bindCollection')
+            ->will($this->throwException($exception));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response);
+
+        $this->client->updateShipments($collection);
+    }
+
+    public function testUpdateShipmentsSucceeds()
     {
         $collection = $this->getMock('Doctrine\Common\Collections\Collection');        
         $request = $this->buildMock('Buzz\Message\Form\FormRequest');

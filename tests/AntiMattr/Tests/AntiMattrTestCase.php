@@ -11,7 +11,6 @@ abstract class AntiMattrTestCase extends \PHPUnit_Framework_TestCase
             ->getMock();
     }
 
-
     /*
      * Returns DateTime with timezone set. If timezone is not set, you'll get the following error:
      * Exception: DateTime::__construct(): It is not safe to rely on the system's timezone settings.
