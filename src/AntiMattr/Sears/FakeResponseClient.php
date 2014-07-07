@@ -133,7 +133,12 @@ class FakeResponseClient extends AbstractClient
         $requestString = $request->__toString();
         $this->log($requestString);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $response = $this->messageFactory->createResponse();
         $response->addHeader('1.0 200 OK');
@@ -150,6 +155,10 @@ class FakeResponseClient extends AbstractClient
         $this->log($responseString);
 
         $this->reset();
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -169,8 +178,12 @@ class FakeResponseClient extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
-        $handler->bindCollection($request, $collection);
-
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -189,6 +202,10 @@ class FakeResponseClient extends AbstractClient
         $this->log($responseString);
 
         $this->reset();
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -350,7 +367,13 @@ class FakeResponseClient extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, 'http://www.example.com');
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
+
         $requestString = $request->__toString();
         $this->log($requestString);
 
@@ -369,6 +392,10 @@ class FakeResponseClient extends AbstractClient
         $this->log($responseString);
 
         $this->reset();
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     private function reset()

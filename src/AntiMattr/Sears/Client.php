@@ -129,7 +129,12 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $this->updateHeaders($request);
 
@@ -147,6 +152,10 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -166,7 +175,12 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $this->updateHeaders($request);
 
@@ -184,6 +198,10 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -341,7 +359,12 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $this->updateHeaders($request);
 
@@ -359,5 +382,9 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 }
