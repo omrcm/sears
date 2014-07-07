@@ -35,6 +35,7 @@ class InventoryRequestHandler extends AbstractRequestHandler
 
         $parent = $element->addChild('dss-inventory');
 
+        // Hold all IntegrationExceptions until the end
         $exceptions = array();
 
         foreach ($collection as $inventory) {
@@ -47,11 +48,11 @@ class InventoryRequestHandler extends AbstractRequestHandler
             }
         }
 
+        $xml = $element->asXML();
+        $request->setContent($xml);
+
         if (count($exceptions) > 0) {
             throw new IntegrationException(json_encode($exceptions));
         }
-
-        $xml = $element->asXML();
-        $request->setContent($xml);
     }
 }

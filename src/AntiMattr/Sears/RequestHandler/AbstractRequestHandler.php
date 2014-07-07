@@ -49,4 +49,19 @@ abstract class AbstractRequestHandler
             'message'   => $exceptionMessage,
         ));
     }
+
+    /**
+     * Provides a standard format for the array containing an orderId and associated exception
+     *
+     * @param $orderId
+     * @param $exceptionMessage
+     * @return array
+     */
+    public function exceptionMessageForOrder($orderId, $exceptionMessage)
+    {
+        return array('exception' => array(
+            'orderId' => $orderId,
+            'message' => $exceptionMessage,
+        ));
+    }
 }

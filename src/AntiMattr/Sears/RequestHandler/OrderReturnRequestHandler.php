@@ -45,12 +45,25 @@ class OrderReturnRequestHandler extends AbstractRequestHandler
 
         $element->addChild('date-time-stamp', $this->getCreatedAt()->format('Y-m-d\TH:i:s'));
 
+        // Hold all IntegrationExceptions until the end
+        $exceptions = array();
+
         foreach ($collection as $orderReturn) {
-            $this->xmlBuilder->addChild($element, 'dss-order-adjustment', $orderReturn->toArray());
+            try {
+                $this->xmlBuilder->addChild($element, 'dss-order-adjustment', $orderReturn->toArray());
+            } catch(IntegrationException $e) {
+                $orderId      = $orderReturn->getPurchaseOrderId();
+                $message      = $e->getMessage();
+                $exceptions[] = $this->exceptionMessageForOrder($orderId, $message);
+            }
         }
 
         $xml = $element->asXML();
         $request->setContent($xml);
+
+        if (count($exceptions) > 0) {
+            throw new IntegrationException(json_encode($exceptions));
+        }
     }
 
     public function setCreatedAt(DateTime $createdAt)
