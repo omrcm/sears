@@ -27,7 +27,7 @@ class OrderReturnTest extends AntiMattrTestCase
         $this->orderReturn->setId($id);
         $this->assertSame($id, $this->orderReturn->getId());
 
-        $createdAt = new \DateTime();
+        $createdAt = $this->newDateTime();
         $this->orderReturn->setCreatedAt($createdAt);
         $this->assertSame($createdAt, $this->orderReturn->getCreatedAt());
 
@@ -40,7 +40,8 @@ class OrderReturnTest extends AntiMattrTestCase
      * @expectedException \AntiMattr\Sears\Exception\IntegrationException
      */
     public function testToArrayThrowsIntegrationException()
-    {
+    {   $this->orderReturn->setCreatedAt($this->newDateTime());
+        $this->orderReturn->setPurchaseOrderDate($this->newDateTime());
         $this->orderReturn->toArray();
     }
 
@@ -54,11 +55,11 @@ class OrderReturnTest extends AntiMattrTestCase
         $this->orderReturn->setPurchaseOrderId($purchaseId);
         $this->assertSame($purchaseId, $this->orderReturn->getPurchaseOrderId());
 
-        $createdAt = new \DateTime();
+        $createdAt = $this->newDateTime();
         $this->orderReturn->setCreatedAt($createdAt);
         $this->assertSame($createdAt, $this->orderReturn->getCreatedAt());
 
-        $purchaseOrderDate = new \DateTime();
+        $purchaseOrderDate = $this->newDateTime();
         $this->orderReturn->setPurchaseOrderDate($purchaseOrderDate);
         $this->assertSame($purchaseOrderDate, $this->orderReturn->getPurchaseOrderDate());
 

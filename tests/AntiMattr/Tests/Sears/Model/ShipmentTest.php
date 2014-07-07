@@ -39,7 +39,7 @@ class ShipmentTest extends AntiMattrTestCase
         $this->shipment->setPurchaseOrderId($purchaseId);
         $this->assertSame($purchaseId, $this->shipment->getPurchaseOrderId());
 
-        $purchaseOrderDate = new \DateTime();
+        $purchaseOrderDate = $this->newDateTime();
         $this->shipment->setPurchaseOrderDate($purchaseOrderDate);
         $this->assertSame($purchaseOrderDate, $this->shipment->getPurchaseOrderDate());
 
@@ -59,7 +59,7 @@ class ShipmentTest extends AntiMattrTestCase
         $this->shipment->setMethod($method);
         $this->assertEquals($method, $this->shipment->getMethod());
 
-        $shipAt = new \DateTime();
+        $shipAt = $this->newDateTime();
         $this->shipment->setShipAt($shipAt);
         $this->assertSame($shipAt, $this->shipment->getShipAt());
 
@@ -96,6 +96,8 @@ class ShipmentTest extends AntiMattrTestCase
      */
     public function testToArrayThrowsIntegrationException()
     {
+        $this->shipment->setPurchaseOrderDate($this->newDateTime());
+        $this->shipment->setShipAt($this->newDateTime());
         $this->shipment->toArray();
     }
 

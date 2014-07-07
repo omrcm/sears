@@ -10,4 +10,9 @@ abstract class AntiMattrTestCase extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
     }
+
+    protected function newDateTime()
+    {
+        return new \DateTime('now', new \DateTimeZone('UTC'));
+    }
 }
