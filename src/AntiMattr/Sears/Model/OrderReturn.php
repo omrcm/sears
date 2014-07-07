@@ -111,37 +111,45 @@ class OrderReturn extends AbstractOrderState implements IdentifiableInterface
      */
     public function toArray()
     {
-        $purchaseOrderId = $this->getPurchaseOrderId();
-        $purchaseOrderDate = $this->getPurchaseOrderDate();
-        $lineItemNumber = $this->getLineItemNumber();
-        $productId = $this->getProductId();
-        $id = $this->getId();
-        $reason = $this->getReason();
-        $createdAt = $this->getCreatedAt();
-        $quantity = $this->getQuantity();
-        $memo = $this->getMemo();
+        $required = array(
+            'id'                 => $this->getId(),
+            'createdAt'          => $this->getCreatedAt()->format('Y-m-d'),
+            'purchaseOrderId'    => $this->getPurchaseOrderId(),
+            'purchaseOrderDate'  => $this->getPurchaseOrderDate()->format('Y-m-d'),
+            'lineItemNumber'     => $this->getLineItemNumber(),
+            'productId'          => $this->getProductId(),
+            'quantity'           => $this->getQuantity(),
+            'reason'             => $this->getReason(),
+            'memo'               => $this->getMemo(),
+        );
 
-        if (null === $purchaseOrderId || null === $purchaseOrderDate || null === $lineItemNumber ||
-            null === $productId || null === $id || null === $reason ||
-            null === $createdAt || null === $quantity || null === $memo) {
-            throw new IntegrationException('PurchaseOrderID, PurchaseOrderDate, LineItemNumber, ProductID, ID, Reason, CreatedAt, Quantity and Memo are required');
+        $missing = array_filter($required, function($item) {
+            return (null === $item) ? true : false;
+        });
+
+        if (count($missing) > 0) {
+            $message = sprintf(
+                'Order return requires: $s.',
+                implode(", ", array_keys($missing))
+            );
+            throw new IntegrationException($message);
         }
 
         return array(
             'oa-header' => array(
-                'po-number' => $purchaseOrderId,
-                'po-date' => $purchaseOrderDate->format('Y-m-d')
+                'po-number' => $required['purchaseOrderId'],
+                'po-date'   => $required['purchaseOrderDate'],
             ),
             'oa-detail' => array(
                 'sale-adjustment' => array(
-                    'line-number' => $lineItemNumber,
-                    'item-id' => $productId,
-                    'return' => array(
-                        'return-unique-id' => $id,
-                        'return-reason' => $reason,
-                        'return-date' => $createdAt->format('Y-m-d'),
-                        'quantity' => $quantity,
-                        'internal-memo' => $memo,
+                    'line-number' => $required['lineItemNumber'],
+                    'item-id'     => $required['productId'],
+                    'return'      => array(
+                        'return-unique-id'  => $required['id'],
+                        'return-reason'     => $required['reason'],
+                        'return-date'       => $required['createdAt'],
+                        'quantity'          => $required['quantity'],
+                        'internal-memo'     => $required['memo'],
                     )
                 )
             )

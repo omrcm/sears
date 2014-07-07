@@ -26,6 +26,7 @@ class OrderCancellationTest extends AntiMattrTestCase
      */
     public function testToArrayThrowsIntegrationException()
     {
+        $this->orderCancellation->setPurchaseOrderDate($this->newDateTime());
         $this->orderCancellation->toArray();
     }
 
@@ -35,7 +36,7 @@ class OrderCancellationTest extends AntiMattrTestCase
         $this->orderCancellation->setPurchaseOrderId($purchaseId);
         $this->assertSame($purchaseId, $this->orderCancellation->getPurchaseOrderId());
 
-        $purchaseOrderDate = new \DateTime();
+        $purchaseOrderDate = $this->newDateTime();
         $this->orderCancellation->setPurchaseOrderDate($purchaseOrderDate);
         $this->assertSame($purchaseOrderDate, $this->orderCancellation->getPurchaseOrderDate());
 

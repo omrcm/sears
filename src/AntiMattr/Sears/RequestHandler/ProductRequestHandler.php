@@ -11,6 +11,7 @@
 
 namespace AntiMattr\Sears\RequestHandler;
 
+use AntiMattr\Sears\Exception\IntegrationException;
 use Buzz\Message\Request;
 use Doctrine\Common\Collections\Collection;
 
@@ -35,11 +36,24 @@ class ProductRequestHandler extends AbstractRequestHandler
         $grandParent = $element->addChild('dss-catalog');
         $parent = $grandParent->addChild('items');
 
+        // Hold all IntegrationExceptions until the end
+        $exceptions = array();
+
         foreach ($collection as $product) {
-            $this->xmlBuilder->addChild($parent, 'item', $product->toArray());
+            try {
+                $this->xmlBuilder->addChild($parent, 'item', $product->toArray());
+            } catch (IntegrationException $e) {
+                $productId    = $product->getId();
+                $message      = $e->getMessage();
+                $exceptions[] = $this->exceptionMessageForProduct($productId, $message);
+            }
         }
 
         $xml = $element->asXML();
         $request->setContent($xml);
+
+        if (count($exceptions) > 0) {
+            throw new IntegrationException(json_encode($exceptions));
+        }
     }
 }

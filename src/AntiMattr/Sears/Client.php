@@ -12,6 +12,7 @@
 namespace AntiMattr\Sears;
 
 use AntiMattr\Sears\Exception\Connection\ConnectionException;
+use AntiMattr\Sears\Exception\IntegrationException;
 use AntiMattr\Sears\Model\ObjectFactory;
 use AntiMattr\Sears\RequestHandler\RequestHandlerFactory;
 use AntiMattr\Sears\ResponseHandler\ResponseHandlerInterface;
@@ -128,9 +129,14 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
-        
-        $this->updateHeaders($request);        
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
+
+        $this->updateHeaders($request);
 
         $requestString = $request->__toString();
         $this->log($requestString);
@@ -146,6 +152,10 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -165,8 +175,13 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
-        
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
+
         $this->updateHeaders($request);
 
         $requestString = $request->__toString();
@@ -183,6 +198,10 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -202,7 +221,12 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch(IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $this->updateHeaders($request);
 
@@ -220,6 +244,10 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -239,7 +267,12 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch(IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $this->updateHeaders($request);
 
@@ -257,6 +290,10 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -276,7 +313,12 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch(IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $this->updateHeaders($request);
 
@@ -291,9 +333,13 @@ class Client extends AbstractClient
             $subject = $e->getMessage();
             throw new ConnectionException($subject);
         }
-        
+
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 
     /**
@@ -313,7 +359,12 @@ class Client extends AbstractClient
 
         $request = $this->messageFactory->createRequest('PUT', $resource, $this->host);
 
-        $handler->bindCollection($request, $collection);
+        $integrationException = null;
+        try {
+            $handler->bindCollection($request, $collection);
+        } catch (IntegrationException $e) {
+            $integrationException = $e;
+        }
 
         $this->updateHeaders($request);
 
@@ -331,5 +382,9 @@ class Client extends AbstractClient
 
         $responseString = $response->__toString();
         $this->log($responseString);
+
+        if ($integrationException) {
+            throw $integrationException;
+        }
     }
 }

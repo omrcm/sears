@@ -11,6 +11,7 @@
 
 namespace AntiMattr\Sears\RequestHandler;
 
+use AntiMattr\Sears\Exception\IntegrationException;
 use Buzz\Message\Request;
 use Doctrine\Common\Collections\Collection;
 
@@ -32,11 +33,24 @@ class ShipmentRequestHandler extends AbstractRequestHandler
             ->setSchemaLocation('http://seller.marketplace.sears.com/oms/v5 asn.xsd ')
             ->create();
 
+        // Hold all IntegrationExceptions until the end
+        $exceptions = array();
+
         foreach ($collection as $shipment) {
-            $this->xmlBuilder->addChild($element, 'shipment', $shipment->toArray());
+            try {
+                $this->xmlBuilder->addChild($element, 'shipment', $shipment->toArray());
+            } catch(IntegrationException $e) {
+                $orderId      = $shipment->getPurchaseOrderId();
+                $message      = $e->getMessage();
+                $exceptions[] = $this->exceptionMessageForOrder($orderId, $message);
+            }
         }
 
         $xml = $element->asXML();
         $request->setContent($xml);
+
+        if (count($exceptions) > 0) {
+            throw new IntegrationException(json_encode($exceptions));
+        }
     }
 }

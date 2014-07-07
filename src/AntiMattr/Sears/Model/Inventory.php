@@ -109,22 +109,32 @@ class Inventory implements RequestSerializerInterface
      */
     public function toArray()
     {
-        $productId = $this->getProductId();
-        $quantity = $this->getQuantity();
-        $threshold = $this->getThreshold();
-        $updatedAt = $this->getUpdatedAt();
+        $required = array(
+            'productId' => $this->getProductId(),
+            'quantity'  => $this->getQuantity(),
+            'threshold' => $this->getThreshold(),
+            'updatedAt' => $this->getUpdatedAt()->format('Y-m-d\TH:i:s'),
+        );
 
-        if (null === $productId || null === $quantity || null === $threshold || null === $updatedAt) {
-            throw new IntegrationException('ProductID, Quantity, Threshold and UpdatedAt are required');
+        $missing = array_filter($required, function($item){
+            return (null === $item) ? true : false;
+        });
+
+        if (count($missing) > 0) {
+            $message = sprintf(
+                'Inventory requires: %s.',
+                implode(", ", array_keys($missing))
+            );
+            throw new IntegrationException($message);
         }
 
         return array(
             '_attributes' => array(
-                'item-id' => $productId
+                'item-id' => $required['productId']
             ),
-            'quantity' => $quantity,
-            'low-inventory-threshold' => $threshold,
-            'inventory-timestamp' => $updatedAt->format('Y-m-d\TH:i:s')
+            'quantity'                => $required['quantity'],
+            'low-inventory-threshold' => $required['threshold'],
+            'inventory-timestamp'     => $required['updatedAt'],
         );
     }
 }

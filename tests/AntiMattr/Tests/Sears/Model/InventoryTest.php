@@ -25,7 +25,7 @@ class InventoryTest extends AntiMattrTestCase
 
     public function testSettersAndGetters()
     {
-        $updatedAt = new \DateTime();
+        $updatedAt = $this->newDateTime();
         $this->inventory->setUpdatedAt($updatedAt);
         $this->assertSame($updatedAt, $this->inventory->getUpdatedAt());
 
@@ -58,6 +58,7 @@ class InventoryTest extends AntiMattrTestCase
      */
     public function testToArrayThrowsIntegrationException()
     {
+        $this->inventory->setUpdatedAt($this->newDateTime());
         $this->inventory->toArray();
     }
 

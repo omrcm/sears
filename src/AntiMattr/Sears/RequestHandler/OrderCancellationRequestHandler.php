@@ -11,6 +11,7 @@
 
 namespace AntiMattr\Sears\RequestHandler;
 
+use AntiMattr\Sears\Exception\IntegrationException;
 use Buzz\Message\Request;
 use Doctrine\Common\Collections\Collection;
 
@@ -32,11 +33,25 @@ class OrderCancellationRequestHandler extends AbstractRequestHandler
             ->setSchemaLocation('http://seller.marketplace.sears.com/oms/v1 order-cancel.xsd ')
             ->create();
 
+        // Hold all IntegrationExceptions until the end
+        $exceptions = array();
+
         foreach ($collection as $orderCancellation) {
-            $this->xmlBuilder->addChild($element, 'order-cancel', $orderCancellation->toArray());
+            try {
+                $this->xmlBuilder->addChild($element, 'order-cancel', $orderCancellation->toArray());
+            } catch(IntegrationException $e) {
+                $orderId      = $orderCancellation->getPurchaseOrderId();
+                $message      = $e->getMessage();
+                $exceptions[] = $this->exceptionMessageForOrder($orderId, $message);
+
+            }
         }
 
         $xml = $element->asXML();
         $request->setContent($xml);
+
+        if (count($exceptions) > 0) {
+            throw new IntegrationException(json_encode($exceptions));
+        }
     }
 }

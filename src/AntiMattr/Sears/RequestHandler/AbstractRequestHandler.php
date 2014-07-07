@@ -34,4 +34,34 @@ abstract class AbstractRequestHandler
      * @throws AntiMattr\Sears\Exception\IntegrationException
      */
     abstract public function bindCollection(Request $request, Collection $collection);
+
+    /**
+     * Provides a standard format for the array containing a productId and associated exception
+     *
+     * @param $productId
+     * @param $exceptionMessage
+     * @return array
+     */
+    public function exceptionMessageForProduct($productId, $exceptionMessage)
+    {
+        return array('exception' => array(
+            'productId' => $productId,
+            'message'   => $exceptionMessage,
+        ));
+    }
+
+    /**
+     * Provides a standard format for the array containing an orderId and associated exception
+     *
+     * @param $orderId
+     * @param $exceptionMessage
+     * @return array
+     */
+    public function exceptionMessageForOrder($orderId, $exceptionMessage)
+    {
+        return array('exception' => array(
+            'orderId' => $orderId,
+            'message' => $exceptionMessage,
+        ));
+    }
 }

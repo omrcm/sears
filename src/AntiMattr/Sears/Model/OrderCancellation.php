@@ -30,29 +30,38 @@ class OrderCancellation extends AbstractOrderState
      */
     public function toArray()
     {
-        $purchaseOrderId = $this->getPurchaseOrderId();
-        $purchaseOrderDate = $this->getPurchaseOrderDate();
-        $lineItemNumber = $this->getLineItemNumber();
-        $productId = $this->getProductId();
-        $status = $this->getStatus();
-        $reason = $this->getReason();
+        $required = array(
+            'purchaseOrderId'   => $this->getPurchaseOrderId(),
+            'purchaseOrderDate' => $this->getPurchaseOrderDate()->format('Y-m-d'),
+            'lineItemNumber'    => $this->getLineItemNumber(),
+            'productId'         => $this->getProductId(),
+            'status'            => $this->getStatus(),
+            'reason'            => $this->getReason(),
+        );
 
-        if (null === $purchaseOrderId || null === $purchaseOrderDate || null === $lineItemNumber ||
-            null === $productId || null === $status || null === $reason) {
-            throw new IntegrationException('PurchaseOrderID, PurchaseOrderDate, LineItemNumber, ProductID, Status and Reason are required');
+        $missing = array_filter($required, function($item){
+            return (null === $item) ? true : false;
+        });
+
+        if (count($missing) > 0) {
+            $message = sprintf(
+                'Order Cancellation requires: %s.',
+                implode(", ", array_keys($missing))
+            );
+            throw new IntegrationException($message);
         }
 
         return array(
             'header' => array(
-                'po-number' => $purchaseOrderId,
-                'po-date' => $purchaseOrderDate->format('Y-m-d')
+                'po-number' => $required['purchaseOrderId'],
+                'po-date'   => $required['purchaseOrderDate'],
             ),
             'detail' => array(
-                'line-number' => $lineItemNumber,
-                'item-id' => $productId,
-                'cancel' => array(
-                    'line-status' => $status,
-                    'cancel-reason' => $reason
+                'line-number' => $required['lineItemNumber'],
+                'item-id'     => $required['productId'],
+                'cancel'      => array(
+                    'line-status'   => $required['status'],
+                    'cancel-reason' => $required['reason']
                 )
             )
         );
