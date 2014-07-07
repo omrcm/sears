@@ -48,12 +48,12 @@ class OrderReturnRequestHandlerTest extends AntiMattrTestCase
         $collection->add($item);
 
         $item->setPurchaseOrderId('1379156');
-        $item->setPurchaseOrderDate(new DateTime('2014-02-05'));
+        $item->setPurchaseOrderDate($this->newDateTime('2014-02-05'));
         $item->setLineItemNumber('2');
         $item->setProductId('DNA02218-66');
         $item->setId('1111222345');
         $item->setReason('GENERAL-ADJUSTMENT');
-        $item->setCreatedAt(new DateTime('2013-07-10'));
+        $item->setCreatedAt($this->newDateTime('2013-07-10'));
         $item->setQuantity('1');
         $item->setMemo('Wrong shipping method');
 
@@ -71,17 +71,17 @@ class OrderReturnRequestHandlerTest extends AntiMattrTestCase
         $item = new OrderReturn();
 
         $item->setPurchaseOrderId('1379156');
-        $item->setPurchaseOrderDate(new DateTime('2014-02-05'));
+        $item->setPurchaseOrderDate($this->newDateTime('2014-02-05'));
         $item->setLineItemNumber('2');
         $item->setProductId('DNA02218-66');
         $item->setId('1111222345');
         $item->setReason('GENERAL-ADJUSTMENT');
-        $item->setCreatedAt(new DateTime('2013-07-10'));
+        $item->setCreatedAt($this->newDateTime('2013-07-10'));
         $item->setQuantity('1');
         $item->setMemo('Wrong shipping method');
         $collection->add($item);
 
-        $this->requestHandler->setCreatedAt(new DateTime('2013-07-10T21:01:41'));
+        $this->requestHandler->setCreatedAt($this->newDateTime('2013-07-10T21:01:41'));
         $this->requestHandler->bindCollection($request, $collection);
 
         $content = $request->getContent();

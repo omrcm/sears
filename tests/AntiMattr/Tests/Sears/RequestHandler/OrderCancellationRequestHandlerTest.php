@@ -44,7 +44,7 @@ class OrderCancellationRequestHandlerTest extends AntiMattrTestCase
 
         $item = new OrderCancellation();
         $item->setPurchaseOrderId('7654321');
-        $item->setPurchaseOrderDate(new DateTime('2012-12-01'));
+        $item->setPurchaseOrderDate($this->newDateTime('2012-12-01'));
         $item->setLineItemNumber('4');
         $item->setProductId('EXTPRODID000111');
         $item->setStatus('Canceled');

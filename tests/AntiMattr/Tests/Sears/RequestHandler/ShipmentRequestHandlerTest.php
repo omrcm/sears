@@ -45,9 +45,9 @@ class ShipmentRequestHandlerTest extends AntiMattrTestCase
 
         $item->setId('00601780002');
         $item->setPurchaseOrderId('0060180');
-        $item->setPurchaseOrderDate(new DateTime('2009-09-26'));
+        $item->setPurchaseOrderDate($this->newDateTime('2009-09-26'));
         $item->setTrackingNumber('UPS1XXX');
-        $item->setShipAt(new DateTime('2001-01-01'));
+        $item->setShipAt($this->newDateTime('2001-01-01'));
         $item->setCarrier('UPS');
         $item->setMethod('GROUND');
         $item->setLineItemNumber('1');

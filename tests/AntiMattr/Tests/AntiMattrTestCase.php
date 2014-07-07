@@ -11,8 +11,9 @@ abstract class AntiMattrTestCase extends \PHPUnit_Framework_TestCase
             ->getMock();
     }
 
-    protected function newDateTime()
+    protected function newDateTime($time = null)
     {
-        return new \DateTime('now', new \DateTimeZone('UTC'));
+        $time = $time ? : 'now';
+        return new \DateTime($time, new \DateTimeZone('UTC'));
     }
 }
