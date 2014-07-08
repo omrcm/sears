@@ -332,7 +332,6 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
         $required = array(
             'brand'          => $this->getBrand(),
             'classification' => $this->getClassification(),
-            'cost'           => $this->getCost(),
             'country'        => $this->getCountry(),
             'description'    => $this->getDescription(),
             'height'         => $this->getHeight(),
@@ -372,7 +371,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
                 )
             ),
             'model-number'      => $required['model'],
-            'cost'              => $required['cost'],
+            'cost'              => $this->getCost() ?: "", // Optional field
             'brand'             => $required['brand'],
             'shipping-length'   => $required['length'],
             'shipping-width'    => $required['width'],
