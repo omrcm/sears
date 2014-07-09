@@ -12,6 +12,7 @@
 namespace AntiMattr\Sears\Model;
 
 use AntiMattr\Sears\Exception\IntegrationException;
+use DateTime;
 
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
@@ -33,6 +34,9 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     /** @var string */
     protected $description;
 
+    /** @var DateTime */
+    protected $effectiveStartDate;
+
     /** @var float */
     protected $height;
 
@@ -47,6 +51,9 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
 
     /** @var string */
     protected $model;
+
+    /** @var string */
+    protected $msrp;
 
     /** @var string */
     protected $title;
@@ -148,6 +155,22 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     }
 
     /**
+     * @param DateTime $startDate
+     */
+    public function setEffectiveStartDate(DateTime $startDate)
+    {
+        $this->effectiveStartDate = $startDate;
+    }
+
+    /**
+     * @return DateTime $effectiveStartDate
+     */
+    public function getEffectiveStartDate()
+    {
+        return $this->effectiveStartDate;
+    }
+
+    /**
      * @param float $height
      */
     public function setHeight($height)
@@ -233,6 +256,26 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * @param float $msrp
+     */
+    public function setMsrp($msrp)
+    {
+        if (!is_numeric($msrp)) {
+            return;
+        }
+
+        $this->msrp = (float) $msrp;
+    }
+
+    /**
+     * @return float $msrp
+     */
+    public function getMsrp()
+    {
+        return $this->msrp;
     }
 
     /**
@@ -332,13 +375,16 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
         $required = array(
             'brand'          => $this->getBrand(),
             'classification' => $this->getClassification(),
+            'cost'           => $this->getCost(),
             'country'        => $this->getCountry(),
             'description'    => $this->getDescription(),
+            'startDate'      => $this->getEffectiveStartDate()->format('Y-m-d\TH:i:s'),
             'height'         => $this->getHeight(),
             'id'             => $this->getId(),
             'image'          => $this->getImage(),
             'length'         => $this->getLength(),
             'model'          => $this->getModel(),
+            'msrp'           => $this->getMsrp(),
             'title'          => $this->getTitle(),
             'upc'            => $this->getUpc(),
             'warranty'       => $this->getWarranty(),
@@ -371,7 +417,8 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
                 )
             ),
             'model-number'      => $required['model'],
-            'cost'              => $this->getCost() ?: "", // Optional field
+            'msrp'              => $required['msrp'],
+            'cost'              => $required['cost'],
             'brand'             => $required['brand'],
             'shipping-length'   => $required['length'],
             'shipping-width'    => $required['width'],
@@ -380,6 +427,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'image-url' => array(
                 'url' => $required['image']
             ),
+            'effective-start-date' => $required['startDate'],
             'no-warranty-available' => ($required['warranty'] ? 'false': 'true'),
             'country-of-origin' => array(
                 'country-code' => $required['country']
