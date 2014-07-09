@@ -12,6 +12,7 @@
 namespace AntiMattr\Sears\Model;
 
 use AntiMattr\Sears\Exception\IntegrationException;
+use DateTime;
 
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
@@ -20,6 +21,9 @@ class Pricing implements  RequestSerializerInterface
 {
     /** @var float */
     protected $cost;
+
+    /** @var DateTime */
+    protected $effectiveStartDate;
 
     /** @var float */
     protected $msrp;
@@ -45,6 +49,22 @@ class Pricing implements  RequestSerializerInterface
     public function getCost()
     {
         return $this->cost;
+    }
+
+    /**
+     * @param DateTime $startDate
+     */
+    public function setEffectiveStartDate(DateTime $startDate)
+    {
+        $this->effectiveStartDate = $startDate;
+    }
+
+    /**
+     * @return DateTime $effectiveStartDate
+     */
+    public function getEffectiveStartDate()
+    {
+        return $this->effectiveStartDate;
     }
 
     /**
@@ -89,16 +109,14 @@ class Pricing implements  RequestSerializerInterface
      */
     public function toArray()
     {
-        $data = array(
-            'item-id' => $this->getProductId(),
-            'cost'    => $this->getCost()
+        $required = array(
+            'item-id'              => $this->getProductId(),
+            'cost'                 => $this->getCost(),
+            'msrp'                 => $this->getMsrp(),
+            'effective-start-date' => $this->getEffectiveStartDate()->format('Y-m-d\TH:i:s'),
         );
 
-        if ($msrp = $this->getMsrp()) {
-            $data['msrp'] = $msrp;
-        }
-
-        $missing = array_filter($data, function($item){
+        $missing = array_filter($required, function($item){
             return (null === $item) ? true : false;
         });
 
@@ -110,6 +128,6 @@ class Pricing implements  RequestSerializerInterface
             throw new IntegrationException($message);
         }
 
-        return $data;
+        return $required;
     }
 }
