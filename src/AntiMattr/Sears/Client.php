@@ -260,7 +260,7 @@ class Client extends AbstractClient
     {
         $handler = $this->requestHandlerFactory->createRequestHandler('updatePricing');
         $resource = sprintf(
-            '/SellerPortal/api/pricing/dss/v2?email=%s&password=%s',
+            '/SellerPortal/api/pricing/dss/v3?email=%s&password=%s',
             $this->email,
             $this->password
         );
@@ -306,7 +306,7 @@ class Client extends AbstractClient
     {
         $handler = $this->requestHandlerFactory->createRequestHandler('updateProducts');
         $resource = sprintf(
-            '/SellerPortal/api/catalog/dss/v4?email=%s&password=%s',
+            '/SellerPortal/api/catalog/dss/v7?email=%s&password=%s',
             $this->email,
             $this->password
         );

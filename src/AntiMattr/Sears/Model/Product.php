@@ -396,7 +396,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'title'                 => $this->getTitle(),
             'short-desc'            => $this->getDescription(),
             'upc'                   => $this->getUpc(),
-            'item-class-id'         => $this->getClassification(),
+            'classification'        => $this->getClassification(),
             'model-number'          => $this->getModel(),
             'cost'                  => $this->getCost(),
             'msrp'                  => $this->getMsrp(),
@@ -441,7 +441,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'upc'               => $required['upc'],
             'item-class'        => array(
                 '_attributes'   => array(
-                    'id'        => $required['item-class-id']
+                    'id'        => $required['classification']
                 )
             ),
             'seller-tags'       => $optional['seller-tags'],
@@ -461,6 +461,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'image-url'         => array(
                 'url'           => $required['image-url']
             ),
+            'no-warranty-available' => $this->getWarranty() ? false : true,
             'country-of-origin' => array(
                 'country-code'  => $required['country-code']
             ),
