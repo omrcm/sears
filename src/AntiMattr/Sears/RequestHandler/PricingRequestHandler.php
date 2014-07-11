@@ -29,8 +29,8 @@ class PricingRequestHandler extends AbstractRequestHandler
     {
         $element = $this->xmlBuilder
             ->setRoot('dss-pricing-feed')
-            ->setNamespace('http://seller.marketplace.sears.com/pricing/v2')
-            ->setSchemaLocation('http://seller.marketplace.sears.com/pricing/v2 dss-seller-pricing.xsd ')
+            ->setNamespace('http://seller.marketplace.sears.com/pricing/v3')
+            ->setSchemaLocation('http://seller.marketplace.sears.com/pricing/v3 dss-seller-pricing.xsd ')
             ->create();
 
         $parent = $element->addChild('dss-pricing');
