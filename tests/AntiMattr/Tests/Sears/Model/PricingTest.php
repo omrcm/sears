@@ -24,6 +24,10 @@ class PricingTest extends AntiMattrTestCase
 
     public function testSettersAndGetters()
     {
+        $startDate = $this->newDateTime();
+        $this->pricing->setEffectiveStartDate($startDate);
+        $this->assertSame($startDate, $this->pricing->getEffectiveStartDate());
+
         $cost = 100.00;
         $this->pricing->setCost($cost);
         $this->assertSame($cost, $this->pricing->getCost());
@@ -55,6 +59,7 @@ class PricingTest extends AntiMattrTestCase
     {
         $msrp = 90.00;
         $this->pricing->setMsrp($msrp);
+        $this->pricing->setEffectiveStartDate($this->newDateTime());
         
         $this->pricing->toArray();
     }
