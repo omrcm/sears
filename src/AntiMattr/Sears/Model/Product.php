@@ -425,7 +425,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
 
         if (count($missing) > 0) {
             $message = sprintf(
-                'Product export requires: %s.',
+                'Product requires: %s.',
                 implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);
