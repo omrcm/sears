@@ -116,7 +116,7 @@ class Inventory implements RequestSerializerInterface
 
         $optional = array(
             'threshold' => $this->getThreshold(),
-            'updateAt' => $this->getUpdatedAt()->format('Y-m-d\TH:i:s')
+            'updatedAt' => $this->getUpdatedAt()->format('Y-m-d\TH:i:s')
         );
 
         $missing = array_filter($required, function($item){
