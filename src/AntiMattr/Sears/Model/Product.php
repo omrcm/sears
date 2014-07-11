@@ -55,7 +55,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     /** @var string */
     protected $msrp;
 
-    /** @var string */
+    /** @var array */
     protected $sellerTags;
 
     /** @var string */
@@ -282,7 +282,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     }
 
     /**
-     * @param string $sellerTags
+     * @param array $sellerTags
      */
     public function setSellerTags($sellerTags)
     {
@@ -290,7 +290,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     }
 
     /**
-     * @return string $sellerTags
+     * @return array $sellerTags
      */
     public function getSellerTags()
     {
@@ -396,7 +396,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'title'                 => $this->getTitle(),
             'short-desc'            => $this->getDescription(),
             'upc'                   => $this->getUpc(),
-            'item-class-id'         => $this->getClassification(),
+            'classification'        => $this->getClassification(),
             'model-number'          => $this->getModel(),
             'cost'                  => $this->getCost(),
             'msrp'                  => $this->getMsrp(),
@@ -409,14 +409,6 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'image-url'             => $this->getImage(),
             'country-code'          => $this->getCountry(),
         );
-
-        // There are more optional parameters than what you see below.
-        // For a complete list see the sequence definition for item-type in the XSD.
-        // This library currently supports only one optional parameter: 'seller-tags'.
-        $optional = array(
-            'seller-tags' => $this->getSellerTags(),
-        );
-
 
         // Raise exception if any required parameters are missing
         $missing = array_filter($required, function($item){
@@ -431,6 +423,11 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             throw new IntegrationException($message);
         }
 
+        $tags = array();
+        foreach ($this->getSellerTags() as $sellerTag) {
+            $tags[] = array('seller-tag' => $sellerTag);
+        }
+
         // Serialize. The order of XML elements must match the sequence laid out in the XSD.
         return array(
             '_attributes'       => array(
@@ -441,10 +438,10 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'upc'               => $required['upc'],
             'item-class'        => array(
                 '_attributes'   => array(
-                    'id'        => $required['item-class-id']
+                    'id'        => $required['classification']
                 )
             ),
-            'seller-tags'       => $optional['seller-tags'],
+            'seller-tags'       => $tags,
             'model-number'      => $required['model-number'],
             'item-prices'       => array(
                 'item-price'    => array(
@@ -461,6 +458,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'image-url'         => array(
                 'url'           => $required['image-url']
             ),
+            'no-warranty-available' => $this->getWarranty() ? false : true,
             'country-of-origin' => array(
                 'country-code'  => $required['country-code']
             ),
