@@ -29,8 +29,8 @@ class ProductRequestHandler extends AbstractRequestHandler
     {
         $element = $this->xmlBuilder
             ->setRoot('catalog-feed')
-            ->setNamespace('http://seller.marketplace.sears.com/catalog/v5')
-            ->setSchemaLocation('http://seller.marketplace.sears.com/catalog/v5 ../../../../../rest/catalog/import/v5/dss-item.xsd ')
+            ->setNamespace('http://seller.marketplace.sears.com/catalog/v7')
+            ->setSchemaLocation('http://seller.marketplace.sears.com/catalog/v7 dss-item.xsd')
             ->create();
 
         $grandParent = $element->addChild('dss-catalog');

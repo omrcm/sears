@@ -56,6 +56,9 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     protected $msrp;
 
     /** @var string */
+    protected $sellerTags;
+
+    /** @var string */
     protected $title;
 
     /** @var string */
@@ -279,6 +282,22 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     }
 
     /**
+     * @param string $sellerTags
+     */
+    public function setSellerTags($sellerTags)
+    {
+        $this->sellerTags = $sellerTags;
+    }
+
+    /**
+     * @return string $sellerTags
+     */
+    public function getSellerTags()
+    {
+        return $this->sellerTags;
+    }
+
+    /**
      * @param string $title
      */
     public function setTitle($title)
@@ -373,65 +392,78 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     public function toArray()
     {
         $required = array(
-            'brand'          => $this->getBrand(),
-            'classification' => $this->getClassification(),
-            'cost'           => $this->getCost(),
-            'country'        => $this->getCountry(),
-            'description'    => $this->getDescription(),
-            'startDate'      => $this->getEffectiveStartDate()->format('Y-m-d\TH:i:s'),
-            'height'         => $this->getHeight(),
-            'id'             => $this->getId(),
-            'image'          => $this->getImage(),
-            'length'         => $this->getLength(),
-            'model'          => $this->getModel(),
-            'msrp'           => $this->getMsrp(),
-            'title'          => $this->getTitle(),
-            'upc'            => $this->getUpc(),
-            'warranty'       => $this->getWarranty(),
-            'weight'         => $this->getWeight(),
-            'width'          => $this->getWidth()
+            'id'                    => $this->getId(),
+            'title'                 => $this->getTitle(),
+            'short-desc'            => $this->getDescription(),
+            'upc'                   => $this->getUpc(),
+            'item-class-id'         => $this->getClassification(),
+            'model-number'          => $this->getModel(),
+            'cost'                  => $this->getCost(),
+            'msrp'                  => $this->getMsrp(),
+            'effective-start-date'  => $this->getEffectiveStartDate()->format('Y-m-d'),
+            'brand'                 => $this->getBrand(),
+            'shipping-length'       => $this->getLength(),
+            'shipping-width'        => $this->getWidth(),
+            'shipping-height'       => $this->getHeight(),
+            'shipping-weight'       => $this->getWeight(),
+            'image-url'             => $this->getImage(),
+            'country-code'          => $this->getCountry(),
         );
 
+        // There are more optional parameters than what you see below.
+        // For a complete list see the sequence definition for item-type in the XSD.
+        // This library currently supports only one optional parameter: 'seller-tags'.
+        $optional = array(
+            'seller-tags' => $this->getSellerTags(),
+        );
+
+
+        // Raise exception if any required parameters are missing
         $missing = array_filter($required, function($item){
             return (null === $item) ? true : false;
         });
 
         if (count($missing) > 0) {
             $message = sprintf(
-                'Product requires: %s.',
+                'Product export requires: %s.',
                 implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);
         }
 
+        // Serialize. The order of XML elements must match the sequence laid out in the XSD.
         return array(
-            '_attributes' => array(
-                'item-id' => $required['id']
+            '_attributes'       => array(
+                'item-id'       => $required['id']
             ),
-            'title'      => $required['title'],
-            'short-desc' => $required['description'],
-            'upc'        => $required['upc'],
-            'item-class' => array(
-                '_attributes' => array(
-                    'id' => $required['classification']
+            'title'             => $required['title'],
+            'short-desc'        => $required['short-desc'],
+            'upc'               => $required['upc'],
+            'item-class'        => array(
+                '_attributes'   => array(
+                    'id'        => $required['item-class-id']
                 )
             ),
-            'model-number'      => $required['model'],
-            'msrp'              => $required['msrp'],
-            'cost'              => $required['cost'],
-            'brand'             => $required['brand'],
-            'shipping-length'   => $required['length'],
-            'shipping-width'    => $required['width'],
-            'shipping-height'   => $required['height'],
-            'shipping-weight'   => $required['weight'],
-            'image-url' => array(
-                'url' => $required['image']
+            'seller-tags'       => $optional['seller-tags'],
+            'model-number'      => $required['model-number'],
+            'item-prices'       => array(
+                'item-price'    => array(
+                    'cost'      => $required['cost'],
+                    'msrp'      => $required['msrp'],
+                    'effective-start-date' => $required['effective-start-date'],
+                )
             ),
-            'effective-start-date' => $required['startDate'],
-            'no-warranty-available' => ($required['warranty'] ? 'false': 'true'),
+            'brand'             => $required['brand'],
+            'shipping-length'   => $required['shipping-length'],
+            'shipping-width'    => $required['shipping-width'],
+            'shipping-height'   => $required['shipping-height'],
+            'shipping-weight'   => $required['shipping-weight'],
+            'image-url'         => array(
+                'url'           => $required['image-url']
+            ),
             'country-of-origin' => array(
-                'country-code' => $required['country']
-            )
+                'country-code'  => $required['country-code']
+            ),
         );
     }
 }
