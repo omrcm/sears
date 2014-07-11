@@ -134,7 +134,7 @@ class Pricing implements  RequestSerializerInterface
                 'item-price'    => array(
                     'cost'      => $required['cost'],
                     'msrp'      => $required['msrp'],
-                    'effective-start-date' => $required['effective-start-date'],
+                    'effective-start-date' => $required['start-date'],
                 )
             ),
         );
