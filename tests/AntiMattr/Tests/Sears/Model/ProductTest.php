@@ -37,6 +37,10 @@ class ProductTest extends AntiMattrTestCase
 
     public function testSettersAndGetters()
     {
+        $startDate = $this->newDateTime();
+        $this->product->setEffectiveStartDate($startDate);
+        $this->assertSame($startDate, $this->product->getEffectiveStartDate());
+
         $brand = 'brand';
         $this->product->setBrand($brand);
         $this->assertSame($brand, $this->product->getBrand());
@@ -52,6 +56,10 @@ class ProductTest extends AntiMattrTestCase
         $costString = '100.56';
         $this->product->setCost($costString);
         $this->assertSame(100.56, $this->product->getCost());
+
+        $msrp = 120.00;
+        $this->product->setMsrp($msrp);
+        $this->assertSame($msrp, $this->product->getMsrp());
 
         $country = 'CA';
         $this->product->setCountry($country);
@@ -127,6 +135,8 @@ class ProductTest extends AntiMattrTestCase
     public function testToArrayThrowsIntegrationException()
     {
         $this->product->setBrand('foo');
+        $this->product->setMsrp(90.00);
+        $this->product->setEffectiveStartDate($this->newDateTime());
         $this->product->toArray();
     }
 }

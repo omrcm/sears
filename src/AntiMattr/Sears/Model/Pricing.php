@@ -110,9 +110,10 @@ class Pricing implements  RequestSerializerInterface
     public function toArray()
     {
         $required = array(
-            'item-id'              => $this->getProductId(),
-            'cost'                 => $this->getCost(),
-            'msrp'                 => $this->getMsrp(),
+            'id'         => $this->getProductId(),
+            'cost'       => $this->getCost(),
+            'msrp'       => $this->getMsrp(),
+            'start-date' => $this->getEffectiveStartDate()->format('Y-m-d'),
         );
 
         $missing = array_filter($required, function($item){
@@ -127,13 +128,15 @@ class Pricing implements  RequestSerializerInterface
             throw new IntegrationException($message);
         }
 
-        // In July 2014 effective-start-date became a required parameter.
-        // At this time, export fails if it is included and succeeds if it is NOT included.
-        // If you are experiencing issues with pricing export, look at this field first.
-        if ($startDate = $this->getEffectiveStartDate()->format('Y-m-d')) {
-            $required['effective-start-date'] = $startDate;
-        }
-
-        return $required;
+        return array(
+            'item-id'           => $required['id'],
+            'item-prices'       => array(
+                'item-price'    => array(
+                    'cost'      => $required['cost'],
+                    'msrp'      => $required['msrp'],
+                    'effective-start-date' => $required['start-date'],
+                )
+            ),
+        );
     }
 }

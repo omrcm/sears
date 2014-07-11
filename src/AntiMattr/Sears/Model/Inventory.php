@@ -112,8 +112,11 @@ class Inventory implements RequestSerializerInterface
         $required = array(
             'productId' => $this->getProductId(),
             'quantity'  => $this->getQuantity(),
+        );
+
+        $optional = array(
             'threshold' => $this->getThreshold(),
-            'updatedAt' => $this->getUpdatedAt()->format('Y-m-d\TH:i:s'),
+            'updatedAt' => $this->getUpdatedAt()->format('Y-m-d\TH:i:s')
         );
 
         $missing = array_filter($required, function($item){
@@ -133,8 +136,8 @@ class Inventory implements RequestSerializerInterface
                 'item-id' => $required['productId']
             ),
             'quantity'                => $required['quantity'],
-            'low-inventory-threshold' => $required['threshold'],
-            'inventory-timestamp'     => $required['updatedAt'],
+            'low-inventory-threshold' => $optional['threshold'],
+            'inventory-timestamp'     => $optional['updatedAt'],
         );
     }
 }
