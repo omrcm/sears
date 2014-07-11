@@ -55,7 +55,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     /** @var string */
     protected $msrp;
 
-    /** @var string */
+    /** @var array */
     protected $sellerTags;
 
     /** @var string */
@@ -282,7 +282,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     }
 
     /**
-     * @param string $sellerTags
+     * @param array $sellerTags
      */
     public function setSellerTags($sellerTags)
     {
@@ -290,7 +290,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     }
 
     /**
-     * @return string $sellerTags
+     * @return array $sellerTags
      */
     public function getSellerTags()
     {
@@ -410,14 +410,6 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'country-code'          => $this->getCountry(),
         );
 
-        // There are more optional parameters than what you see below.
-        // For a complete list see the sequence definition for item-type in the XSD.
-        // This library currently supports only one optional parameter: 'seller-tags'.
-        $optional = array(
-            'seller-tags' => $this->getSellerTags(),
-        );
-
-
         // Raise exception if any required parameters are missing
         $missing = array_filter($required, function($item){
             return (null === $item) ? true : false;
@@ -429,6 +421,11 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
                 implode(", ", array_keys($missing))
             );
             throw new IntegrationException($message);
+        }
+
+        $tags = array();
+        foreach ($this->getSellerTags() as $sellerTag) {
+            $tags[] = array('seller-tag' => $sellerTag);
         }
 
         // Serialize. The order of XML elements must match the sequence laid out in the XSD.
@@ -444,7 +441,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
                     'id'        => $required['classification']
                 )
             ),
-            'seller-tags'       => $optional['seller-tags'],
+            'seller-tags'       => $tags,
             'model-number'      => $required['model-number'],
             'item-prices'       => array(
                 'item-price'    => array(

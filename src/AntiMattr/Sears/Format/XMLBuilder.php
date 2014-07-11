@@ -137,8 +137,7 @@ class XMLBuilder
                     $subnode = $element->addChild("$key");
                     $this->arrayToXml($value, $subnode);
                 } else {
-                    $subnode = $element->addChild("item$key");
-                    $this->arrayToXml($value, $subnode);
+                    $this->arrayToXml($value, $element);
                 }
             } else {
                 $element->addChild("$key",htmlspecialchars("$value"));
