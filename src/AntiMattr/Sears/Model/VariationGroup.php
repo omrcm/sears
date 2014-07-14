@@ -43,6 +43,9 @@ class VariationGroup implements IdentifiableInterface, RequestSerializerInterfac
     /** @var string */
     protected $title;
 
+    /** @var boolean */
+    protected $warranty;
+
     /** @var float */
     protected $weight;
 
@@ -191,6 +194,22 @@ class VariationGroup implements IdentifiableInterface, RequestSerializerInterfac
     }
 
     /**
+     * @param bool $warranty
+     */
+    public function setWarranty($warranty)
+    {
+        $this->warranty = (bool) $warranty;
+    }
+
+    /**
+     * @return bool $warranty
+     */
+    public function getWarranty()
+    {
+        return (!isset($this->warranty)) ? true : $this->warranty;
+    }
+
+    /**
      * @param float $weight
      */
     public function setWeight($weight)
@@ -293,6 +312,7 @@ class VariationGroup implements IdentifiableInterface, RequestSerializerInterfac
             'shipping-width'    => $required['shipping-width'],
             'shipping-height'   => $required['shipping-height'],
             'shipping-weight'   => $required['shipping-weight'],
+            'no-warranty-available' => $this->getWarranty() ? false : true,
             'variation-items'   => $variationItems
         );
     }
