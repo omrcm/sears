@@ -51,6 +51,74 @@ class ClientTest extends AntiMattrTestCase
     /**
      * @expectedException AntiMattr\Sears\Exception\Connection\ConnectionException
      */
+    public function testFindPurchaseOrdersByIdThrowsConnectionException()
+    {
+        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response = $this->buildMock('Buzz\Message\Response');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->never())
+            ->method('__toString');       
+
+        $clientException = $this->buildMock('\Buzz\Exception\ClientException');
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response)
+            ->will($this->throwException($clientException));
+
+        $this->client->findPurchaseOrdersById('id');
+    }
+
+    public function testFindPurchaseOrdersByIdSucceeds()
+    {
+        $request = $this->buildMock('Buzz\Message\Form\FormRequest');
+        $response = $this->buildMock('Buzz\Message\Response');
+
+        $this->messageFactory->expects($this->once())
+            ->method('createRequest')
+            ->will($this->returnValue($request));
+
+        $request->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));  
+
+        $this->messageFactory->expects($this->once())
+            ->method('createResponse')
+            ->will($this->returnValue($response));
+
+        $response->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue(''));    
+
+        $this->buzz->expects($this->once())
+            ->method('send')
+            ->with($request, $response);
+
+        $collection = $this->buildMock('Doctrine\Common\Collections\ArrayCollection');
+
+        $this->objectFactory->expects($this->once())
+            ->method('getInstance')
+            ->with('\Doctrine\Common\Collections\ArrayCollection')
+            ->will($this->returnValue($collection));
+
+        $this->client->findPurchaseOrdersById('id');
+    }
+
+    /**
+     * @expectedException AntiMattr\Sears\Exception\Connection\ConnectionException
+     */
     public function testFindPurchaseOrdersByStatusThrowsConnectionException()
     {
         $request = $this->buildMock('Buzz\Message\Form\FormRequest');

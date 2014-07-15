@@ -22,6 +22,14 @@ abstract class AbstractClient
     protected $logger;
 
     /**
+     * @param  string                                                   $id
+     * @return Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     */
+    abstract public function findPurchaseOrdersById($id);
+
+    /**
      * @param  string                                                   $status
      * @return Doctrine\Common\Collections\Collection                   $collection
      * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
