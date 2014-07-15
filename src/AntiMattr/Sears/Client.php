@@ -74,6 +74,45 @@ class Client extends AbstractClient
     }
 
     /**
+     * @param  string                                                   $id
+     * @return Doctrine\Common\Collections\Collection                   $collection
+     * @throws AntiMattr\Sears\Exception\Connection\ConnectionException
+     * @throws AntiMattr\Sears\Exception\Http\BadRequestException
+     */
+    public function findPurchaseOrdersById($id)
+    {
+        $resource = sprintf(
+            '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&ponumber=%s',
+            $this->email,
+            $this->password,
+            $id
+        );
+
+        $request = $this->messageFactory->createRequest('GET', $resource, $this->host);
+        $response = $this->messageFactory->createResponse();
+
+        $this->updateHeaders($request);
+
+        $requestString = $request->__toString();
+        $this->log($requestString);
+
+        try {
+            $this->buzz->send($request, $response);
+        } catch (ClientException $e) {
+            $subject = $e->getMessage();
+            throw new ConnectionException($subject);
+        }
+
+        $responseString = $response->__toString();
+        $this->log($responseString);
+
+        $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
+        $this->responseHandler->bindCollection($response, $collection);
+
+        return $collection;
+    }
+
+    /**
      * @param  string                                                   $status
      * @return Doctrine\Common\Collections\Collection                   $collection
      * @throws AntiMattr\Sears\Exception\Connection\ConnectionException

@@ -75,6 +75,45 @@ class FakeResponseClient extends AbstractClient
     }
 
     /**
+     * @param  string                                      $id
+     * @param  array                                       $headers
+     * @return Doctrine\Common\Collections\ArrayCollection $collection
+     */
+    public function findPurchaseOrdersById($id)
+    {
+        $resource = sprintf(
+            '/SellerPortal/api/oms/purchaseorder/v4?email=%s&password=%s&ponumber=%s',
+            'xxxxxx',
+            'yyyyyy',
+            $id
+        );
+
+        $request = $this->messageFactory->createRequest('GET', $resource, 'http://www.example.com');
+        $response = $this->messageFactory->createResponse();
+        $response->addHeader('1.0 200 OK');
+
+        if (!empty($this->headers)) {
+            $response->addHeaders($this->headers);
+        }
+
+        if ('' != $this->content) {
+            $response->setContent($this->content);
+        }
+
+        $requestString = $request->__toString();
+        $responseString = $response->__toString();
+        $this->log($requestString);
+        $this->log($responseString);
+
+        $collection = $this->objectFactory->getInstance('\Doctrine\Common\Collections\ArrayCollection');
+        $this->responseHandler->bindCollection($response, $collection);
+
+        $this->reset();
+
+        return $collection;
+    }
+
+    /**
      * @param  string                                      $status
      * @param  array                                       $headers
      * @return Doctrine\Common\Collections\ArrayCollection $collection

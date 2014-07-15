@@ -54,6 +54,11 @@ class AbstractClientStub extends AbstractClient
         $this->logger = $logger;
     }
 
+    public function findPurchaseOrdersById($id)
+    {
+        return;
+    }
+
     public function findPurchaseOrdersByStatus($status = '')
     {
         return;
