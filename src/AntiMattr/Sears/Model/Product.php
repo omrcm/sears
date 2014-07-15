@@ -56,7 +56,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     protected $msrp;
 
     /** @var array */
-    protected $sellerTags;
+    protected $sellerTags = array();
 
     /** @var string */
     protected $title;
