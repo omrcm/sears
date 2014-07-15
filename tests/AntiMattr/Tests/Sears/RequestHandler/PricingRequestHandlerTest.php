@@ -17,7 +17,7 @@ class PricingRequestHandlerTest extends AntiMattrTestCase
 
     public static function setUpBeforeClass()
     {
-        self::$xml = file_get_contents(dirname(__DIR__).'/Resources/fixtures/rest_pricing_import_v2_dss-seller-pricing.xml');
+        self::$xml = file_get_contents(dirname(__DIR__).'/Resources/fixtures/rest_pricing_import_v3_dss-seller-pricing.xml');
     }
 
     public static function tearDownAfterClass()
@@ -45,15 +45,19 @@ class PricingRequestHandlerTest extends AntiMattrTestCase
         $item1->setProductId('A24467');
         $item1->setCost(30.00);
         $item1->setMsrp(32.00);
+        $item1->setEffectiveStartDate($this->newDateTime('2013-07-10'));
         
         $item2 = new Pricing();
         $item2->setProductId('A24468');
         $item2->setCost(30.00);
+        $item2->setMsrp(32.00);
+        $item2->setEffectiveStartDate($this->newDateTime('2013-07-10'));        
 
         $item3 = new Pricing();
         $item3->setProductId('A24469');
         $item3->setCost(40.00);
         $item3->setMsrp(42.00);
+        $item3->setEffectiveStartDate($this->newDateTime('2013-07-10'));        
 
         $collection->add($item1);
         $collection->add($item2);

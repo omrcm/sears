@@ -400,7 +400,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'model-number'          => $this->getModel(),
             'cost'                  => $this->getCost(),
             'msrp'                  => $this->getMsrp(),
-            'effective-start-date'  => $this->getEffectiveStartDate()->format('Y-m-d'),
+            // 'effective-start-date'  => $this->getEffectiveStartDate() ? $this->getEffectiveStartDate()->format('Y-m-d') : null,
             'brand'                 => $this->getBrand(),
             'shipping-length'       => $this->getLength(),
             'shipping-width'        => $this->getWidth(),
@@ -429,7 +429,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
         }
 
         // Serialize. The order of XML elements must match the sequence laid out in the XSD.
-        return array(
+        $data = array(
             '_attributes'       => array(
                 'item-id'       => $required['id']
             ),
@@ -440,16 +440,22 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
                 '_attributes'   => array(
                     'id'        => $required['classification']
                 )
-            ),
-            'seller-tags'       => $tags,
+            )
+        );
+
+        if (count($tags) > 0) { 
+            $data['seller-tags'] = $tags;
+        }
+
+        return array_merge($data, array(
             'model-number'      => $required['model-number'],
-            'item-prices'       => array(
-                'item-price'    => array(
+            //'item-prices'       => array(
+            //    'item-price'    => array(
                     'cost'      => $required['cost'],
                     'msrp'      => $required['msrp'],
-                    'effective-start-date' => $required['effective-start-date'],
-                )
-            ),
+            //        'effective-start-date' => $required['effective-start-date'],
+            //    )
+            //),
             'brand'             => $required['brand'],
             'shipping-length'   => $required['shipping-length'],
             'shipping-width'    => $required['shipping-width'],
@@ -458,10 +464,10 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'image-url'         => array(
                 'url'           => $required['image-url']
             ),
-            'no-warranty-available' => $this->getWarranty() ? false : true,
+            'no-warranty-available' => $this->getWarranty() ? 'false' : 'true',
             'country-of-origin' => array(
                 'country-code'  => $required['country-code']
             ),
-        );
+        ));
     }
 }

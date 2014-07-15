@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dss-pricing-feed 
+    xmlns="http://seller.marketplace.sears.com/pricing/v3" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://seller.marketplace.sears.com/pricing/v3 dss-seller-pricing.xsd ">
+    <dss-pricing>
+        <item>
+            <item-id>A24467</item-id>
+            <item-prices>
+                <item-price>                
+                    <cost>30</cost>
+                    <msrp>32</msrp>
+                    <effective-start-date>2013-07-10</effective-start-date>
+                </item-price>                
+            </item-prices>
+        </item>
+        <item>
+            <item-id>A24468</item-id>
+            <item-prices>
+                <item-price>
+                    <cost>30</cost>
+                    <msrp>32</msrp>
+                    <effective-start-date>2013-07-10</effective-start-date>
+                </item-price>
+            </item-prices>
+        </item>
+        <item>
+            <item-id>A24469</item-id>
+            <item-prices>
+                <item-price>
+                    <cost>40</cost>
+                    <msrp>42</msrp>
+                    <effective-start-date>2013-07-10</effective-start-date>
+                </item-price>
+            </item-prices>
+        </item>
+    </dss-pricing>
+</dss-pricing-feed>

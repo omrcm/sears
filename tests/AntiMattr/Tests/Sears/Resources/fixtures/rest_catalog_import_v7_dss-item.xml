@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<catalog-feed xmlns="http://seller.marketplace.sears.com/catalog/v4"
+<catalog-feed xmlns="http://seller.marketplace.sears.com/catalog/v7"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://seller.marketplace.sears.com/catalog/v4 ../../../../../rest/catalog/import/v4/dss-item.xsd ">
+	xsi:schemaLocation="http://seller.marketplace.sears.com/catalog/v7 dss-item.xsd">
 	<dss-catalog>
 		<items>
 			
@@ -12,6 +12,7 @@
 				<item-class id="2611"/>
 				<model-number>BOUJIBR-8B63</model-number> 
 				<cost>26</cost> 
+				<msrp>30</msrp> 
 				<brand>Bouji Broad</brand> 
 				<shipping-length>11</shipping-length>
 				<shipping-width>10</shipping-width>
@@ -34,6 +35,7 @@
 				<item-class id="2611"/>
 				<model-number>BOUJIBR-2F37</model-number> 
 				<cost>60</cost> 
+				<msrp>65</msrp> 
 				<brand>Bouji Broad</brand> 
 				<shipping-length>9</shipping-length>
 				<shipping-width>6</shipping-width>

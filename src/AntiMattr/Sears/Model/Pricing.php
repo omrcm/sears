@@ -110,10 +110,10 @@ class Pricing implements  RequestSerializerInterface
     public function toArray()
     {
         $required = array(
-            'id'         => $this->getProductId(),
-            'cost'       => $this->getCost(),
-            'msrp'       => $this->getMsrp(),
-            'start-date' => $this->getEffectiveStartDate()->format('Y-m-d'),
+            'id'                   => $this->getProductId(),
+            'cost'                 => $this->getCost(),
+            'msrp'                 => $this->getMsrp(),
+            'effective-start-date' => $this->getEffectiveStartDate() ? $this->getEffectiveStartDate()->format('Y-m-d') : null,
         );
 
         $missing = array_filter($required, function($item){
@@ -129,12 +129,12 @@ class Pricing implements  RequestSerializerInterface
         }
 
         return array(
-            'item-id'           => $required['id'],
-            'item-prices'       => array(
-                'item-price'    => array(
-                    'cost'      => $required['cost'],
-                    'msrp'      => $required['msrp'],
-                    'effective-start-date' => $required['start-date'],
+            'item-id' => $required['id'],
+            'item-prices' => array(
+                'item-price' => array(
+                    'cost'                 => $required['cost'],
+                    'msrp'                 => $required['msrp'],
+                    'effective-start-date' => $required['effective-start-date'],
                 )
             ),
         );

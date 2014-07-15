@@ -17,7 +17,7 @@ class ProductRequestHandlerTest extends AntiMattrTestCase
 
     public static function setUpBeforeClass()
     {
-        self::$xml = file_get_contents(dirname(__DIR__).'/Resources/fixtures/rest_catalog_import_v5_dss-item.xml');
+        self::$xml = file_get_contents(dirname(__DIR__).'/Resources/fixtures/rest_catalog_import_v7_dss-item.xml');
     }
 
     public static function tearDownAfterClass()
@@ -49,6 +49,7 @@ class ProductRequestHandlerTest extends AntiMattrTestCase
         $item1->setClassification('2611');
         $item1->setModel('BOUJIBR-8B63');
         $item1->setCost('26');
+        $item1->setMsrp('30');
         $item1->setBrand('Bouji Broad');
         $item1->setLength('11');
         $item1->setWidth('10');
@@ -65,6 +66,7 @@ class ProductRequestHandlerTest extends AntiMattrTestCase
         $item2->setClassification('2611');
         $item2->setModel('BOUJIBR-2F37');
         $item2->setCost('60');
+        $item2->setMsrp('65');
         $item2->setBrand('Bouji Broad');
         $item2->setLength('9');
         $item2->setWidth('6');
