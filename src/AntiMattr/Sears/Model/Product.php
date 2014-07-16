@@ -400,7 +400,7 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             'model-number'          => $this->getModel(),
             'cost'                  => $this->getCost(),
             'msrp'                  => $this->getMsrp(),
-            // 'effective-start-date'  => $this->getEffectiveStartDate() ? $this->getEffectiveStartDate()->format('Y-m-d') : null,
+             'effective-start-date' => $this->getEffectiveStartDate(),
             'brand'                 => $this->getBrand(),
             'shipping-length'       => $this->getLength(),
             'shipping-width'        => $this->getWidth(),
@@ -423,11 +423,6 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             throw new IntegrationException($message);
         }
 
-        $tags = array();
-        foreach ($this->getSellerTags() as $sellerTag) {
-            $tags[] = array('seller-tag' => $sellerTag);
-        }
-
         // Serialize. The order of XML elements must match the sequence laid out in the XSD.
         $data = array(
             '_attributes'       => array(
@@ -443,19 +438,25 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
             )
         );
 
+        // If given, seller-tags should be added next.
+        $tags = array();
+        foreach ($this->getSellerTags() as $sellerTag) {
+            $tags[] = array('seller-tag' => $sellerTag);
+        }
+
         if (count($tags) > 0) { 
             $data['seller-tags'] = $tags;
         }
 
         return array_merge($data, array(
             'model-number'      => $required['model-number'],
-            //'item-prices'       => array(
-            //    'item-price'    => array(
+            'item-prices'       => array(
+                'item-price'    => array(
                     'cost'      => $required['cost'],
                     'msrp'      => $required['msrp'],
-            //        'effective-start-date' => $required['effective-start-date'],
-            //    )
-            //),
+                    'effective-start-date' => $required['effective-start-date']->format('Y-m-d'),
+                )
+            ),
             'brand'             => $required['brand'],
             'shipping-length'   => $required['shipping-length'],
             'shipping-width'    => $required['shipping-width'],
