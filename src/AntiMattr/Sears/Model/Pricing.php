@@ -60,6 +60,9 @@ class Pricing implements  RequestSerializerInterface
     }
 
     /**
+     * On this model, effective start date must be at least 30 days in the future.
+     * Sears requires this lead time to change the price of existing products.
+     *
      * @return DateTime $effectiveStartDate
      */
     public function getEffectiveStartDate()
@@ -113,7 +116,7 @@ class Pricing implements  RequestSerializerInterface
             'id'                   => $this->getProductId(),
             'cost'                 => $this->getCost(),
             'msrp'                 => $this->getMsrp(),
-            'effective-start-date' => $this->getEffectiveStartDate() ? $this->getEffectiveStartDate()->format('Y-m-d') : null,
+            'effective-start-date' => $this->getEffectiveStartDate(),
         );
 
         $missing = array_filter($required, function($item){
@@ -134,7 +137,7 @@ class Pricing implements  RequestSerializerInterface
                 'item-price' => array(
                     'cost'                 => $required['cost'],
                     'msrp'                 => $required['msrp'],
-                    'effective-start-date' => $required['effective-start-date'],
+                    'effective-start-date' => $required['effective-start-date']->format('Y-m-d'),
                 )
             ),
         );
