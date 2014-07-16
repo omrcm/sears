@@ -31,7 +31,7 @@ class AbstractOrderStateTest extends AntiMattrTestCase
         $this->orderState->setPurchaseOrderId($purchaseId);
         $this->assertSame($purchaseId, $this->orderState->getPurchaseOrderId());
 
-        $purchaseOrderDate = new \DateTime();
+        $purchaseOrderDate = $this->newDateTime();
         $this->orderState->setPurchaseOrderDate($purchaseOrderDate);
         $this->assertSame($purchaseOrderDate, $this->orderState->getPurchaseOrderDate());
 
