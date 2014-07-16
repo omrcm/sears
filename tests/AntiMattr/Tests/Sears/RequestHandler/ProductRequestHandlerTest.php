@@ -50,7 +50,7 @@ class ProductRequestHandlerTest extends AntiMattrTestCase
         $item1->setModel('BOUJIBR-8B63');
         $item1->setCost('26');
         $item1->setMsrp('30');
-        $item1->setEffectiveStartDate(new \DateTime('2014-07-15', new \DateTimeZone('UTC')));
+        $item1->setEffectiveStartDate(new \DateTime('2014-07-15', new \DateTimeZone('CST')));
         $item1->setBrand('Bouji Broad');
         $item1->setLength('11');
         $item1->setWidth('10');
@@ -69,7 +69,7 @@ class ProductRequestHandlerTest extends AntiMattrTestCase
         $item2->setModel('BOUJIBR-2F37');
         $item2->setCost('60');
         $item2->setMsrp('65');
-        $item2->setEffectiveStartDate(new \DateTime('2014-07-15', new \DateTimeZone('UTC')));
+        $item2->setEffectiveStartDate(new \DateTime('2014-07-15', new \DateTimeZone('CST')));
         $item2->setBrand('Bouji Broad');
         $item2->setLength('9');
         $item2->setWidth('6');
