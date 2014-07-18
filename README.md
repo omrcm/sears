@@ -6,12 +6,13 @@ Features
 The AntiMattr Sears project is a library that facilitates interaction with the various Sears APIs.
 
 It currently allows you to:
-    * Read new orders from Sears
-    * Push to Sears tracking information for completed orders
-    * Manage simple **DSS product** listings by:
-        * Updating product details
-        * Updating inventory
-        * Updating prices
+
++ Read new orders from Sears
++ Push to Sears tracking information for completed orders
++ Manage simple **DSS product** listings by:
+..+ Updating product details
+..+ Updating inventory
+..+ Updating prices
 
 We are currently working on tools to manage **Marketplace product** listings. There is no
  support for configurable products at this time. Configurable products are products with
