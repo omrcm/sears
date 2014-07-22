@@ -17,8 +17,16 @@ use DateTime;
 /**
  * @author Matthew Fitzgerald <matthewfitz@gmail.com>
  */
-class Product implements IdentifiableInterface, RequestSerializerInterface
+class Product implements IdentifiableInterface
 {
+    const PROGRAM_DSS         = 'dss';
+    const PROGRAM_MARKETPLACE = 'marketplace';
+
+    protected static $validPrograms = array(
+        self::PROGRAM_DSS         => "DSS",
+        self::PROGRAM_MARKETPLACE => "Marketplace",
+    );
+
     /** @var string */
     protected $brand;
 
@@ -54,6 +62,9 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
 
     /** @var string */
     protected $msrp;
+
+    /** @var string */
+    protected $sale;
 
     /** @var array */
     protected $sellerTags = array();
@@ -386,10 +397,12 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
     }
 
     /**
+     * Serializes product for Sears DSS program
+     *
      * @return array
      * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
-    public function toArray()
+    public function toDSSArray()
     {
         $required = array(
             'id'                    => $this->getId(),
@@ -470,5 +483,87 @@ class Product implements IdentifiableInterface, RequestSerializerInterface
                 'country-code'  => $required['country-code']
             ),
         ));
+    }
+
+
+    /**
+     * Serializes a product for Sears Marketplace
+     *
+     * @return array
+     * @throws \AntiMattr\Sears\Exception\IntegrationException
+     */
+    public function toMarketplaceArray()
+    {
+        $required = array(
+            'id'                    => $this->id,
+            'title'                 => $this->title,
+            'short-desc'            => $this->description,
+            'classification'        => $this->classification,
+            'model-number'          => $this->model,
+            'standard-price'        => $this->cost,
+            'brand'                 => $this->brand,
+            'shipping-length'       => $this->length,
+            'shipping-width'        => $this->width,
+            'shipping-height'       => $this->height,
+            'shipping-weight'       => $this->weight,
+            'image-url'             => $this->image,
+        );
+
+        // Raise exception if any required parameters are missing
+        $missing = array_filter($required, function($item){
+            return (null === $item) ? true : false;
+        });
+
+        if (count($missing) > 0) {
+            $message = sprintf(
+                'Product requires: %s.',
+                implode(", ", array_keys($missing))
+            );
+            throw new IntegrationException($message);
+        }
+
+        $data = array(
+            '_attributes' => array(
+                'item-id' => $required['id']
+            ),
+            'title' => '',
+            'short-desc' => ''
+        );
+
+        // If upc is set, include it here
+        if ($this->upc) {
+            $data['upc'] = $this->upc;
+        }
+
+        $data = array_merge($data, array(
+            'item-class'        => array(
+                '_attributes'   => array(
+                    'id'        => $required['classification']
+                )),
+            'model-number' => '',
+            'standard-price' => '',
+        ));
+
+        // If msrp and sale are set, include them here
+        if ($this->msrp) {
+           $data['msrp'] = $this->msrp;
+        }
+        if ($this->sale) {
+            $data['sale'] = $this->sale;
+        }
+
+        $data = array_merge($data, array(
+            'brand' => '',
+            'shipping-length' => '',
+            'shipping-width' => '',
+            'shipping-height' => '',
+            'shipping-weight' => '',
+            'image-url'         => array(
+                'url'           => $required['image-url']
+            ),
+            'no-warranty-available' => $this->getWarranty() ? 'false' : 'true',
+        ));
+
+        return $data;
     }
 }
