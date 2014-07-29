@@ -10,9 +10,14 @@
 				<short-desc>Abstract Print Leggings</short-desc> 
 				<upc>61680699des8832</upc>
 				<item-class id="2611"/>
-				<model-number>BOUJIBR-8B63</model-number> 
-				<cost>26</cost> 
-				<msrp>30</msrp> 
+				<model-number>BOUJIBR-8B63</model-number>
+                <item-prices>
+                    <item-price>
+                        <cost>26</cost>
+                        <msrp>30</msrp>
+                        <effective-start-date>2014-07-15</effective-start-date>
+                    </item-price>
+                </item-prices>
 				<brand>Bouji Broad</brand> 
 				<shipping-length>11</shipping-length>
 				<shipping-width>10</shipping-width>
@@ -33,9 +38,14 @@
 				<short-desc>Swarovski Black Beaded Bracelet</short-desc> 
 				<upc>616806998849</upc>
 				<item-class id="2611"/>
-				<model-number>BOUJIBR-2F37</model-number> 
-				<cost>60</cost> 
-				<msrp>65</msrp> 
+				<model-number>BOUJIBR-2F37</model-number>
+                <item-prices>
+                    <item-price>
+                        <cost>60</cost>
+                        <msrp>65</msrp>
+                        <effective-start-date>2014-07-15</effective-start-date>
+                    </item-price>
+                </item-prices>
 				<brand>Bouji Broad</brand> 
 				<shipping-length>9</shipping-length>
 				<shipping-width>6</shipping-width>

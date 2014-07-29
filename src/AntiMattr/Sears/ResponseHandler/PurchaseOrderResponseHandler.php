@@ -181,7 +181,7 @@ class PurchaseOrderResponseHandler implements ResponseHandlerInterface
      */
     protected function createDateTime($string = null)
     {
-        return new DateTime($string);
+        return new DateTime($string, new \DateTimeZone('CST'));
     }
 
     /**
