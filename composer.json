@@ -21,7 +21,11 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
-            "AntiMattr":        "src/",
+            "AntiMattr": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
             "AntiMattr\\Tests": "tests/"
         }
     }
