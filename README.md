@@ -21,7 +21,7 @@ Install once with
 
 ```bash
 ./bin/install.sh 
-Copying /sears/bin/pre-commit.sh -> /payment/bin/../.git/hooks/pre-commit
+Copying /sears/bin/pre-commit.sh -> /sears/bin/../.git/hooks/pre-commit
 ```
 
 Testing
