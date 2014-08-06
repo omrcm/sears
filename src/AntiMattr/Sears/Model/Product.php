@@ -19,12 +19,12 @@ use DateTime;
  */
 class Product implements IdentifiableInterface
 {
-    const PROGRAM_DSS         = 'dss';
-    const PROGRAM_MARKETPLACE = 'marketplace';
+    const PROGRAM_DSS = 'dss';
+    const PROGRAM_FBS = 'fbs';
 
     protected static $validPrograms = array(
-        self::PROGRAM_DSS         => "DSS",
-        self::PROGRAM_MARKETPLACE => "Marketplace",
+        self::PROGRAM_DSS => "Direct Ship Seller",
+        self::PROGRAM_FBS => "Fulfilled By Sears",
     );
 
     /** @var string */
@@ -492,7 +492,7 @@ class Product implements IdentifiableInterface
      * @return array
      * @throws \AntiMattr\Sears\Exception\IntegrationException
      */
-    public function toMarketplaceArray()
+    public function toFBSArray()
     {
         $required = array(
             'id'                    => $this->id,
