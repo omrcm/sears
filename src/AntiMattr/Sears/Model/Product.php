@@ -377,7 +377,7 @@ class Product implements IdentifiableInterface
     }
 
     /**
-     * @param float $width
+     * @param $width
      */
     public function setWidth($width)
     {
@@ -389,11 +389,27 @@ class Product implements IdentifiableInterface
     }
 
     /**
-     * @return float $width
+     * @return float
      */
     public function getWidth()
     {
         return $this->width;
+    }
+
+    /**
+     * @param string $sale
+     */
+    public function setSale($sale)
+    {
+        $this->sale = $sale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSale()
+    {
+        return $this->sale;
     }
 
     /**
@@ -485,9 +501,8 @@ class Product implements IdentifiableInterface
         ));
     }
 
-
     /**
-     * Serializes a product for Sears Marketplace
+     * Serializes a product for Sears FBS program, aka Marketplace
      *
      * @return array
      * @throws \AntiMattr\Sears\Exception\IntegrationException
@@ -495,18 +510,18 @@ class Product implements IdentifiableInterface
     public function toFBSArray()
     {
         $required = array(
-            'id'                    => $this->id,
-            'title'                 => $this->title,
-            'short-desc'            => $this->description,
-            'classification'        => $this->classification,
-            'model-number'          => $this->model,
-            'standard-price'        => $this->cost,
-            'brand'                 => $this->brand,
-            'shipping-length'       => $this->length,
-            'shipping-width'        => $this->width,
-            'shipping-height'       => $this->height,
-            'shipping-weight'       => $this->weight,
-            'image-url'             => $this->image,
+            'id'              => $this->id,
+            'title'           => $this->title,
+            'short-desc'      => $this->description,
+            'classification'  => $this->classification,
+            'model-number'    => $this->model,
+            'standard-price'  => $this->cost,
+            'brand'           => $this->brand,
+            'shipping-length' => $this->length,
+            'shipping-width'  => $this->width,
+            'shipping-height' => $this->height,
+            'shipping-weight' => $this->weight,
+            'image-url'       => $this->image,
         );
 
         // Raise exception if any required parameters are missing
@@ -526,8 +541,8 @@ class Product implements IdentifiableInterface
             '_attributes' => array(
                 'item-id' => $required['id']
             ),
-            'title' => '',
-            'short-desc' => ''
+            'title'       => $this->title,
+            'short-desc'  => $this->description
         );
 
         // If upc is set, include it here
@@ -536,12 +551,13 @@ class Product implements IdentifiableInterface
         }
 
         $data = array_merge($data, array(
-            'item-class'        => array(
-                '_attributes'   => array(
-                    'id'        => $required['classification']
+            'item-class'      => array(
+                '_attributes' => array(
+                    'id'      => $required['classification']
                 )),
-            'model-number' => '',
-            'standard-price' => '',
+            'model-number'    => $this->model,
+            'standard-price'  => $this->cost,
+            'cost'            => $this->cost,
         ));
 
         // If msrp and sale are set, include them here
@@ -553,13 +569,13 @@ class Product implements IdentifiableInterface
         }
 
         $data = array_merge($data, array(
-            'brand' => '',
-            'shipping-length' => '',
-            'shipping-width' => '',
-            'shipping-height' => '',
-            'shipping-weight' => '',
-            'image-url'         => array(
-                'url'           => $required['image-url']
+            'brand'           => $this->brand,
+            'shipping-length' => $this->length,
+            'shipping-width'  => $this->width,
+            'shipping-height' => $this->height,
+            'shipping-weight' => $this->weight,
+            'image-url'       => array(
+                'url'         => $required['image-url']
             ),
             'no-warranty-available' => $this->getWarranty() ? 'false' : 'true',
         ));
