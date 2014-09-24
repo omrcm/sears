@@ -1,5 +1,3 @@
-# DO NOT USE - In Development
-
 Features
 ========
 
@@ -9,11 +7,10 @@ It currently allows you to:
 
 + Read new orders from Sears
 + Push to Sears tracking information for completed orders
-+ Manage simple **DSS product** listings
++ Manage simple product listings
 
-We are currently working on tools to manage **Marketplace product** listings. There is no
- support for configurable products at this time. Configurable products are products with
- variations such as different sizes or colors. 
+There is no support for configurable products at this time. 
+Configurable products are products with variations such as different sizes or colors. 
 
 
 Installation
