@@ -2,15 +2,10 @@
 
 namespace AntiMattr\Tests;
 
-abstract class AntiMattrTestCase extends \PHPUnit_Framework_TestCase
-{
-    protected function buildMock($class)
-    {
-        return $this->getMockBuilder($class)
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
+use AntiMattr\TestCase\AntiMattrTestCase as BaseTestCase;
 
+abstract class AntiMattrTestCase extends BaseTestCase
+{
     /*
      * Returns DateTime with timezone set. If timezone is not set, you'll get the following error:
      * Exception: DateTime::__construct(): It is not safe to rely on the system's timezone settings.
