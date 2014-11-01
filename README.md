@@ -12,41 +12,26 @@ It currently allows you to:
 There is no support for configurable products at this time. 
 Configurable products are products with variations such as different sizes or colors. 
 
-
 Installation
 ============
 
-Use composer to install
+Add the following to your composer.json file:
+
+```json
+{
+    "require": {
+        "antimattr/sears": "~1.0@stable"
+    }
+}
+```
+
+Install the libraries by running:
 
 ```bash
 composer install
-composer update --dev # for phpunit and php cs fixer
 ```
 
-Please use the pre-commit hook to run fix code to PSR standard
-
-Install once with
-
-```bash
-./bin/install.sh 
-Copying /sears/bin/pre-commit.sh -> /sears/bin/../.git/hooks/pre-commit
-```
-
-Testing
-=======
-
-```bash
-$ vendor/bin/phpunit 
-```
-
-Code Sniffer and Fixer
-======================
-
-```bash
-$ vendor/bin/php-cs-fixer fix src/
-$ vendor/bin/php-cs-fixer fix tests/
-```
-
+If everything worked, the Sears Client can now be found at vendor/antimattr/sears.
 
 Interacting with the Sears Client
 =================================
@@ -59,3 +44,36 @@ $products->add($product);
 $SearsClient->updateProducts($products);
 ```
 
+Pull Requests
+=============
+
+Pull Requests - PSR Standards
+-----------------------------
+
+Please use the pre-commit hook to fix all code to PSR standards
+
+Install once with
+
+```bash
+./bin/install.sh 
+Copying /antimattr-sears/bin/pre-commit.sh -> /antimattr-sears/bin/../.git/hooks/pre-commit
+```
+
+Pull Requests - Testing
+-----------------------
+
+Please make sure tests pass
+
+```bash
+$ vendor/bin/phpunit tests
+```
+
+Pull Requests - Code Sniffer and Fixer
+--------------------------------------
+
+Don't have the pre-commit hook running, please make sure to run the fixer/sniffer manually
+
+```bash
+$ vendor/bin/php-cs-fixer fix src/
+$ vendor/bin/php-cs-fixer fix tests/
+```
